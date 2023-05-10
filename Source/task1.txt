@@ -1,0 +1,21 @@
+
+write python function in the following conditions.
+
+get input_string
+cut string if it longer then 20 sign
+change case of every sign in random order
+
+
+function must have:
+* - data type annotations
+* - doctest
+* - possible exceptions
+* - class of pytests(not unittest) that covered possible mistakes
+
+
+
+get string , directory=None
+check language with function detect_language(string)
+make the audio file of this string on relevant language
+name of the file must be getting string, but not longer then 20 signs, with random upper/lower case
+if directory , save result to this directory , else return result
