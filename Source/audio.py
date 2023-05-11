@@ -7,4 +7,4 @@ def open_google_image(text: str) -> None:
     webbrowser.open(url, new=0, )
 
 
-open_google_image('zip')
+open_google_image('pip')
