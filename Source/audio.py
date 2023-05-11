@@ -1,32 +1,40 @@
-import keyboard
-
-# Define your functions
-def func1():
-    print("Function 1 called")
-
-def func2():
-    print("Function 2 called")
-
-def func3():
-    print("Function 3 called")
-
-def func4():
-    print("Function 4 called")
+def star_separated_words_from(text: str) -> str:
+    """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
+    >>> star_separated_words_from('one , two\\nthree , four\\nfive , six')
+    ' * one * three * five * '
+    """
+    return f" * {' * '.join(line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line)} * "
 
 
-def run_program():
-    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
-    # Create a dictionary of hotkeys and functions
-    hotkeys = {
-        "ctrl+1": (func1, func4),
-        "ctrl+2": (func2, func4),
+print(("first , second , \\n\\n , third , fourth "))
+print(star_separated_words_from("""
+BACKING_3667 _поддержка, задний ход, подкладка, опора, подложка  
 
-    }
-    # Register the hotkeys and their corresponding functions
-    for hotkey, function in hotkeys.items():
-        keyboard.add_hotkey(hotkey, function)
-    # Start the keyboard listener
-    keyboard.wait()
+BACKLOG   задолженность, резервы , невыполненные заказы
+
+BACKUP_4582 _резервный, резервное копирование, резервирование, создавать резервную копию, дублирование, дублирующий
+
+BACKWARDS_3784 _в обратном направлении
+
+COMEBACK_6663 _возвращение
+
+CUTBACK_7926 _сокращение
+
+OUTBACK_12203 _малонаселенная, необжитая местность
+
+SETBACK_8783 _регресс , неудача , задержка
 
 
-run_program()
+ABACK_10140 _назад, задом, сзади
+
+BACK   назад , обратно , защитник , спина
+
+backfire  обратный эффект , встречный пожар , разрыв патрона
+
+backfired  имел неприятные последствия
+
+[sound:BACKING.mp3][sound:BACKLOG.mp3][sound:BACKUP.mp3][sound:BACKWARDS.mp3][sound:COMEBACK.mp3][sound:CUTBACK.mp3][sound:OUTBACK.mp3][sound:SETBACK.mp3][sound:ABACK.mp3][sound:BACK.mp3]
+
+[sound:backfire.mp3]
+
+"""))

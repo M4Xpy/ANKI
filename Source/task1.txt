@@ -4,9 +4,10 @@ condition 2 - doctest
 condition 3 - possible exceptions
 condition 4 - class of pytests(not unittest) that covered possible mistakes
 
-get text_or_word
-send text_or_word request to obtain image describing the text_or_word
-return none,put image into the clipboard
+get text
+return string of  lonely English words, before and after which neither English words nor commas go
+
+
 
 
 

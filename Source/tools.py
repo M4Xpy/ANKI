@@ -92,5 +92,13 @@ def run_program():
     keyboard.wait()
 
 
+def star_separated_words_from(text: str) -> str:
+    """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
+    >>> star_separated_words_from('one , two\\nthree , four\\nfive , six')
+    ' * one * three * five * '
+    """
+    return f" * {' * '.join(line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line)} * "
+
+
 if __name__ == '__main__':
     pass
