@@ -1,8 +1,8 @@
 
 write me python function in the following conditions.
 
-get string
-return 'ru' if string in russian or 'en' if string in english
+get string in russian language
+return string in english language
 
 function must have:
 * - data type annotations

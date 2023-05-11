@@ -14,9 +14,3 @@ function must have:
 * - class of pytests(not unittest) that covered possible mistakes
 
 
-
-
-
-
-name of the file must be getting string, but not longer then 20 signs, with random upper/lower case
-if directory , save result to this directory , else return result
