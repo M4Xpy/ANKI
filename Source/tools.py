@@ -71,3 +71,8 @@ def en_ru_en_translator(input_text: str) -> str:
 def open_google_image(text: str) -> None:
     url = f'https://www.google.com/search?q={text}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=0)
+
+
+def open_google_translate(text: str) -> None:
+    url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
+    webbrowser.open(url, new=0, )
