@@ -3,6 +3,7 @@ import random
 import webbrowser
 from typing import Optional
 
+import keyboard as keyboard
 from googletrans import Translator
 from gtts import gTTS
 
@@ -76,3 +77,20 @@ def open_google_image(text: str) -> None:
 def open_google_translate(text: str) -> None:
     url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
     webbrowser.open(url, new=0, )
+
+
+def run_program():
+    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
+    # Create a dictionary of hotkeys and functions
+    hotkeys = {
+
+    }
+    # Register the hotkeys and their corresponding functions
+    for hotkey, function in hotkeys.items():
+        keyboard.add_hotkey(hotkey, function)
+    # Start the keyboard listener
+    keyboard.wait()
+
+
+if __name__ == '__main__':
+    pass

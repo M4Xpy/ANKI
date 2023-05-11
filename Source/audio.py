@@ -1,10 +1,32 @@
-import webbrowser
+import keyboard
+
+# Define your functions
+def func1():
+    print("Function 1 called")
+
+def func2():
+    print("Function 2 called")
+
+def func3():
+    print("Function 3 called")
+
+def func4():
+    print("Function 4 called")
 
 
-def open_google_image(text: str) -> None:
-    """"""
-    url = f'https://www.google.com/search?q={text}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
-    webbrowser.open(url, new=0, )
+def run_program():
+    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
+    # Create a dictionary of hotkeys and functions
+    hotkeys = {
+        "ctrl+1": (func1, func4),
+        "ctrl+2": (func2, func4),
+
+    }
+    # Register the hotkeys and their corresponding functions
+    for hotkey, function in hotkeys.items():
+        keyboard.add_hotkey(hotkey, function)
+    # Start the keyboard listener
+    keyboard.wait()
 
 
-open_google_image('pip')
+run_program()
