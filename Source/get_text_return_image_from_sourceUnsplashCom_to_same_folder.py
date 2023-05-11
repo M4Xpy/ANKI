@@ -4,16 +4,7 @@ from PIL import Image
 
 
 def get_image(text_or_word: str) -> None:
-    """
-    Takes a string and puts an image describing the text_or_word into the clipboard.
-
-    Args:
-        text_or_word (str): The text or word to get an image for and put into the clipboard.
-
-    Raises:
-        TypeError: If the `text_or_word` argument is not a string.
-        ValueError: If the `text_or_word` argument is an empty string.
-    """
+    """ Takes a string and puts an image describing the text_or_word  """
     if not isinstance(text_or_word, str):
         raise TypeError("The 'text_or_word' argument must be a string.")
     if not text_or_word:
@@ -28,4 +19,4 @@ def get_image(text_or_word: str) -> None:
     img = Image.open(BytesIO(response.content))
     img.save("clipboard.png")
 
-get_image('Illegible')
+get_image('apple')

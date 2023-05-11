@@ -13,13 +13,13 @@ def uniq_name(input_string: str, seed_sign: int = None) -> str:
     # check whether test or work mode
     if seed_sign:
         random.seed(seed_sign)
-    # output_string = ""
-    # for char in input_string[:20]:
-    #     if random.random() < 0.5:
+    # output_string = ""                        # save result in separate variable
+    # for char in input_string[:20]:            # loop cutting to 20 signs string
+    #     if random.random() < 0.05:            # 1 to 20 possibility of double sign
     #         output_string += char.upper()
     #     else:
-    #         output_string += char.lower()
-    # return output_string
+    #         output_string += char.lower()     # 19 to 20 possibility of single sign
+    # return output_string                      # #-lines fully equal last comprehension line
     return ''.join([char + char if random.random() < 0.05 else char for char in input_string[:20]])
 
 

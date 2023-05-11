@@ -1,16 +1,13 @@
+User
+condition 1 - data type annotations
+condition 2 - doctest
+condition 3 - possible exceptions
+condition 4 - class of pytests(not unittest) that covered possible mistakes
 
-write python function
+get text_or_word
+send text_or_word request to obtain image describing the text_or_word
+return none,put image into the clipboard
 
-get input_string directory=None
-check language with function detect_language(input_string)
-take name of the file with function  uniq_name(input_string)
-make the audio file of this string on relevant language
-if directory is not None save audio file in 'C:\Users\Я\Desktop\django'
-if directory is None return audio file
-function must have:
-* - data type annotations
-* - doctest
-* - possible exceptions
-* - class of pytests(not unittest) that covered possible mistakes
+
 
 
