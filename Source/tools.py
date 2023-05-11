@@ -1,6 +1,8 @@
 import os
 import random
+import webbrowser
 from typing import Optional
+
 from googletrans import Translator
 from gtts import gTTS
 
@@ -41,11 +43,11 @@ def detect_language(text: str) -> str:
 
 def generate_audio_file(input_string: str, save_file: Optional[int] = 0) -> Optional[str]:
     """Generates audio file of the input_string in its detected language."""
-    folder = 'C:\\Users\\Я\\Desktop\\audio'                     # default directory
-    lang = detect_language(input_string)                        # Detect language of the input_string
-    audio_file_name = uniq_name(input_string) + '.mp3'          # Generate audio file name
-    audio = gTTS(text=input_string, lang=lang, slow=False)      # Generate audio file
-    audio_file_path = os.path.join(folder, audio_file_name)     # Save audio file to directory
+    folder = 'C:\\Users\\Я\\Desktop\\audio'  # default directory
+    lang = detect_language(input_string)  # Detect language of the input_string
+    audio_file_name = uniq_name(input_string) + '.mp3'  # Generate audio file name
+    audio = gTTS(text=input_string, lang=lang, slow=False)  # Generate audio file
+    audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
     audio.save(audio_file_path)
     if not save_file:
         return audio_file_path
@@ -65,4 +67,6 @@ def en_ru_en_translator(input_text: str) -> str:
         raise Exception("Translation failed. Check your network connection and try again.")
 
 
-
+def open_google_image(text: str) -> None:
+    url = f'https://www.google.com/search?q={text}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
+    webbrowser.open(url, new=0)

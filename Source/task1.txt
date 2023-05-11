@@ -1,4 +1,4 @@
-User
+
 condition 1 - data type annotations
 condition 2 - doctest
 condition 3 - possible exceptions

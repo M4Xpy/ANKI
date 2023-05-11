@@ -1,31 +1,10 @@
-import requests
-from io import BytesIO
-from PIL import Image
+import webbrowser
 
 
-def get_image(text_or_word: str) -> None:
-    """
-    Takes a string and puts an image describing the text_or_word into the clipboard.
+def open_google_image(text: str) -> None:
+    """"""
+    url = f'https://www.google.com/search?q={text}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
+    webbrowser.open(url, new=0, )
 
-    Args:
-        text_or_word (str): The text or word to get an image for and put into the clipboard.
 
-    Raises:
-        TypeError: If the `text_or_word` argument is not a string.
-        ValueError: If the `text_or_word` argument is an empty string.
-    """
-    if not isinstance(text_or_word, str):
-        raise TypeError("The 'text_or_word' argument must be a string.")
-    if not text_or_word:
-        raise ValueError("The 'text_or_word' argument cannot be an empty string.")
-
-    # Send a request to obtain an image for the given text or word
-    url = f"https://source.unsplash.com/800x600/?{text_or_word}"
-    response = requests.get(url)
-    response.raise_for_status()
-
-    # Load the image from the response content and save it
-    img = Image.open(BytesIO(response.content))
-    img.save("clipboard.png")
-
-get_image('Illegible')
+open_google_image('zip')
