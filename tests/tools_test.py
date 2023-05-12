@@ -1,6 +1,18 @@
+from unittest.mock import patch
+
 import pytest
 
-from Source.tools import detect_language
+from Source.tools import detect_language, run_program, request_for
+
+
+class TestRunProgram:
+
+    @patch('keyboard.add_hotkey')
+    @patch('keyboard.wait')
+    def test_run_program(self, mock_wait, mock_add_hotkey):
+        run_program()
+        mock_add_hotkey.assert_called_once_with('w', request_for)
+        mock_wait.assert_called_once()
 
 
 class TestDetectLanguage:

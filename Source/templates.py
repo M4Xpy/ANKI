@@ -1,8 +1,14 @@
-ai = f"""
-        It is important that the template of your answer matches the following example.
+def get_template(template: str, text: str) -> str:
+    """
+    # >>> get_template(template='check', text='test')
+    # 'This is a test'
+    """
+    return {
+        'ai': f"""
+                It is important that the template of your answer matches the following example.
         I ask you for a word 'Linger'.
         You answer me strictly in the following format.
-        Beginning of the my example.
+        Begining of the my example.
 
         Linger - медлить, затягиваться
         Lingers - затягивается (third person singular present tense)
@@ -24,5 +30,9 @@ ai = f"""
         "Время и прилив не ждут никого" (Geoffrey Chaucer).
 
         End of the my example.
-        Now give me single-root words and forms for the word '{in_text}' with theirs translate on russian .And proverbs with some of these words with translate on russian.
-        """
+        Now give me single-root words and forms for the word '{text}' with theirs translate on russian .And proverbs with some of these words with translate on russian.
+
+                """,
+        'check': f"This is a {text}"
+
+    }[template]

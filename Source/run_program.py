@@ -1,11 +1,5 @@
-import keyboard as keyboard
-
-def test():
-    print(1)
-
-
+from Source.tools import run_program
 
 if __name__ == '__main__':
-    while True:
-        keyboard.add_hotkey('page down', test, trigger_on_release=True)
+    run_program()
 

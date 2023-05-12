@@ -4,8 +4,11 @@ import webbrowser
 from typing import Optional
 
 import keyboard as keyboard
+import pyperclip
 from googletrans import Translator
 from gtts import gTTS
+
+from Source.templates import get_template
 
 
 def uniq_name(input_string: str, seed_sign: int = None) -> str:
@@ -83,7 +86,7 @@ def run_program():
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
     # Create a dictionary of hotkeys and functions
     hotkeys = {
-
+        'w': request_for
     }
     # Register the hotkeys and their corresponding functions
     for hotkey, function in hotkeys.items():
@@ -98,6 +101,17 @@ def star_separated_words_from(text: str) -> str:
     ' * one * three * five * '
     """
     return f" * {' * '.join(line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line)} * "
+
+
+def request_for(template: Optional[str] = 'ai') -> None:
+    """
+    >>> pyperclip.copy('DOCTEST')
+    >>> request_for(template='check')
+    >>> pyperclip.paste()
+    'This is a DOCTEST'
+    """
+    keyboard.send("ctrl + c")
+    pyperclip.copy(get_template(template, pyperclip.paste()))
 
 
 if __name__ == '__main__':
