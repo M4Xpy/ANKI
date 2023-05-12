@@ -4,8 +4,9 @@ import keyboard
 def func1():
     print("Function 1 called")
 
-def func2():
-    print("Function 2 called")
+def func2(a: int, b: int) -> int:
+    return a + 1 +b
+
 
 # Create a dictionary of hotkeys and functions
 hotkeys = {
