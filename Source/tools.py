@@ -1,5 +1,6 @@
 import os
 import random
+import time
 import webbrowser
 from typing import Optional
 
@@ -45,11 +46,12 @@ def detect_language(text: str) -> str:
     raise ValueError('Input text cannot be empty.')
 
 
-def generate_audio_file(text: str, save_file: Optional[int] = 0) -> Optional[str]:
+def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[str] = None) -> Optional[str]:
     """Generates audio file of the input_string in its detected language."""
     folder = ('C:\\Users\\Я\\Desktop\\audio', f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media")[
         save_file]
-    lang = detect_language(text)  # Detect language of the input_string
+    if not lang:
+        lang = detect_language(text)  # Detect language of the input_string
     audio_file_name = uniq_name(text) + '.mp3'  # Generate audio file name
     audio = gTTS(text=text, lang=lang, slow=False)  # Generate audio file
     audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
@@ -86,7 +88,9 @@ def run_program():
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
     # Create a dictionary of hotkeys and functions
     hotkeys = {
-        'w': request_for
+        'ctrl + 1': request_for,
+
+        'ctrl + 3': make_anki_card,
     }
     # Register the hotkeys and their corresponding functions
     for hotkey, function in hotkeys.items():
@@ -97,7 +101,7 @@ def run_program():
 
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
-    >>> star_separated_words_from('one , two\\nthree , four\\nfive , six')
+    >>> star_separated_words_from('one , two\\n\\nthree , four\\nfive , six')
     ' * one * three * five * '
     """
     return f" * {' * '.join(line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line)} * "
@@ -114,5 +118,24 @@ def request_for(template: Optional[str] = 'ai') -> None:
     pyperclip.copy(get_template(template, pyperclip.paste()))
 
 
+def make_anki_card() -> None:
+    header = pyperclip.paste()
+    header = star_separated_words_from(header)
+    keyboard.write(header)
+    mp3refers = refers_mp3s(header)
+    keyboard.send("tab")
+    keyboard.send("ctrl + end")
+    keyboard.write(mp3refers)
+
+
+def refers_mp3s(header):
+    word_s = header.strip(' *').split(' * ')
+    mp3refers = ''
+    for word in word_s:
+        generate_audio_file(word, save_file=1, lang='en')
+        mp3refers += f'[sound:{word}.mp3]\n'
+    return mp3refers
+
+
 if __name__ == '__main__':
-    pass
+    run_program()
