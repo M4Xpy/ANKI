@@ -1,54 +1,36 @@
-def new_card_from():
-    keyboard.send("tab")
-    time.sleep(0.1)
-    keyboard.send("tab")
-    time.sleep(0.1)
-    keyboard.send("enter")
-    time.sleep(0.1)
-    in_text = pyperclip.paste()
-    time.sleep(0.1)
-    split_text = in_text.split()
-    header = ""
-    for letter in split_text[0]:
-        if letter != "_":
-            header += f"{letter}"
-        elif letter == "_":
-            break
-    time.sleep(0.1)
-    header = split_text[0].split()[0]
-    print(header)
-    to_translate = header.strip('_1234567890')
-    keyboard.write(f" * {header} *[sound:{to_translate}.mp3]")
-    time.sleep(0.1)
-    keyboard.send("tab")
+import time
+import keyboard
+from typing import Unionabccv
 
-    header = to_translate.lower()
-    total = []
-    trans = f"{header}"
-    translated = en_ru_en_translator(input_text=trans, lang='en')
-    total.append(translated.upper())
-    # print(translated.text.upper())
-    trans = f"the {header} "
-    translated = en_ru_en_translator(input_text=trans, lang='en')
-    if translated.upper() not in total:
-        total.append(translated.upper())
-    # print(translated.upper())
-    trans = f"to {header} "
-    translated = en_ru_en_translator(input_text=trans, lang='en')
-    adj = translated.upper()
-    too = adj
-    if too not in total:
-        total.append(too)
-    print(adj)
-    trans = f"too {header} "
-    translated = en_ru_en_translator(input_text=trans, lang='en')
-    adj = translated.upper()
-    adjective = adj.split()
-    too = adjective[1:]
-    too = " ".join([str(a) for a in too])
-    if too not in total:
-        total.append(too)
-    print(adj, too)
-    keyboard.write("\n" + " * ".join(str(s) for s in total) + "\n\n")
-    time.sleep(0.1)
-    keyboard.send("ctrl + v")
+def press_keys(*args: Union[float, str]) -> None:
+    """
+    Presses the given keys with optional time delays.
+
+    Args:
+        *args (float or str): The keys to press, with optional time delays between consecutive key presses.
+
+    Raises:
+        TypeError: If any argument in *args is not a float or string.
+
+    Examples:
+        >>> press_keys('a', 'b', 'c')
+        >>> # Presses the keys 'a', 'b', and 'c' in sequence.
+        >>>
+        >>> press_keys('ctrl', 'c', 0.5, 'ctrl', 'v')
+        >>> # Presses Ctrl+C, sleeps for 0.5 seconds, and then presses Ctrl+V.
+    """
+    for arg in args:
+        if isinstance(arg, float):
+            time.sleep(arg)
+        elif isinstance(arg, str):
+            keyboard.send(arg)
+        else:
+            raise TypeError(f"Invalid argument: {arg}")
+
+# Additional test
+def test_press_keys():
+    press_keys('a', 'b', 'c')
+    press_keys('ctrl', 'c', 0.5, 'ctrl', 'v')
+    press_keys(1.5)  # Invalid argument, raises TypeError
+
+test_press_keys()

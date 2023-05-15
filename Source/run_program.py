@@ -1,5 +1,6 @@
+from Source.templates import get_template
 from Source.tools import run_program
 
 if __name__ == '__main__':
-    run_program()
+    get_template
 

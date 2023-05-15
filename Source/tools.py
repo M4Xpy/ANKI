@@ -2,7 +2,7 @@ import os
 import random
 import time
 import webbrowser
-from typing import Optional
+from typing import Optional, Union
 
 import keyboard as keyboard
 import pyperclip
@@ -126,7 +126,7 @@ def refers_mp3s(header):
     return mp3refers
 
 
-def new_single_word_card():
+def new_single_word_card() -> None:
     press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
     in_text = pyperclip.paste()
     word = in_text.split()[0].split()[0].strip('_1234567890')
@@ -138,6 +138,10 @@ def new_single_word_card():
 
 
 def translations_of_the(word):
+    """ Give different variants of word tranlation
+    >>> translations_of_the('Fast-paced')
+    {'СТРЕМИТЕЛЬНЫЙ', 'БЫСТРО РАЗВИВАЮЩИЙСЯ'}
+    """
     word = word.lower()
     translate_s = set(
         en_ru_en_translator(input_text=f'{prefix} {word}', lang='en').upper() for prefix in ('', 'the', 'to'))
@@ -147,13 +151,19 @@ def translations_of_the(word):
     return translate_s
 
 
-def press_keys(*args):
+def press_keys(*args: Union[float, str]) -> None:
+    """ Presses the given keys with optional time delays
+    Args: *args (float or str): The keys to press, with optional time abcdelays between consecutive key presses.
+    Raises:TypeError: If any argument in *args is not a float or string.
+    >>> press_keys()
+    """
     for arg in args:
         time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
 
 
 def run_program():
-    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
+    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
+    """
     # Create a dictionary of hotkeys and functions
     hotkeys = {
         '1': request_for,

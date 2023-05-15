@@ -1,7 +1,7 @@
 def get_template(template: str, text: str) -> str:
     """
-    # >>> get_template(template='check', text='test')
-    # 'This is a test'
+    >>> get_template(template='check', text='test')
+    'This is a test'
     """
     return {
         'ai': f"""
