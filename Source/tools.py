@@ -117,7 +117,11 @@ def make_anki_card() -> None:
     keyboard.write(mp3refers)
 
 
-def refers_mp3s(header):
+def refers_mp3s(header: str) -> str:
+    """
+    >>> refers_mp3s('test')[:-1]
+    '[sound:test.mp3]'
+    """
     word_s = header.strip(' *').split(' * ')
     mp3refers = ''
     for word in word_s:
