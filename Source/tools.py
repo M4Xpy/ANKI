@@ -143,8 +143,8 @@ def new_single_word_card() -> None:
 
 def translations_of_the(word):
     """ Give different variants of word tranlation
-    >>> translations_of_the('Fast-paced')
-    {'СТРЕМИТЕЛЬНЫЙ', 'БЫСТРО РАЗВИВАЮЩИЙСЯ'}
+    >>> translations_of_the('ADJOIN')
+    {'ПРИМЫКАТЬ'}
     """
     word = word.lower()
     translate_s = set(
