@@ -60,14 +60,14 @@ def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[
         return audio_file_path
 
 
-def en_ru_en_translator(input_text: str) -> str:
+def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
     """
     >>> en_ru_en_translator('apple')
     'яблоко'
     >>> en_ru_en_translator('яблоко')
     'apple'
     """
-    out_of, onto = {'ru': ('ru', 'en'), 'en': ('en', 'ru')}[detect_language(input_text)]
+    out_of, onto = {'ru': ('ru', 'en'), 'en': ('en', 'ru')}[lang or detect_language(input_text)]
     try:
         return Translator().translate(input_text, src=out_of, dest=onto).text
     except AttributeError:
@@ -84,29 +84,6 @@ def open_google_translate(text: str) -> None:
     webbrowser.open(url, new=0, )
 
 
-def run_program():
-    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
-    # Create a dictionary of hotkeys and functions
-    hotkeys = {
-        'ctrl + 1': request_for,
-
-        'ctrl + 3': make_anki_card,
-    }
-    # Register the hotkeys and their corresponding functions
-    for hotkey, function in hotkeys.items():
-        keyboard.add_hotkey(hotkey, function)
-    # Start the keyboard listener
-    keyboard.wait()
-
-
-def star_separated_words_from(text: str) -> str:
-    """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
-    >>> star_separated_words_from('one , two\\n\\nthree , four\\nfive , six')
-    ' * one * three * five * '
-    """
-    return f" * {' * '.join(line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line)} * "
-
-
 def request_for(template: Optional[str] = 'ai') -> None:
     """
     >>> pyperclip.copy('DOCTEST')
@@ -115,7 +92,16 @@ def request_for(template: Optional[str] = 'ai') -> None:
     'This is a DOCTEST'
     """
     keyboard.send("ctrl + c")
+    time.sleep(0.01)
     pyperclip.copy(get_template(template, pyperclip.paste()))
+
+
+def star_separated_words_from(text: str) -> str:
+    """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
+    >>> star_separated_words_from('one , two\\n\\nthree , four\\nfive , six')
+    ' * one * three * five * '
+    """
+    return f" * {' * '.join(line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line)} * "
 
 
 def make_anki_card() -> None:
@@ -135,6 +121,47 @@ def refers_mp3s(header):
         generate_audio_file(word, save_file=1, lang='en')
         mp3refers += f'[sound:{word}.mp3]\n'
     return mp3refers
+
+
+def new_single_word_card():
+    press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
+    in_text = pyperclip.paste()
+    word = in_text.split()[0].split()[0].strip('_1234567890')
+    keyboard.write(f" * {word} *[sound:{word}.mp3]")
+    press_keys(0.25, 'tab')
+    keyboard.write(f'\n{" * ".join(word for word in translations_of_the(word))}\n\n')
+    time.sleep(0.1)
+    keyboard.send("ctrl + v")
+
+
+def translations_of_the(word):
+    word = word.lower()
+    translate_s = set(
+        en_ru_en_translator(input_text=f'{prefix} {word}', lang='en').upper() for prefix in ('', 'the', 'to'))
+    adjective = en_ru_en_translator(input_text=f'too {word}', lang='en')
+    translate_s.add(' '.join(word for word in adjective.split()[1:]).upper())
+    time.sleep(0.25)
+    return translate_s
+
+
+def press_keys(*args):
+    for arg in args:
+        time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
+
+
+def run_program():
+    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
+    # Create a dictionary of hotkeys and functions
+    hotkeys = {
+        '1': request_for,
+        'ctrl + 2': new_single_word_card,
+        'ctrl + 3': make_anki_card,
+    }
+    # Register the hotkeys and their corresponding functions
+    for hotkey, function in hotkeys.items():
+        keyboard.add_hotkey(hotkey, function)
+    # Start the keyboard listener
+    keyboard.wait()
 
 
 if __name__ == '__main__':
