@@ -74,9 +74,12 @@ def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
         raise Exception("Translation failed. Check your network connection and try again.")
 
 
-def open_google_image(text: str) -> None:
-    url = f'https://www.google.com/search?q={text}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
-    webbrowser.open(url, new=0)
+def open_google_image(text: Optional[str] = '') -> None:
+    if not text:
+        text = pyperclip.paste()
+    for text in f'{text} gif', text:
+        url = f'https://www.google.com/search?q={text}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
+        webbrowser.open(url, new=0)
 
 
 def open_google_translate(text: str) -> None:
@@ -156,6 +159,7 @@ def run_program():
         '1': request_for,
         'ctrl + 2': new_single_word_card,
         'ctrl + 3': make_anki_card,
+        'ctrl + 4': open_google_image
     }
     # Register the hotkeys and their corresponding functions
     for hotkey, function in hotkeys.items():
