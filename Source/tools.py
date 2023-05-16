@@ -154,6 +154,15 @@ def translations_of_the(word):
     time.sleep(0.25)
     return translate_s
 
+def clipboard_copy_multi_translations() -> None:
+    """
+    >>> clipboard_copy_multi_translations()
+    """
+    # word = pyperclip.paste()
+    # word = word.strip(' _1234567890')
+    # text = translations_of_the(word)
+    # pyperclip.copy(f" * {' * '.join(word for word in text)} * ")
+    pyperclip.copy(f" * {' * '.join(word for word in translations_of_the(pyperclip.paste().strip(' _1234567890')))} * ")
 
 def press_keys(*args: Union[float, str]) -> None:
     """ Presses the given keys with optional time delays
@@ -171,6 +180,7 @@ def run_program():
     # Create a dictionary of hotkeys and functions
     hotkeys = {
         'ctrl + c + s': request_for,
+        'ctrl + c + q': clipboard_copy_multi_translations,
         'ctrl + 2': new_single_word_card,
         'ctrl + 3': make_anki_card,
         'ctrl + 4': open_google_image
