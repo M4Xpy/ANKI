@@ -111,8 +111,12 @@ def make_anki_card() -> None:
     header = pyperclip.paste()
     header = star_separated_words_from(header)
     keyboard.write(header)
+    press_keys(.25, 'tab', .25)
+    mp3_and_refer_from(header)
+
+
+def mp3_and_refer_from(header):
     mp3refers = refers_mp3s(header)
-    keyboard.send("tab")
     keyboard.send("ctrl + end")
     keyboard.write(mp3refers)
 
