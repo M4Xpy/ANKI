@@ -170,7 +170,7 @@ def run_program():
     """
     # Create a dictionary of hotkeys and functions
     hotkeys = {
-        '1': request_for,
+        'ctrl + c + s': request_for,
         'ctrl + 2': new_single_word_card,
         'ctrl + 3': make_anki_card,
         'ctrl + 4': open_google_image

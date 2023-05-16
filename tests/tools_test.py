@@ -2,7 +2,7 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-from Source.tools import detect_language, run_program, request_for
+from Source.tools import detect_language, run_program, get_request_text_from_paste
 
 
 # class TestRunProgram:
