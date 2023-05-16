@@ -94,10 +94,10 @@ def request_for(template: Optional[str] = 'ai') -> None:
     >>> pyperclip.paste()
     'This is a DOCTEST'
     """
-    keyboard.send("ctrl + c")
-    time.sleep(0.01)
-    pyperclip.copy(get_template(template, pyperclip.paste()))
-
+    # text = pyperclip.paste()
+    # text = text.strip(' _1234567890')
+    # pyperclip.copy(get_template(template, text)) # code above is the same code as under
+    pyperclip.copy(get_template(template, pyperclip.paste().strip(' _1234567890')))
 
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
