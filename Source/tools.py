@@ -136,7 +136,7 @@ def new_single_word_card() -> None:
     word = in_text.split()[0].split()[0].strip('_1234567890')
     keyboard.write(f" * {word} *[sound:{word}.mp3]")
     press_keys(0.25, 'tab')
-    keyboard.write(f'\n{" * ".join(word for word in translations_of_the(word))}\n\n')
+    keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
     time.sleep(0.1)
     keyboard.send("ctrl + v")
 
