@@ -99,6 +99,7 @@ def request_for(template: Optional[str] = 'ai') -> None:
     # pyperclip.copy(get_template(template, text))   # code above(for reading and refactoring) is the same code as under
     pyperclip.copy(get_template(template, pyperclip.paste().strip(' _1234567890')))
 
+
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
     >>> star_separated_words_from('one , two\\n\\nthree , four\\nfive , six')
@@ -158,6 +159,7 @@ def translations_of_the(word):
     time.sleep(0.25)
     return translate_s
 
+
 def clipboard_copy_multi_translations() -> None:
     """
     >>> clipboard_copy_multi_translations()
@@ -167,6 +169,7 @@ def clipboard_copy_multi_translations() -> None:
     # text = translations_of_the(word)
     # pyperclip.copy(f" * {' * '.join(word for word in text)} * ")
     pyperclip.copy(f" * {' * '.join(word for word in translations_of_the(pyperclip.paste().strip(' _1234567890')))} * ")
+
 
 def press_keys(*args: Union[float, str]) -> None:
     """ Presses the given keys with optional time delays
@@ -178,16 +181,48 @@ def press_keys(*args: Union[float, str]) -> None:
         time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
 
 
+def filter_lines(text: str) -> str:
+    """
+    return text without lines with words from chek_s tuple, remove 'Translation:'
+    >>> filter_lines("T\\nproverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
+    'TEST'
+    """
+    # chek_s = ('proverb', 'proverbs', 'Please note')
+    # filtered_lines = []
+    # for line in text.splitlines():
+    #     if not any(check in line for check in chek_s):
+    #         filtered_lines.append(line)
+    # result = '\n'.join(filtered_lines)
+    # result = result.replace('Translation:', '')
+    # return result
+    return '\n'.join(line for line in text.splitlines() if not any(
+        check in line for check in ('proverb', 'proverb', 'Please note'))).replace('Translation:', '')
+
+
+def copy_func_paste(func):
+    """ return to the clipboard the text received from the clipboard, processed by the provided function """
+    # text = pyperclip.paste()
+    # text = func(text)
+    # pyperclip.copy(text)
+    pyperclip.copy(func(pyperclip.paste()))
+
+
+def formatter():
+    return copy_func_paste(filter_lines)
+
+
 def run_program():
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     """
     # Create a dictionary of hotkeys and functions
     hotkeys = {
-        'ctrl + c + s': request_for,
+        'ctrl + c + w': request_for,
         'ctrl + c + q': clipboard_copy_multi_translations,
+        'ctrl + c + 3': formatter,
         'ctrl + 2': new_single_word_card,
-        'ctrl + 3': make_anki_card,
-        'ctrl + 4': open_google_image
+        'ctrl + 0': make_anki_card,
+        'ctrl + 4': open_google_image,
+
     }
     # Register the hotkeys and their corresponding functions
     for hotkey, function in hotkeys.items():

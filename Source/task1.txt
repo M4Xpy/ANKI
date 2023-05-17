@@ -8,7 +8,11 @@ get text
 return string of  lonely English words, before and after which neither English words nor commas go
 
 
-
+write wrapper
+get text from clipboard
+handle text with function
+return handled text in clipboard
+return text withot lines , that contain letter combinations
 
 
 
