@@ -159,16 +159,19 @@ def translations_of_the(word):
     time.sleep(0.25)
     return translate_s
 
+def ctrl_c_q_multi_translations():
+    return copy_func_paste(multi_translations)
 
-def clipboard_copy_multi_translations() -> None:
+
+def multi_translations(word: str) -> str:
     """
-    >>> clipboard_copy_multi_translations()
+    >>> assert multi_translations('ABLE_299') == ' * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or ' * СПОСОБНЫЙ * В СОСТОЯНИИ * '
     """
-    # word = pyperclip.paste()
     # word = word.strip(' _1234567890')
-    # text = translations_of_the(word)
-    # pyperclip.copy(f" * {' * '.join(word for word in text)} * ")
-    pyperclip.copy(f" * {' * '.join(word for word in translations_of_the(pyperclip.paste().strip(' _1234567890')))} * ")
+    # translations = translations_of_the(word)
+    # result = f" * {' * '.join(word for word in translations)} * "
+    # return result
+    return f" * {' * '.join(word for word in translations_of_the(word.strip(' _1234567890')))} * "
 
 
 def press_keys(*args: Union[float, str]) -> None:
@@ -207,7 +210,7 @@ def copy_func_paste(func):
     pyperclip.copy(func(pyperclip.paste()))
 
 
-def formatter():
+def ctrl_c_3_formatter():
     return copy_func_paste(filter_lines)
 
 
@@ -217,8 +220,8 @@ def run_program():
     # Create a dictionary of hotkeys and functions
     hotkeys = {
         'ctrl + c + w': request_for,
-        'ctrl + c + q': clipboard_copy_multi_translations,
-        'ctrl + c + 3': formatter,
+        'ctrl + c + q': ctrl_c_q_multi_translations,
+        'ctrl + c + 3': ctrl_c_3_formatter,
         'ctrl + 2': new_single_word_card,
         'ctrl + 0': make_anki_card,
         'ctrl + 4': open_google_image,

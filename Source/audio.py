@@ -28,7 +28,6 @@ def copy_func_paste(func):
     # pyperclip.copy(text)
     pyperclip.copy(func(pyperclip.paste()))
 
-def formatter():
-    return copy_func_paste(filter_lines)
 
-formatter()
+def ctrl_c_3_formatter():
+    return copy_func_paste(filter_lines)
