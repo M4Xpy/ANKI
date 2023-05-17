@@ -86,18 +86,18 @@ def open_google_translate(text: str) -> None:
     url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
     webbrowser.open(url, new=0, )
 
-
-def request_for(template: Optional[str] = 'ai') -> None:
+def request_for(text: str, template: Optional[str] = 'ai') -> str:
     """
-    >>> pyperclip.copy('DOCTEST')
-    >>> request_for(template='check')
-    >>> pyperclip.paste()
-    'This is a DOCTEST'
+    >>> request_for(' _1234TEST34567890', template='check')
+    'This is a TEST'
     """
-    # text = pyperclip.paste()
     # text = text.strip(' _1234567890')
-    # pyperclip.copy(get_template(template, text))   # code above(for reading and refactoring) is the same code as under
-    pyperclip.copy(get_template(template, pyperclip.paste().strip(' _1234567890')))
+    # result = get_template(template, text)
+    # return result                           # code above(for reading and refactoring) is the same code as under
+    return get_template(template, text.strip(' _1234567890'))
+
+def ctrl_c_w_request_for() -> None:
+    return copy_func_paste(request_for)
 
 
 def star_separated_words_from(text: str) -> str:
@@ -219,7 +219,7 @@ def run_program():
     """
     # Create a dictionary of hotkeys and functions
     hotkeys = {
-        'ctrl + c + w': request_for,
+        'ctrl + c + w': ctrl_c_w_request_for,
         'ctrl + c + q': ctrl_c_q_multi_translations,
         'ctrl + c + 3': ctrl_c_3_formatter,
         'ctrl + 2': new_single_word_card,
