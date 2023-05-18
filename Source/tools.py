@@ -74,12 +74,19 @@ def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
         raise Exception("Translation failed. Check your network connection and try again.")
 
 
-def open_google_image(text: Optional[str] = '') -> None:
+def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
     if not text:
         text = pyperclip.paste()
-    for text in f'{text} gif', text:
-        url = f'https://www.google.com/search?q={text}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
-        webbrowser.open(url, new=0)
+    if '*' in text:
+        for word in text.replace('*', '').split()[::-1]:
+            open_google_image(word)
+    else:
+        open_google_image(text)
+
+
+def open_google_image(word):
+    url = f'https://www.google.com/search?q={word}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
+    webbrowser.open(url, new=0)
 
 
 def open_google_translate(text: str) -> None:
@@ -112,13 +119,13 @@ def make_anki_card() -> None:
     header = pyperclip.paste()
     header = star_separated_words_from(header)
     keyboard.write(header)
-    press_keys(.25, 'tab', .25)
+    if header.count('*') > 2:
+        press_keys(.25, 'tab', .25, "ctrl + end")
     mp3_and_refer_from(header)
 
 
 def mp3_and_refer_from(header):
     mp3refers = refers_mp3s(header)
-    keyboard.send("ctrl + end")
     keyboard.write(f'\n{mp3refers}')
 
 
@@ -224,7 +231,7 @@ def run_program():
         'ctrl + c + q': ctrl_c_q_formatter,
         'ctrl + 2': new_single_word_card,
         'ctrl + 0': make_anki_card,
-        'ctrl + 4': open_google_image,
+        'ctrl + 4': ctrl_4_open_google_image,
 
     }
     # Register the hotkeys and their corresponding functions
