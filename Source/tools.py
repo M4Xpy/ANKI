@@ -85,13 +85,15 @@ def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
 
 
 def open_google_image(word):
-    url = f'https://www.google.com/search?q={word}&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
+    url = f'https://www.google.com/search?q={word}' \
+          f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=0)
 
 
 def open_google_translate(text: str) -> None:
     url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
     webbrowser.open(url, new=0, )
+
 
 def request_for(text: str, template: Optional[str] = 'ai') -> str:
     """
@@ -103,6 +105,7 @@ def request_for(text: str, template: Optional[str] = 'ai') -> str:
     # return result                           # code above(for reading and refactoring) is the same code as under
     return get_template(template, text.strip(' _1234567890'))
 
+
 def ctrl_c_w_request_for() -> None:
     return copy_func_paste(request_for)
 
@@ -112,7 +115,7 @@ def star_separated_words_from(text: str) -> str:
     >>> star_separated_words_from('one , two\\n\\nthree , four\\nfive , six')
     ' * one * three * five * '
     """
-    return f" * {' * '.join(line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line)} * "
+    return f" * {' * '.join(l.split()[0].strip('_1234567890') for l in text.splitlines() if l and '.mp3' not in l)} * "
 
 
 def make_anki_card() -> None:
@@ -166,6 +169,7 @@ def translations_of_the(word):
     time.sleep(0.25)
     return translate_s
 
+
 def ctrl_c_3_multi_translations():
     return copy_func_paste(multi_translations)
 
@@ -197,7 +201,7 @@ def filter_lines(text: str) -> str:
     >>> filter_lines("T\\nproverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
-    # chek_s = ('proverb', 'Please note', 'phrase')
+    # chek_s = ('proverb', 'please note', 'phrases')
     # filtered_lines = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
@@ -206,7 +210,7 @@ def filter_lines(text: str) -> str:
     # result = result.replace('Translation:', '')
     # return result
     return '\n'.join(line for line in text.splitlines() if not any(
-        check in line.lower() for check in ('proverb', 'Please note', 'phrase'))).replace('Translation:', '')
+        check in line.lower() for check in ('proverb', 'please note', 'phrases'))).replace('Translation:', '')
 
 
 def copy_func_paste(func):
