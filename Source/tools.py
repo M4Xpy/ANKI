@@ -119,7 +119,7 @@ def make_anki_card() -> None:
 def mp3_and_refer_from(header):
     mp3refers = refers_mp3s(header)
     keyboard.send("ctrl + end")
-    keyboard.write(mp3refers)
+    keyboard.write(f'\n{mp3refers}')
 
 
 def refers_mp3s(header: str) -> str:
@@ -159,7 +159,7 @@ def translations_of_the(word):
     time.sleep(0.25)
     return translate_s
 
-def ctrl_c_q_multi_translations():
+def ctrl_c_3_multi_translations():
     return copy_func_paste(multi_translations)
 
 
@@ -190,16 +190,16 @@ def filter_lines(text: str) -> str:
     >>> filter_lines("T\\nproverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
-    # chek_s = ('proverb', 'proverbs', 'Please note')
+    # chek_s = ('proverb', 'Please note', 'phrase')
     # filtered_lines = []
     # for line in text.splitlines():
-    #     if not any(check in line for check in chek_s):
+    #     if not any(check in line.lower() for check in chek_s):
     #         filtered_lines.append(line)
     # result = '\n'.join(filtered_lines)
     # result = result.replace('Translation:', '')
     # return result
     return '\n'.join(line for line in text.splitlines() if not any(
-        check in line for check in ('proverb', 'proverb', 'Please note'))).replace('Translation:', '')
+        check in line.lower() for check in ('proverb', 'Please note', 'phrase'))).replace('Translation:', '')
 
 
 def copy_func_paste(func):
@@ -210,7 +210,7 @@ def copy_func_paste(func):
     pyperclip.copy(func(pyperclip.paste()))
 
 
-def ctrl_c_3_formatter():
+def ctrl_c_q_formatter():
     return copy_func_paste(filter_lines)
 
 
@@ -220,8 +220,8 @@ def run_program():
     # Create a dictionary of hotkeys and functions
     hotkeys = {
         'ctrl + c + w': ctrl_c_w_request_for,
-        'ctrl + c + q': ctrl_c_q_multi_translations,
-        'ctrl + c + 3': ctrl_c_3_formatter,
+        'ctrl + c + 3': ctrl_c_3_multi_translations,
+        'ctrl + c + q': ctrl_c_q_formatter,
         'ctrl + 2': new_single_word_card,
         'ctrl + 0': make_anki_card,
         'ctrl + 4': open_google_image,
