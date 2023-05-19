@@ -2,17 +2,7 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-from Source.tools import detect_language, run_program, get_request_text_from_paste
-
-
-# class TestRunProgram:
-#
-#     @patch('keyboard.add_hotkey')
-#     @patch('keyboard.wait')
-#     def test_run_program(self, mock_wait: MagicMock, mock_add_hotkey: MagicMock) -> None:
-#         run_program()
-#         mock_add_hotkey.assert_called_once_with('w', request_for)
-#         mock_wait.assert_called_once()
+from Source.tools import detect_language
 
 
 

@@ -75,6 +75,7 @@ def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
 
 
 def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
+    """ open google image with received request """
     if not text:
         text = pyperclip.paste()
     if '*' in text:
@@ -84,19 +85,20 @@ def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
         open_google_image(text)
 
 
-def open_google_image(word):
+def open_google_image(word: str) -> None:
     url = f'https://www.google.com/search?q={word}' \
           f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=0)
 
 
 def open_google_translate(text: str) -> None:
+    """ open google translated with received request """
     url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
     webbrowser.open(url, new=0, )
 
 
 def request_for(text: str, template: Optional[str] = 'ai') -> str:
-    """
+    """ insert request text to template
     >>> request_for(' _1234TEST34567890', template='check')
     'This is a TEST'
     """
@@ -127,13 +129,14 @@ def make_anki_card() -> None:
     mp3_and_refer_from(header)
 
 
-def mp3_and_refer_from(header):
+def mp3_and_refer_from(header: str) -> None:
+    """ make mp3s and write its refers """
     mp3refers = refers_mp3s(header)
     keyboard.write(f'\n{mp3refers}')
 
 
 def refers_mp3s(header: str) -> str:
-    """
+    """ make mp3 reference
     >>> refers_mp3s('test')[:-1]
     '[sound:test.mp3]'
     """
@@ -156,7 +159,7 @@ def new_single_word_card() -> None:
     keyboard.send("ctrl + v")
 
 
-def translations_of_the(word):
+def translations_of_the(word: str) -> set:
     """ Give different variants of word tranlation
     >>> translations_of_the('ADJOIN')
     {'ПРИМЫКАТЬ'}
@@ -175,7 +178,7 @@ def ctrl_c_3_multi_translations():
 
 
 def multi_translations(word: str) -> str:
-    """
+    """ return star separated translated vars of getted word
     >>> assert multi_translations('ABLE_299') == ' * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or ' * СПОСОБНЫЙ * В СОСТОЯНИИ * '
     """
     # word = word.strip(' _1234567890')
@@ -213,7 +216,7 @@ def filter_lines(text: str) -> str:
         check in line.lower() for check in ('proverb', 'please note', 'phrases'))).replace('Translation:', '')
 
 
-def copy_func_paste(func):
+def copy_func_paste(func) -> None:
     """ return to the clipboard the text received from the clipboard, processed by the provided function """
     # text = pyperclip.paste()
     # text = func(text)
@@ -246,4 +249,4 @@ def run_program():
 
 
 if __name__ == '__main__':
-    run_program()
+    pass
