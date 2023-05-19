@@ -158,6 +158,7 @@ def refers_mp3s(header: str) -> str:
 
 
 def new_single_word_card() -> None:
+    """ save old card , then made new card ready to save """
     press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
     in_text = pyperclip.paste()
     word = in_text.split()[0].split()[0].strip('_1234567890')
