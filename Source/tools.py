@@ -127,7 +127,8 @@ def star_separated_words_from(text: str) -> str:
     return f" * {' * '.join(lines)} * "
 
 
-def make_anki_card() -> None:
+def header_tab_mp3() -> None:
+    """write star_separated_words press tab and at the end of the page write mp3 refers"""
     header = pyperclip.paste()
     header = star_separated_words_from(header)
     keyboard.write(header)
@@ -247,7 +248,7 @@ def run_program():
         'ctrl + c + 3': ctrl_c_3_multi_translations,
         'ctrl + c + q': ctrl_c_q_formatter,
         'ctrl + 2': new_single_word_card,
-        'ctrl + 0': make_anki_card,
+        'ctrl + 0': header_tab_mp3,
         'ctrl + 4': ctrl_4_open_google_image,
 
     }
