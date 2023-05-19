@@ -48,6 +48,7 @@ def detect_language(text: str) -> str:
 
 def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[str] = None) -> Optional[str]:
     """Generates audio file of the input_string in its detected language."""
+    text = text.lower()
     folder = ('C:\\Users\\Я\\Desktop\\audio', f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media")[
         save_file]
     if not lang:
@@ -116,8 +117,13 @@ def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
     >>> star_separated_words_from('one , two\\n\\nthree , four\\nfive , six')
     ' * one * three * five * '
+    >>> star_separated_words_from(' * MENACING * [sound:Menacer.mp3]')
+    '* MENACING *'
     """
-    return f" * {' * '.join(l.split()[0].strip('_1234567890') for l in text.splitlines() if l and '.mp3' not in l)} * "
+    lines = [line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line]
+    if len(lines) < 2:
+        return ' '.join(word for word in text.split() if '[sound:' not in word)
+    return f" * {' * '.join(lines)} * "
 
 
 def make_anki_card() -> None:
@@ -126,6 +132,7 @@ def make_anki_card() -> None:
     keyboard.write(header)
     if header.count('*') > 2:
         press_keys(.25, 'tab', .25, "ctrl + end")
+    time.sleep(.25)
     mp3_and_refer_from(header)
 
 
