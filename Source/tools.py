@@ -87,6 +87,7 @@ def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
 
 
 def open_google_image(word: str) -> None:
+    """ open google image with received request  """
     url = f'https://www.google.com/search?q={word}' \
           f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=0)
@@ -186,6 +187,8 @@ def ctrl_c_3_multi_translations():
 
 def multi_translations(word: str) -> str:
     """ return star separated translated vars of getted word
+    >>> multi_translations('ADJOIN')
+    ' * ПРИМЫКАТЬ * '
     >>> assert multi_translations('ABLE_299') == ' * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or ' * СПОСОБНЫЙ * В СОСТОЯНИИ * '
     """
     # word = word.strip(' _1234567890')
