@@ -9,8 +9,6 @@ import pyperclip
 from googletrans import Translator
 from gtts import gTTS
 
-from Source.templates import get_template
-
 
 def uniq_name(input_string: str, seed_sign: int = None) -> str:
     """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
@@ -238,6 +236,19 @@ def copy_func_paste(func) -> None:
 
 def ctrl_c_q_formatter():
     return copy_func_paste(filter_lines)
+
+
+def get_template(template: str, text: str) -> str:
+    """
+    >>> get_template(template='check', text='test')
+    'This is a test'
+    """
+    return {
+        'ai': f"Provide single-root words and forms for the word '{text}' , along with popular phrases(better proverbs)  that directly include these single-root words and their translations into Russian.",
+        'check': f"This is a {text}"
+
+    }[template]
+
 
 
 def run_program():

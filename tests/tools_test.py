@@ -1,9 +1,6 @@
-from unittest.mock import patch, MagicMock
-
 import pytest
 
 from Source.tools import detect_language
-
 
 
 class TestDetectLanguage:
