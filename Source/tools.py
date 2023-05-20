@@ -81,7 +81,7 @@ def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
         for word in text.replace('*', '').split()[::-1]:
             open_google_image(word)
     else:
-        open_google_image(text)
+        open_google_image(text.strip('_1234567890'))
 
 
 def open_google_image(word: str) -> None:
