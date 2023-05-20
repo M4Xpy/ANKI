@@ -32,3 +32,6 @@ class Test:
    
 coalesced  слились  * СЛИЛСЯ * СЛИВАТЬСЯ * СЛИЛИСЬ * """
             assert star_separated_words_from(text) == ' * COALESCE * coalesced * '
+
+        def test_strip(self):
+            assert star_separated_words_from(' * APPOSITE_11662 * ') == ' * APPOSITE * '

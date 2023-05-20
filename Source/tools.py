@@ -51,7 +51,7 @@ def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[
         save_file]
     if not lang:
         lang = detect_language(text)  # Detect language of the input_string
-    audio_file_name = uniq_name(text) + '.mp3'  # Generate audio file name
+    audio_file_name = f'{text}.mp3'  # Generate audio file name
     audio = gTTS(text=text, lang=lang, slow=False)  # Generate audio file
     audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
     audio.save(audio_file_path)
@@ -121,7 +121,7 @@ def star_separated_words_from(text: str) -> str:
     """
     lines = [line.split()[0].strip('_1234567890') for line in text.splitlines() if line.strip() and '.mp3' not in line]
     if len(lines) < 2 and '*' in text:
-        return f" * {' * '.join(word for word in text.split() if '*' not in word and '.mp3' not in word)} * "
+        return f" * {' * '.join(word.strip('_1234567890') for word in text.split() if '*' not in word and '.mp3' not in word)} * "
     return f" * {' * '.join(lines)} * "
 
 
