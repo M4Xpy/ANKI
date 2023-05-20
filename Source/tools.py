@@ -135,6 +135,7 @@ def header_tab_mp3() -> None:
         press_keys(.25, 'tab', .25, "ctrl + end")
     time.sleep(.25)
     mp3_and_refer_from(header)
+    pyperclip.copy(header)
 
 
 def mp3_and_refer_from(header: str) -> None:
