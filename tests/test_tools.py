@@ -26,3 +26,9 @@ class Test:
             assert star_separated_words_from(
                 'CLOUT_5008 _клочок, обрывок, лоскут; сильный удар, затрещина; сильный удар в бейсболе;'
             ) == ' * CLOUT * '
+
+        def test_invisible_space(self):
+            text = """COALESCE_11473 _сливаться, срастаться, слипаться, сходиться 
+   
+coalesced  слились  * СЛИЛСЯ * СЛИВАТЬСЯ * СЛИЛИСЬ * """
+            assert star_separated_words_from(text) == ' * COALESCE * coalesced * '

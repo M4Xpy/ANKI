@@ -119,7 +119,7 @@ def star_separated_words_from(text: str) -> str:
     >>> star_separated_words_from(' * MENACING * [sound:Menacer.mp3]')
     ' * MENACING * '
     """
-    lines = [line.split()[0].strip('_1234567890') for line in text.splitlines() if line and '.mp3' not in line]
+    lines = [line.split()[0].strip('_1234567890') for line in text.splitlines() if line.strip() and '.mp3' not in line]
     if len(lines) < 2 and '*' in text:
         return f" * {' * '.join(word for word in text.split() if '*' not in word and '.mp3' not in word)} * "
     return f" * {' * '.join(lines)} * "
