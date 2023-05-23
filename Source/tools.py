@@ -125,7 +125,6 @@ def star_separated_words_from(text: str) -> str:
     return f" * {' * '.join(lines)} * "
 
 
-
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
     header = pyperclip.paste()
@@ -252,6 +251,13 @@ def get_template(template: str, text: str) -> str:
     }[template]
 
 
+def ctrl_5_get_data_from_damge_card():
+    """ """
+    count = 0
+    press_keys('ctrl + a', 0.2)
+    keyboard.write(f'{count}')
+    count += 1
+    press_keys('tab', 0.2, 'ctrl + a', 0.2, 'ctrl + c')
 
 def run_program():
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
@@ -262,8 +268,9 @@ def run_program():
         'ctrl + c + 3': ctrl_c_3_multi_translations,
         'ctrl + c + q': ctrl_c_q_formatter,
         'ctrl + 2': new_single_word_card,
-        'ctrl + 0': header_tab_mp3,
         'ctrl + 4': ctrl_4_open_google_image,
+        'ctrl + 5': ctrl_5_get_data_from_damge_card,
+        'ctrl + 0': header_tab_mp3,
 
     }
     # Register the hotkeys and their corresponding functions
