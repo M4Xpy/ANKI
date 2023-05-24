@@ -47,7 +47,8 @@ def detect_language(text: str) -> str:
 def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[str] = None) -> Optional[str]:
     """Generates audio file of the input_string in its detected language."""
     text = text.lower()
-    folder = ('C:\\Users\\Я\\Desktop\\audio', f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media")[
+    folder = ('C:\\Users\\Я\\Desktop\\audio', f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
+              f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media")[
         save_file]
     if not lang:
         lang = detect_language(text)  # Detect language of the input_string
@@ -77,6 +78,8 @@ def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
     """ open google image with received request """
     if not text:
         text = pyperclip.paste()
+    if len(text.splitlines()) > 1:
+        text = star_separated_words_from(text)
     if '*' in text:
         for word in text.replace('*', '').split()[::-1]:
             open_google_image(word)
@@ -134,13 +137,12 @@ def header_tab_mp3() -> None:
         press_keys(.25, 'tab', .25, "ctrl + end")
     time.sleep(.25)
     mp3_and_refer_from(header)
-    pyperclip.copy(header)
 
 
 def mp3_and_refer_from(header: str) -> None:
     """ make mp3s and write its refers """
     mp3refers = refers_mp3s(header)
-    keyboard.write(f'\n{mp3refers}')
+    keyboard.write(f'\n\n{mp3refers}')
 
 
 def refers_mp3s(header: str) -> str:
@@ -259,6 +261,14 @@ def ctrl_5_get_data_from_damge_card():
     count += 1
     press_keys('tab', 0.2, 'ctrl + a', 0.2, 'ctrl + c')
 
+
+def ctrl_8_new_card_from_damage_card():
+    """ """
+    press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
+    header_tab_mp3()
+    press_keys(0.25, 'page up', 0.25, 'page up', 0.25, 'ctrl + v')
+
+
 def run_program():
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     """
@@ -267,10 +277,11 @@ def run_program():
         'ctrl + c + w': ctrl_c_w_request_for,
         'ctrl + c + 3': ctrl_c_3_multi_translations,
         'ctrl + c + q': ctrl_c_q_formatter,
+        'ctrl + 1': header_tab_mp3,
         'ctrl + 2': new_single_word_card,
         'ctrl + 4': ctrl_4_open_google_image,
         'ctrl + 5': ctrl_5_get_data_from_damge_card,
-        'ctrl + 0': header_tab_mp3,
+        'ctrl + 8': ctrl_8_new_card_from_damage_card,
 
     }
     # Register the hotkeys and their corresponding functions
