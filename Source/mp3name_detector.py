@@ -1,3 +1,5 @@
+from Source.tools import translations_of_the
+
 file_path = 'E:\\test_txt.txt'
 
 def find_words_with_letter_combinations(file_path: str) -> set[str]:
@@ -15,13 +17,27 @@ def find_words_with_letter_combinations(file_path: str) -> set[str]:
                     if letter == ']':
                         ommit = True
                         words.add(word)
-
-
-
-
     return words
 
 
-result = find_words_with_letter_combinations(file_path)
-print(sorted(result))
+
+
+text = """word = word.strip(' _1234567890')
+translations = translations_of_the(word)
+result = f" * {' * '.join(word for word in translations)} * "
+return result"""
+
+
+def one_line_code_compressor(code: str):
+    """ Make one-line code from many-line code
+    >>> print(one_line_code_compressor(text))
+    return f" * {' * '.join(word.strip(' _1234567890') for word in translations_of_the(word))} * "
+    """
+    result = ''
+    for line in reversed(code.splitlines()):
+        if ' = ' in line:
+            result = result.replace(*line.split(' = '), 1)
+        else:
+            result = f"{line}{result}"
+    return result
 
