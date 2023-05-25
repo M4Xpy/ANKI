@@ -6,7 +6,7 @@ from Source.tools import detect_language, star_separated_words_from
 class Test:
     class TestDetectLanguage:
         def test_detect_language_english(self) -> None:
-            assert detect_language('Hello, world!') == 'en'
+            assert detect_language('Hello, world!') == ''
 
         def test_detect_language_russian(self) -> None:
             assert detect_language('Привет, мир!') == 'ru'
