@@ -1,6 +1,6 @@
 * <h1> This project simplifies the work of self-creation of ANKI cards.</h1>
 
-*  <h3>Finds various translations, pages with google translation, pages with google photos.In one click, creates a new card for the given word.</h2>
+*  <h3>Finds various translations, pages with Google translation, pages with Google photos.In one click, creates a new card for the given word.</h2>
 
 * <h2>run_program() work correct on Windows for Anki 2.1.49 (https://apps.ankiweb.net/downloads/archive/) ,
   other OS and Anki may need adjustment .</h3>
@@ -10,7 +10,7 @@
 *  'ctrl + c + 3':  return in clipboard up to 4 translations of the copied word
 *  'ctrl + c + q':  return in clipboard text without certain words
 *  'ctrl + 1':  get word , make and save mp3 and write refer of mp3
-*  'ctrl + 2': make new card on getted word , get cursor at the answer field in 'add new card', before click
+*  'ctrl + 2': make new card on received word , get cursor at the answer field in 'add new card', before click
 *  'ctrl + 4':  open google image(s) with word(s) from clipboard
 
 * <h3>This is my first project, help and constructive criticism are welcome.</h3>
