@@ -272,23 +272,20 @@ def ctrl_8_new_card_from_damage_card():
 def run_program():
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     """
-    # Create a dictionary of hotkeys and functions
-    hotkeys = {
-        'ctrl + c + w': ctrl_c_w_request_for,
-        'ctrl + c + 3': ctrl_c_3_multi_translations,
-        'ctrl + c + q': ctrl_c_q_formatter,
-        'ctrl + 1': header_tab_mp3,
-        'ctrl + 2': new_single_word_card,
-        'ctrl + 4': ctrl_4_open_google_image,
-        'ctrl + 5': ctrl_5_get_data_from_damge_card,
-        'ctrl + 8': ctrl_8_new_card_from_damage_card,
+    hotkeys = {  # Create a dictionary of hotkeys and functions
+        'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
+        'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
+        'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
+        'ctrl + 1': header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
+        'ctrl + 2': new_single_word_card,  # get cursor at the answer field in 'add new card', before click
+        'ctrl + 4': ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
+        'ctrl + 5': ctrl_5_get_data_from_damge_card,  # my private case
+        'ctrl + 8': ctrl_8_new_card_from_damage_card,  # my private case
 
     }
-    # Register the hotkeys and their corresponding functions
-    for hotkey, function in hotkeys.items():
+    for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
-    # Start the keyboard listener
-    keyboard.wait()
+    keyboard.wait()  # Start the keyboard listener
 
 
 if __name__ == '__main__':
