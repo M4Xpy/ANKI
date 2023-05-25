@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77eaada9-9a93-4250-9056-1973228cf51e" name="Changes" comment="break pytest detect_language('Hello, world!')">
-      <change beforePath="$PROJECT_DIR$/tests/tools_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tools_test.py" afterDir="false" />
+    <list default="true" id="77eaada9-9a93-4250-9056-1973228cf51e" name="Changes" comment="change to pytest --doctest-modules in python-app.yml">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/python-app.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/python-app.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,27 +189,6 @@
       <option name="presentableId" value="Default" />
       <updated>1683729773650</updated>
       <workItem from="1684947498071" duration="61000" />
-    </task>
-    <task id="LOCAL-00013" summary="temlate for anki cart maker for ChutGpt">
-      <created>1683880616120</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1683880616120</updated>
-    </task>
-    <task id="LOCAL-00014" summary="add request_for with pytest">
-      <created>1683892728863</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1683892728863</updated>
-    </task>
-    <task id="LOCAL-00015" summary="add type annotations in tools_test.py">
-      <created>1683893719429</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1683893719429</updated>
     </task>
     <task id="LOCAL-00016" summary="add make_anki_card and refers_mp3s functions to the tools">
       <created>1683972156389</created>
@@ -533,7 +512,28 @@
       <option name="project" value="LOCAL" />
       <updated>1685027250184</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="repair pytest detect_language('Hello, world!') and add python -m doctest -v your_module.py to python-app.yml">
+      <created>1685027392524</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1685027392524</updated>
+    </task>
+    <task id="LOCAL-00063" summary="repair translations_of_the('ADJOIN')">
+      <created>1685027551185</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1685027551186</updated>
+    </task>
+    <task id="LOCAL-00064" summary="change to pytest --doctest-modules in python-app.yml">
+      <created>1685027738192</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1685027738193</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -560,9 +560,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add describing in some functions" />
-    <MESSAGE value="add text.lower() to generate_audio_file()&#10;reformated star_separated_words_from()" />
-    <MESSAGE value="add docktest multi_translations('ADJOIN')" />
     <MESSAGE value="describe and change name from make_anki_card() to header_tab_mp3()" />
     <MESSAGE value="add RADME.txt" />
     <MESSAGE value="add get_template() to tools.py from deleted tamplate.py" />
@@ -585,6 +582,9 @@
     <MESSAGE value="change windows-latest on ubuntu-latest in tests.yml" />
     <MESSAGE value="break docktest translations_of_the('ADJOIN')" />
     <MESSAGE value="break pytest detect_language('Hello, world!')" />
-    <option name="LAST_COMMIT_MESSAGE" value="break pytest detect_language('Hello, world!')" />
+    <MESSAGE value="repair pytest detect_language('Hello, world!') and add python -m doctest -v your_module.py to python-app.yml" />
+    <MESSAGE value="repair translations_of_the('ADJOIN')" />
+    <MESSAGE value="change to pytest --doctest-modules in python-app.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="change to pytest --doctest-modules in python-app.yml" />
   </component>
 </project>

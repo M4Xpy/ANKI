@@ -147,8 +147,8 @@ def mp3_and_refer_from(header: str) -> None:
 
 def refers_mp3s(header: str) -> str:
     """ make mp3 reference
-    # >>> refers_mp3s('test')[:-1]
-    # '[sound:test.mp3]'
+    >>> refers_mp3s('test')[:-1]
+    '[sound:test.mp3]
     """
     word_s = header.strip(' *').split(' * ')
     mp3refers = ''
