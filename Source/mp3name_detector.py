@@ -1,5 +1,3 @@
-from Source.tools import translations_of_the
-
 file_path = 'E:\\test_txt.txt'
 
 def find_words_with_letter_combinations(file_path: str) -> set[str]:
