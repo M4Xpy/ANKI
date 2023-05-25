@@ -194,11 +194,11 @@ def multi_translations(word: str) -> str:
     ' * ПРИМЫКАТЬ * '
     >>> assert multi_translations('ABLE_299') == ' * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or ' * СПОСОБНЫЙ * В СОСТОЯНИИ * '
     """
-    # word = word.strip(' _1234567890')
-    # translations = translations_of_the(word)
-    # result = f" * {' * '.join(word for word in translations)} * "
-    # return result
-    return f" * {' * '.join(word for word in translations_of_the(word.strip(' _1234567890')))} * "
+    # word = word.strip(' _1234567890')                                                  # return 'ABLE' from 'ABLE_299'
+    # translations = translations_of_the(word)                               # gives up to four translations of the word
+    # result = f" * {' * '.join(map(str, translations))} * "                  # return star separated translations words
+    # return result                                             #  one-liner below is full clone of above commented code
+    return f" * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * "
 
 
 def press_keys(*args: Union[float, str]) -> None:
