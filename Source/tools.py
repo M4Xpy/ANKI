@@ -173,7 +173,7 @@ def new_single_word_card() -> None:
 def translations_of_the(word: str) -> set:
     """ Give different variants of word tranlation
     >>> translations_of_the('ADJOIN')
-    {'ПРИМЫКАТЬ'}
+    {'ПРИМЫКАТЬ'
     """
     word = word.lower()
     translate_s = set(
