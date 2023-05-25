@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77eaada9-9a93-4250-9056-1973228cf51e" name="Changes" comment="change windows-latest on ubuntu-latest in tests.yml">
-      <change beforePath="$PROJECT_DIR$/Source/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/tools.py" afterDir="false" />
+    <list default="true" id="77eaada9-9a93-4250-9056-1973228cf51e" name="Changes" comment="break pytest detect_language('Hello, world!')">
+      <change beforePath="$PROJECT_DIR$/tests/tools_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/tools_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,20 +192,6 @@
       <option name="presentableId" value="Default" />
       <updated>1683729773650</updated>
       <workItem from="1684947498071" duration="61000" />
-    </task>
-    <task id="LOCAL-00011" summary="add run_program">
-      <created>1683819856961</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1683819856961</updated>
-    </task>
-    <task id="LOCAL-00012" summary="add star_separated_words_from">
-      <created>1683824720072</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1683824720072</updated>
     </task>
     <task id="LOCAL-00013" summary="temlate for anki cart maker for ChutGpt">
       <created>1683880616120</created>
@@ -536,7 +522,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685025174333</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="break docktest translations_of_the('ADJOIN')">
+      <created>1685027107611</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1685027107612</updated>
+    </task>
+    <task id="LOCAL-00061" summary="break pytest detect_language('Hello, world!')">
+      <created>1685027250183</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1685027250184</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -563,8 +563,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="extract open_google_image() from ctrl_4_open_google_image() add single/multi word(s) mode  to make_anki_card()" />
-    <MESSAGE value="some pep refines" />
     <MESSAGE value="add describing in some functions" />
     <MESSAGE value="add text.lower() to generate_audio_file()&#10;reformated star_separated_words_from()" />
     <MESSAGE value="add docktest multi_translations('ADJOIN')" />
@@ -588,6 +586,8 @@
     <MESSAGE value="adjust tests.yml" />
     <MESSAGE value="block docktedt in refers_mp3s" />
     <MESSAGE value="change windows-latest on ubuntu-latest in tests.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="change windows-latest on ubuntu-latest in tests.yml" />
+    <MESSAGE value="break docktest translations_of_the('ADJOIN')" />
+    <MESSAGE value="break pytest detect_language('Hello, world!')" />
+    <option name="LAST_COMMIT_MESSAGE" value="break pytest detect_language('Hello, world!')" />
   </component>
 </project>
