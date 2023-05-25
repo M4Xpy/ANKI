@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="77eaada9-9a93-4250-9056-1973228cf51e" name="Changes" comment="change windows-latest on ubuntu-latest in tests.yml">
+      <change beforePath="$PROJECT_DIR$/Source/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Source/tools.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Setup Script" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="correct_no_text_to_speech" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2PbdYxiPNoujzrBa6PTzKthopQ6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Я/Desktop/PythonProjectsFrom22_04_2023/ANKI/Source/two.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Я\Desktop\PythonProjectsFrom22_04_2023\ANKI" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.run_program">
+    <configuration name="run_program" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ANKI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Я\AppData\Local\Programs\Python\Python310\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/run_program.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tools" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/tools.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tools_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ANKI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Я\AppData\Local\Programs\Python\Python310\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/tools_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctests in tools" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="ANKI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Source" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Source/tools.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tools_test.Test.TestDetectLanguage" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="ANKI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tools_test.Test.TestDetectLanguage&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest" type="tests" factoryName="py.test" nameIsGenerated="true">
+      <module name="ANKI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="C:\Users\Я\Desktop\python_work\alien_invasion\ANKI\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;CUSTOM&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.tools" />
+      <item itemvalue="Python.tools_test" />
+      <item itemvalue="Python.run_program" />
+      <item itemvalue="Python tests.pytest" />
+      <item itemvalue="Python tests.Python tests for tools_test.Test.TestDetectLanguage" />
+      <item itemvalue="Python tests.Doctests in tools" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.run_program" />
+        <item itemvalue="Python tests.Doctests in tools" />
+        <item itemvalue="Python tests.Python tests for tools_test.Test.TestDetectLanguage" />
+        <item itemvalue="Python.tools_test" />
+        <item itemvalue="Python.tools" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="77eaada9-9a93-4250-9056-1973228cf51e" name="Changes" comment="" />
+      <created>1683729773650</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683729773650</updated>
+      <workItem from="1684947498071" duration="61000" />
+    </task>
+    <task id="LOCAL-00011" summary="add run_program">
+      <created>1683819856961</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1683819856961</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add star_separated_words_from">
+      <created>1683824720072</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1683824720072</updated>
+    </task>
+    <task id="LOCAL-00013" summary="temlate for anki cart maker for ChutGpt">
+      <created>1683880616120</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683880616120</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add request_for with pytest">
+      <created>1683892728863</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1683892728863</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add type annotations in tools_test.py">
+      <created>1683893719429</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1683893719429</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add make_anki_card and refers_mp3s functions to the tools">
+      <created>1683972156389</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1683972156389</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add without tests&#10;new_single_word_card()&#10;translations_of_the(word)&#10;press_keys(*args)&#10;change button assigns in run_program">
+      <created>1684154489871</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1684154489871</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add hotkey 'ctrl + 4' to open google image&#10;add to open_google_image default value and gif reuest">
+      <created>1684155848017</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1684155848017</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add doctest to translations_of_the()">
+      <created>1684160125723</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1684160125723</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add doctest to refers_mp3s">
+      <created>1684161344212</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1684161344212</updated>
+    </task>
+    <task id="LOCAL-00021" summary="correct doctest for translations_of_the(word)">
+      <created>1684162515342</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1684162515342</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add requirements.txt, setup.py and LICENCE">
+      <created>1684166262058</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1684166262058</updated>
+    </task>
+    <task id="LOCAL-00023" summary="'ctrl + c + s' instead 'ctrl + 1' work stable">
+      <created>1684221561881</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1684221561881</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add clipboard_copy_multi_translations() with simple soctest">
+      <created>1684223690122</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1684223690122</updated>
+    </task>
+    <task id="LOCAL-00025" summary="in new_single_word_card() refine word separation">
+      <created>1684224728015</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1684224728015</updated>
+    </task>
+    <task id="LOCAL-00026" summary="refactor request_for(). Delete 'send', add 'strip'">
+      <created>1684225862926</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1684225862926</updated>
+    </task>
+    <task id="LOCAL-00027" summary="change template in get_template() in templates.py">
+      <created>1684230642152</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1684230642153</updated>
+    </task>
+    <task id="LOCAL-00028" summary="change keyboard.send(&quot;tab&quot;) on press_keys(.25, 'tab', .25) and add mp3_and_refer_from(header)">
+      <created>1684238195243</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1684238195243</updated>
+    </task>
+    <task id="LOCAL-00029" summary="add 'ctrl + c + 3': formatter,copy_func_paste(func) and filter_lines(text)">
+      <created>1684337387876</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1684337387876</updated>
+    </task>
+    <task id="LOCAL-00030" summary="refactor clipboard_copy_multi_translations() to ctrl_c_q_multi_translations() + multi_translations(word)">
+      <created>1684339658515</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1684339658516</updated>
+    </task>
+    <task id="LOCAL-00031" summary="add ctrl_c_w_request_for() to request_for(text, template)">
+      <created>1684341594455</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1684341594455</updated>
+    </task>
+    <task id="LOCAL-00032" summary="refactored filter in filter_lines">
+      <created>1684410645489</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1684410645489</updated>
+    </task>
+    <task id="LOCAL-00033" summary="extract open_google_image() from ctrl_4_open_google_image() add single/multi word(s) mode  to make_anki_card()">
+      <created>1684421021167</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1684421021167</updated>
+    </task>
+    <task id="LOCAL-00034" summary="some pep refines">
+      <created>1684424059008</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1684424059008</updated>
+    </task>
+    <task id="LOCAL-00035" summary="add describing in some functions">
+      <created>1684482644039</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1684482644039</updated>
+    </task>
+    <task id="LOCAL-00036" summary="add text.lower() to generate_audio_file()&#10;reformated star_separated_words_from()">
+      <created>1684491982409</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1684491982409</updated>
+    </task>
+    <task id="LOCAL-00037" summary="add docktest multi_translations('ADJOIN')">
+      <created>1684497327467</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1684497327467</updated>
+    </task>
+    <task id="LOCAL-00038" summary="describe and change name from make_anki_card() to header_tab_mp3()">
+      <created>1684497702641</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1684497702641</updated>
+    </task>
+    <task id="LOCAL-00039" summary="add RADME.txt">
+      <created>1684499158341</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1684499158341</updated>
+    </task>
+    <task id="LOCAL-00040" summary="add get_template() to tools.py from deleted tamplate.py">
+      <created>1684500945622</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1684500945622</updated>
+    </task>
+    <task id="LOCAL-00041" summary="add pytest and some corrects to star_separated_words_from()">
+      <created>1684576851689</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1684576851689</updated>
+    </task>
+    <task id="LOCAL-00042" summary="add pytest and checking star in one line text to star_separated_words_from()">
+      <created>1684577802659</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1684577802659</updated>
+    </task>
+    <task id="LOCAL-00043" summary="add text.strip('_1234567890') to ctrl_4_open_google_image(text)">
+      <created>1684578070390</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1684578070390</updated>
+    </task>
+    <task id="LOCAL-00044" summary="add pyperclip.copy(header) to header_tab_mp3()  for comfy ctrl_4_open_google_image">
+      <created>1684578933587</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1684578933587</updated>
+    </task>
+    <task id="LOCAL-00045" summary="add line.strip()  to star_separated_words_from() and test_invisible_space()">
+      <created>1684580504563</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1684580504563</updated>
+    </task>
+    <task id="LOCAL-00046" summary="add word.strip('_1234567890')  to star_separated_words_from() and test_strip()">
+      <created>1684584563046</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1684584563046</updated>
+    </task>
+    <task id="LOCAL-00047" summary="add ctrl_5_get_data_from_damge_card()">
+      <created>1684815346488</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1684815346488</updated>
+    </task>
+    <task id="LOCAL-00048" summary="add ctrl_8_new_card_from_damage_card(), add \n to mp3 refers ,lines check in ctrl_4_open_google_image(), add new adress to generate_audio_file()">
+      <created>1684940999084</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1684940999084</updated>
+    </task>
+    <task id="LOCAL-00049" summary="deleted extra test_tools.py">
+      <created>1685013597569</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1685013597569</updated>
+    </task>
+    <task id="LOCAL-00050" summary="extend README.txt">
+      <created>1685015561342</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1685015561344</updated>
+    </task>
+    <task id="LOCAL-00051" summary="README.txt change to README.md with tags">
+      <created>1685019700397</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1685019700397</updated>
+    </task>
+    <task id="LOCAL-00052" summary="fix some typos in README.md">
+      <created>1685019978740</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1685019978740</updated>
+    </task>
+    <task id="LOCAL-00053" summary="experiment with github">
+      <created>1685021131502</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1685021131505</updated>
+    </task>
+    <task id="LOCAL-00054" summary="add tests.yml to .github/workflows">
+      <created>1685023144784</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1685023144784</updated>
+    </task>
+    <task id="LOCAL-00055" summary="adjust tests.yml">
+      <created>1685023692024</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1685023692028</updated>
+    </task>
+    <task id="LOCAL-00056" summary="adjust tests.yml">
+      <created>1685023917566</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1685023917566</updated>
+    </task>
+    <task id="LOCAL-00057" summary="block docktedt in refers_mp3s">
+      <created>1685024360801</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1685024360801</updated>
+    </task>
+    <task id="LOCAL-00058" summary="change windows-latest on ubuntu-latest in tests.yml">
+      <created>1685024808182</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1685024808182</updated>
+    </task>
+    <task id="LOCAL-00059" summary="change windows-latest on ubuntu-latest in tests.yml">
+      <created>1685025174333</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1685025174333</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="extract open_google_image() from ctrl_4_open_google_image() add single/multi word(s) mode  to make_anki_card()" />
+    <MESSAGE value="some pep refines" />
+    <MESSAGE value="add describing in some functions" />
+    <MESSAGE value="add text.lower() to generate_audio_file()&#10;reformated star_separated_words_from()" />
+    <MESSAGE value="add docktest multi_translations('ADJOIN')" />
+    <MESSAGE value="describe and change name from make_anki_card() to header_tab_mp3()" />
+    <MESSAGE value="add RADME.txt" />
+    <MESSAGE value="add get_template() to tools.py from deleted tamplate.py" />
+    <MESSAGE value="add pytest and some corrects to star_separated_words_from()" />
+    <MESSAGE value="add pytest and checking star in one line text to star_separated_words_from()" />
+    <MESSAGE value="add text.strip('_1234567890') to ctrl_4_open_google_image(text)" />
+    <MESSAGE value="add pyperclip.copy(header) to header_tab_mp3()  for comfy ctrl_4_open_google_image" />
+    <MESSAGE value="add line.strip()  to star_separated_words_from() and test_invisible_space()" />
+    <MESSAGE value="add word.strip('_1234567890')  to star_separated_words_from() and test_strip()" />
+    <MESSAGE value="add ctrl_5_get_data_from_damge_card()" />
+    <MESSAGE value="add ctrl_8_new_card_from_damage_card(), add \n to mp3 refers ,lines check in ctrl_4_open_google_image(), add new adress to generate_audio_file()" />
+    <MESSAGE value="deleted extra test_tools.py" />
+    <MESSAGE value="extend README.txt" />
+    <MESSAGE value="README.txt change to README.md with tags" />
+    <MESSAGE value="fix some typos in README.md" />
+    <MESSAGE value="experiment with github" />
+    <MESSAGE value="add tests.yml to .github/workflows" />
+    <MESSAGE value="adjust tests.yml" />
+    <MESSAGE value="block docktedt in refers_mp3s" />
+    <MESSAGE value="change windows-latest on ubuntu-latest in tests.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="change windows-latest on ubuntu-latest in tests.yml" />
+  </component>
+</project>
