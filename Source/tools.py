@@ -71,8 +71,8 @@ def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
     out_of, onto = {'ru': ('ru', 'en'), 'en': ('en', 'ru')}[lang or detect_language(input_text)]
     try:
         return Translator().translate(input_text, src=out_of, dest=onto).text
-    except AttributeError:
-        raise Exception("Translation failed. Check your network connection and try again.")
+    except :
+        return "Translation_failed._Check_your_network_connection_and_try_again."
 
 
 def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
@@ -206,14 +206,14 @@ def ctrl_c_3_multi_translations():
 def multi_translations(word: str) -> str:
     """ return star separated translated vars of getted word
     >>> multi_translations('ADJOIN')
-    ' * ПРИМЫКАТЬ * '
-    >>> assert multi_translations('ABLE_299') == ' * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or ' * СПОСОБНЫЙ * В СОСТОЯНИИ * '
+    'ADJOIN * ПРИМЫКАТЬ * '
+    >>> assert multi_translations('ABLE_299') == 'ABLE * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or 'ABLE * СПОСОБНЫЙ * В СОСТОЯНИИ * '
     """
     # word = word.strip(' _1234567890')                                                  # return 'ABLE' from 'ABLE_299'
     # translations = translations_of_the(word)                               # gives up to four translations of the word
-    # result = f" * {' * '.join(map(str, translations))} * "                  # return star separated translations words
+    # result = f"{word} * {' * '.join(map(str, translations))} * "                  # return star separated translations words
     # return result                                             #  one-liner below is full clone of above commented code
-    return f" * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * "
+    return f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * "
 
 
 def press_keys(*args: Union[float, str]) -> None:
