@@ -74,7 +74,7 @@ def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
     out_of, onto = {'ru': ('ru', 'en'), 'en': ('en', 'ru')}[lang or detect_language(input_text)]
     try:
         return Translator().translate(input_text, src=out_of, dest=onto).text
-    except :
+    except:
         return "Translation_failed._Check_your_network_connection_and_try_again."
 
 
@@ -166,18 +166,17 @@ def refers_mp3s(header: str) -> str:
 def new_single_word_card() -> None:
     """ save old card , then made new card ready to save """
     try:
+        in_text = 'no_in_text'
         press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
         in_text = pyperclip.paste()
         word = in_text.split()[0].split()[0].strip('_1234567890')
         keyboard.write(f" * {word} *[sound:{word}.mp3]")
         press_keys(0.25, 'tab')
         keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
-        time.sleep(0.1)
-        keyboard.send("ctrl + v")
-    except IndexError:
-        where_error('wrong hotkey ?', in_text)
     except:
-        where_error('unknown error provoked following data', in_text)
+        keyboard.write(f"unknown error provoked following data, {in_text=}")
+    time.sleep(0.1)
+    keyboard.send("ctrl + v")
 
 
 def where_error(report, *args):
@@ -286,6 +285,7 @@ def ctrl_8_new_card_from_damage_card():
     header_tab_mp3()
     press_keys(0.25, 'page up', 0.25, 'page up', 0.25, 'ctrl + v')
 
+
 def ctrl_a_listener():
     """ """
     global new_data
@@ -295,7 +295,6 @@ def ctrl_a_listener():
     new_data = pyperclip.paste()
     time.sleep(0.1)
     pyperclip.copy(old_data)
-
 
 
 def run_program():
