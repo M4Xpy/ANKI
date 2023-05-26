@@ -61,7 +61,7 @@ def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[
         if not save_file:
             return audio_file_path
     except:
-        return "audio_file_failed._Check_your_network_connection_and_try_again."
+        if_error("_return", "audio_file_failed._Check_your_network_connection_and_try_again.")
 
 
 def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
@@ -75,7 +75,7 @@ def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
     try:
         return Translator().translate(input_text, src=out_of, dest=onto).text
     except:
-        return "Translation_failed._Check_your_network_connection_and_try_again."
+        if_error("_return", "Translation_failed._Check_your_network_connection_and_try_again.")
 
 
 def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
@@ -173,18 +173,25 @@ def new_single_word_card() -> None:
         keyboard.write(f" * {word} *[sound:{word}.mp3]")
         press_keys(0.25, 'tab')
         keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
+    except IndexError:
+        if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
     except:
-        keyboard.write(f"unknown error provoked following data, {in_text=}")
+        if_error("keyboard_write", f"unknown error provoked following data, {in_text=}")
     time.sleep(0.1)
     keyboard.send("ctrl + v")
 
 
-def where_error(report, *args):
+def if_error(doing='_return', report='error'):
     """ """
     traceback.print_exc()
-    for arg in args:
-        report = f"{report} , {arg=}"
     print(report)
+    if doing == 'keyboard_write':
+        keyboard.write(report)
+    elif doing == 'pyperclip_copy':
+        pyperclip.copy(report)
+    elif doing == '_return':
+        return report
+
 
 
 def translations_of_the(word: str) -> set:
