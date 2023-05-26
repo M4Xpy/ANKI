@@ -131,13 +131,14 @@ def star_separated_words_from(text: str) -> str:
 
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
-    header = pyperclip.paste()
-    header = star_separated_words_from(header)
+    press_keys("ctrl + a", 0.1)
+    header = star_separated_words_from(new_data)
     keyboard.write(header)
     if header.count('*') > 2:
         press_keys(.25, 'tab', .25, "ctrl + end")
     time.sleep(.25)
     mp3_and_refer_from(header)
+    ctrl_4_open_google_image(header)
 
 
 def mp3_and_refer_from(header: str) -> None:
@@ -282,11 +283,23 @@ def ctrl_8_new_card_from_damage_card():
     header_tab_mp3()
     press_keys(0.25, 'page up', 0.25, 'page up', 0.25, 'ctrl + v')
 
+def ctrl_a_listener():
+    """ """
+    global new_data
+    old_data = pyperclip.paste()
+    time.sleep(0.1)
+    press_keys('ctrl + c', 0.1)
+    new_data = pyperclip.paste()
+    time.sleep(0.1)
+    pyperclip.copy(old_data)
+
+
 
 def run_program():
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
+        'ctrl + a': ctrl_a_listener,
         'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
         'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
         'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
