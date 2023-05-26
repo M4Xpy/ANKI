@@ -1,6 +1,7 @@
 import os
 import random
 import time
+import traceback
 import webbrowser
 from typing import Optional, Union
 
@@ -25,7 +26,7 @@ def uniq_name(input_string: str, seed_sign: int = None) -> str:
     #     else:
     #         output_string += char.lower()     # 19 to 20 possibility of single sign
     # return output_string                      # #-lines fully equal last comprehension line
-    return ''.join([char + char if random.random() < 0.05 else char for char in input_string[:20]])
+    return ''.join(char + char if random.random() < 0.05 else char for char in input_string[:20])
 
 
 def detect_language(text: str) -> str:
@@ -160,14 +161,27 @@ def refers_mp3s(header: str) -> str:
 
 def new_single_word_card() -> None:
     """ save old card , then made new card ready to save """
-    press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
-    in_text = pyperclip.paste()
-    word = in_text.split()[0].split()[0].strip('_1234567890')
-    keyboard.write(f" * {word} *[sound:{word}.mp3]")
-    press_keys(0.25, 'tab')
-    keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
-    time.sleep(0.1)
-    keyboard.send("ctrl + v")
+    try:
+        press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
+        in_text = pyperclip.paste()
+        word = in_text.split()[0].split()[0].strip('_1234567890')
+        keyboard.write(f" * {word} *[sound:{word}.mp3]")
+        press_keys(0.25, 'tab')
+        keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
+        time.sleep(0.1)
+        keyboard.send("ctrl + v")
+    except IndexError:
+        where_error('wrong hotkey ?', in_text)
+    except:
+        where_error('unknown error provoked following data', in_text)
+
+
+def where_error(report, *args):
+    """ """
+    traceback.print_exc()
+    for arg in args:
+        report = f"{report} , {arg=}"
+    print(report)
 
 
 def translations_of_the(word: str) -> set:
