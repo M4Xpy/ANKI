@@ -54,11 +54,14 @@ def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[
     if not lang:
         lang = detect_language(text)  # Detect language of the input_string
     audio_file_name = f'{text}.mp3'  # Generate audio file name
-    audio = gTTS(text=text, lang=lang, slow=False)  # Generate audio file
-    audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
-    audio.save(audio_file_path)
-    if not save_file:
-        return audio_file_path
+    try:
+        audio = gTTS(text=text, lang=lang, slow=False)  # Generate audio file
+        audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
+        audio.save(audio_file_path)
+        if not save_file:
+            return audio_file_path
+    except:
+        return "audio_file_failed._Check_your_network_connection_and_try_again."
 
 
 def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
@@ -306,9 +309,8 @@ def run_program():
         'ctrl + 1': header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
         'ctrl + 2': new_single_word_card,  # get cursor at the answer field in 'add new card', before click
         'ctrl + 4': ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
-        'ctrl + 5': ctrl_5_get_data_from_damge_card,  # my private case
-        'ctrl + 8': ctrl_8_new_card_from_damage_card,  # my private case
-
+        # 'ctrl + 5': ctrl_5_get_data_from_damge_card,  # my private case
+        # 'ctrl + 8': ctrl_8_new_card_from_damage_card,  # my private case
     }
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
