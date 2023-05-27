@@ -11,7 +11,7 @@ from googletrans import Translator
 from gtts import gTTS
 
 
-def uniq_name(input_string: str, seed_sign: int = None) -> str:
+def uniq_name(input_string: str, seed_sign: int = 0) -> str:
     """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
     >>> uniq_name("This is a test string.", seed_sign=1)
     'This is a  testt strinn'
@@ -170,15 +170,14 @@ def new_single_word_card() -> None:
         press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
         in_text = pyperclip.paste()
         word = in_text.split()[0].split()[0].strip('_1234567890')
-        keyboard.write(f" * {word} *[sound:{word}.mp3]")
-        press_keys(0.25, 'tab')
+        keyboard.write(f" * {word} *\n[sound:{word}.mp3]")
+        press_keys(0.1, 'tab', 0.1)
+        keyboard.send("ctrl + v")
         keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
     except IndexError:
         if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
     except:
         if_error("keyboard_write", f"unknown error provoked following data, {in_text=}")
-    time.sleep(0.1)
-    keyboard.send("ctrl + v")
 
 
 def if_error(doing='_return', report='error'):
@@ -191,7 +190,6 @@ def if_error(doing='_return', report='error'):
         pyperclip.copy(report)
     elif doing == '_return':
         return report
-
 
 
 def translations_of_the(word: str) -> set:
@@ -241,7 +239,7 @@ def filter_lines(text: str) -> str:
     >>> filter_lines("T\\nproverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
-    # chek_s = ('proverb', 'please note', 'phrases')
+    # chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))
     # filtered_lines = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
@@ -249,8 +247,8 @@ def filter_lines(text: str) -> str:
     # result = '\n'.join(filtered_lines)
     # result = result.replace('Translation:', '')
     # return result
-    return '\n'.join(line for line in text.splitlines() if not any(
-        check in line.lower() for check in ('proverb', 'please note', 'phrases'))).replace('Translation:', '')
+    return '\n'.join(line for line in text.splitlines() if not any(check in line.lower() for check in (
+    'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))).replace('Translation:', '')
 
 
 def copy_func_paste(func) -> None:
@@ -271,7 +269,7 @@ def get_template(template: str, text: str) -> str:
     'This is a test'
     """
     return {
-        'ai': f"Provide single-root words and forms for the word '{text}' , along with popular phrases(better proverbs)  that directly include these single-root words and their translations into Russian.",
+        'ai': f"Provide all cognate nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.\nProvide popular phrases(better proverbs)  with word '{text}' , along with  translations into Russian",
         'check': f"This is a {text}"
 
     }[template]
@@ -304,7 +302,7 @@ def ctrl_a_listener():
     pyperclip.copy(old_data)
 
 
-def run_program():
+def run_program() -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
