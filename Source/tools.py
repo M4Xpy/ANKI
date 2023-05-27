@@ -210,17 +210,21 @@ def ctrl_c_3_multi_translations():
     return copy_func_paste(multi_translations)
 
 
-def multi_translations(word: str) -> str:
+def multi_translations(word_s: str) -> str:
     """ return star separated translated vars of getted word
     >>> multi_translations('ADJOIN')
     'ADJOIN * ПРИМЫКАТЬ * '
     >>> assert multi_translations('ABLE_299') == 'ABLE * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or 'ABLE * СПОСОБНЫЙ * В СОСТОЯНИИ * '
     """
-    # word = word.strip(' _1234567890')                                                  # return 'ABLE' from 'ABLE_299'
-    # translations = translations_of_the(word)                               # gives up to four translations of the word
-    # result = f"{word} * {' * '.join(map(str, translations))} * "                  # return star separated translations words
-    # return result                                             #  one-liner below is full clone of above commented code
-    return f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * "
+    # result_s = []
+    # for _word in word_s.replace(',', ' ').split():
+    #     word = _word.strip(' _1234567890')  # return 'ABLE' from 'ABLE_299'
+    #     translations = translations_of_the(word)  # gives up to four translations of the word
+    #     result = f"{word} * {' * '.join(map(str, translations))} * "  # return star separated translations words
+    #     result_s.append(result)
+    # return '\n\n'.join(result for result in result_s)  # one-liner below is full clone of above commented code
+    return '\n\n'.join(f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * " for word in
+                       word_s.replace(',', ' ').split())
 
 
 def press_keys(*args: Union[float, str]) -> None:
@@ -248,7 +252,8 @@ def filter_lines(text: str) -> str:
     # result = result.replace('Translation:', '')
     # return result
     return '\n'.join(line for line in text.splitlines() if not any(check in line.lower() for check in (
-    'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))).replace('Translation:', '')
+        'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))).replace('Translation:',
+                                                                                                      '')
 
 
 def copy_func_paste(func) -> None:
