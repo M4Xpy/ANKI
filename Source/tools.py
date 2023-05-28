@@ -223,8 +223,9 @@ def multi_translations(word_s: str) -> str:
     #     result = f"{word} * {' * '.join(map(str, translations))} * "  # return star separated translations words
     #     result_s.append(result)
     # return '\n\n'.join(result for result in result_s)  # one-liner below is full clone of above commented code
-    return '\n\n'.join(f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * " for word in
-                       word_s.replace(',', ' ').split())
+    return '\n\n'.join(
+        f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * " for word in
+        word_s.replace(',', ' ').split())
 
 
 def press_keys(*args: Union[float, str]) -> None:
