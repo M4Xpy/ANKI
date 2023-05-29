@@ -140,7 +140,7 @@ def header_tab_mp3() -> None:
     len_mp3refers = 2 if len(mp3refers) > 3 else len(mp3refers) + 1
     keyboard.write(f"{header}\n{chr(10).join(mp3refers[:len_mp3refers])}")
     press_keys(.25, 'tab', .25, "ctrl + end")
-    keyboard.write("\n".join(mp3refers[len_mp3refers:]))
+    keyboard.write(f"\n\n{chr(10).join(mp3refers[len_mp3refers:])}")
     ctrl_4_open_google_image(header)
 
 
@@ -314,6 +314,7 @@ def run_program() -> None:
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
         'ctrl + a': ctrl_a_listener,
+        'ctrl + c': ctrl_a_listener,
         'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
         'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
         'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
