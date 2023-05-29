@@ -35,6 +35,9 @@ coalesced  слились  * СЛИЛСЯ * СЛИВАТЬСЯ * СЛИЛИСЬ 
         def test_strip(self):
             assert star_separated_words_from(' * APPOSITE_11662 * ') == ' * APPOSITE * '
 
+        def test_one_line_no_russian(self):
+            assert star_separated_words_from('PUNDIT_8205 * УМНЫЙ * ЭКСПЕРТ * _пандит,ученый ') == ' * PUNDIT * '
+
     class TestFilterLines:
         def test_filter_lines(self):
             text = """Nouns:
@@ -78,3 +81,5 @@ Principally - Преимущественно (Preimushchestvenno)
 "The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
 "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
 "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
+
+
