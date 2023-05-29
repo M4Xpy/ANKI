@@ -136,30 +136,24 @@ def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
     press_keys("ctrl + a", 0.1)
     header = star_separated_words_from(new_data)
-    keyboard.write(header)
-    if header.count('*') > 2:
-        press_keys(.25, 'tab', .25, "ctrl + end")
-    time.sleep(.25)
-    mp3_and_refer_from(header)
+    mp3refers = refers_mp3s(header)
+    len_mp3refers = 2 if len(mp3refers) > 3 else len(mp3refers) + 1
+    keyboard.write(f"{header}\n{chr(10).join(mp3refers[:len_mp3refers])}")
+    press_keys(.25, 'tab', .25, "ctrl + end")
+    keyboard.write("\n".join(mp3refers[len_mp3refers:]))
     ctrl_4_open_google_image(header)
 
 
-def mp3_and_refer_from(header: str) -> None:
-    """ make mp3s and write its refers """
-    mp3refers = refers_mp3s(header)
-    keyboard.write(f'\n\n{mp3refers}')
-
-
-def refers_mp3s(header: str) -> str:
+def refers_mp3s(header: str) -> list[str]:
     """ make mp3 reference
-    # >>> refers_mp3s('test')[:-1]
-    # '[sound:test.mp3]'
+    >>> refers_mp3s('test')
+    ['[sound:test.mp3]']
     """
     word_s = header.strip(' *').split(' * ')
-    mp3refers = ''
+    mp3refers = []
     for word in word_s:
         generate_audio_file(word, save_file=1, lang='en')
-        mp3refers += f'[sound:{word}.mp3]\n'
+        mp3refers.append(f'[sound:{word}.mp3]')
     return mp3refers
 
 
@@ -206,8 +200,15 @@ def translations_of_the(word: str) -> set:
     return translate_s
 
 
+def make_func_write(func):
+    # text = pyperclip.paste()
+    # text = func(text)
+    # keyboard.write(text)
+    keyboard.write(func(pyperclip.paste()))
+
+
 def ctrl_c_3_multi_translations():
-    return copy_func_paste(multi_translations)
+    return make_func_write(multi_translations)
 
 
 def multi_translations(word_s: str) -> str:
@@ -328,4 +329,4 @@ def run_program() -> None:
 
 
 if __name__ == '__main__':
-    pass
+    run_program()
