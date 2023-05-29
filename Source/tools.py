@@ -128,7 +128,7 @@ def star_separated_words_from(text: str) -> str:
     """
     lines = [line.split()[0].strip('_1234567890') for line in text.splitlines() if line.strip() and '.mp3' not in line]
     if len(lines) < 2 and '*' in text:
-        return f" * {' * '.join(word.strip('_1234567890') for word in text.split() if '*' not in word and '.mp3' not in word and ord(word[1]) < 128)} * "
+        return f" * {' * '.join(word.strip('_1234567890') for word in text.split() if detect_language(word) == 'en' and not any(check in word for check in ('mp3', '*', ',')))} * "
     return f" * {' * '.join(lines)} * "
 
 
