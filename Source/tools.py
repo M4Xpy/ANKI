@@ -146,8 +146,7 @@ def header_tab_mp3() -> None:
 
 def refers_mp3s(header: str) -> list[str]:
     """ make mp3 reference
-    >>> refers_mp3s('test')
-    ['[sound:test.mp3]']
+    >>> assert refers_mp3s('test') == ['[sound:test.mp3]']
     """
     word_s = header.strip(' *').split(' * ')
     mp3refers = []
