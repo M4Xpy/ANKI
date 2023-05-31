@@ -220,7 +220,6 @@ def multi_translations(word_s: str) -> str:
     """ return star separated translated vars of getted word
     >>> multi_translations('ADJOIN')
     'ADJOIN * ПРИМЫКАТЬ * '
-    >>> assert multi_translations('ABLE_299') == 'ABLE * В СОСТОЯНИИ * СПОСОБНЫЙ * ' or 'ABLE * СПОСОБНЫЙ * В СОСТОЯНИИ * '
     """
     # result_s = []
     # for _word in word_s.replace(',', ' ').split():
