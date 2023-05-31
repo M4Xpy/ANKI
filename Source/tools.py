@@ -3,7 +3,7 @@ import random
 import time
 import traceback
 import webbrowser
-from typing import Optional, Union
+from typing import Optional, Union, Callable
 
 import keyboard as keyboard
 import pyperclip
@@ -111,11 +111,12 @@ def request_for(text: str, template: Optional[str] = 'ai') -> str:
     """
     # text = text.strip(' _1234567890')
     # result = get_template(template, text)
-    # return result                           # code above(for reading and refactoring) is the same code as under
+    # return result        # code above(for reading, debugging and refactoring) is the same steps as in under one-liner
     return get_template(template, text.strip(' _1234567890'))
 
 
 def ctrl_c_w_request_for() -> None:
+    """ return to the clipboard the text received from the clipboard, processed by request_for """
     return copy_func_paste(request_for)
 
 
@@ -141,7 +142,6 @@ def header_tab_mp3() -> None:
     keyboard.write(f"{header}\n{chr(10).join(mp3refers[:len_mp3refers])}")
     press_keys(.25, 'tab', .25, "ctrl + end")
     keyboard.write(f"\n\n{chr(10).join(mp3refers[len_mp3refers:])}")
-    #ctrl_4_open_google_image(header)
 
 
 def refers_mp3s(header: str) -> list[str]:
@@ -165,8 +165,7 @@ def new_single_word_card() -> None:
         in_text = pyperclip.paste()
         word = in_text.split()[0].split()[0].strip('_1234567890')
         keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
-        press_keys(0.1, 'tab', 0.1)
-        keyboard.send("ctrl + v")
+        press_keys(0.1, 'tab', 0.1, 'ctrl + v')
         keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
     except IndexError:
         if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
@@ -175,7 +174,11 @@ def new_single_word_card() -> None:
 
 
 def if_error(doing='_return', report='error'):
-    """ """
+    """ write traceback , error message
+    >>> if_error()
+    error
+    'error'
+    """
     traceback.print_exc()
     print(report)
     if doing == 'keyboard_write':
@@ -200,14 +203,16 @@ def translations_of_the(word: str) -> set:
     return translate_s
 
 
-def make_func_write(func):
+def make_func_write(func: Callable[[str], str]) -> None:
+    """ take data in clipboard , doing function , return result in clipboard"""
     # text = pyperclip.paste()
     # text = func(text)
     # keyboard.write(text)
     keyboard.write(func(pyperclip.paste()))
 
 
-def ctrl_c_3_multi_translations():
+def ctrl_c_3_multi_translations() -> None:
+    """ take data in clipboard , make up to 4 translations , return result in clipboard"""
     return make_func_write(multi_translations)
 
 
@@ -223,7 +228,8 @@ def multi_translations(word_s: str) -> str:
     #     translations = translations_of_the(word)  # gives up to four translations of the word
     #     result = f"{word} * {' * '.join(map(str, translations))} * "  # return star separated translations words
     #     result_s.append(result)
-    # return '\n\n'.join(result for result in result_s)  # one-liner below is full clone of above commented code
+    # result = '\n\n'.join(result for result in result_s)
+    # return result        # code above(for reading, debugging and refactoring) is the same steps as in under one-liner
     return '\n\n'.join(
         f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * " for word in
         word_s.replace(',', ' ').split())
@@ -258,7 +264,7 @@ def filter_lines(text: str) -> str:
                                                                                                       '')
 
 
-def copy_func_paste(func) -> None:
+def copy_func_paste(func: Callable[[str], str]) -> None:
     """ return to the clipboard the text received from the clipboard, processed by the provided function """
     # text = pyperclip.paste()
     # text = func(text)
@@ -266,12 +272,13 @@ def copy_func_paste(func) -> None:
     pyperclip.copy(func(pyperclip.paste()))
 
 
-def ctrl_c_q_formatter():
+def ctrl_c_q_formatter() -> None:
+    """ take data from clipboard , filtered lines , return result to clipboard  """
     return copy_func_paste(filter_lines)
 
 
 def get_template(template: str, text: str) -> str:
-    """
+    """ return chosen template with given word
     >>> get_template(template='check', text='test')
     'This is a test'
     """
@@ -282,24 +289,8 @@ def get_template(template: str, text: str) -> str:
     }[template]
 
 
-def ctrl_5_get_data_from_damge_card():
-    """ """
-    count = 0
-    press_keys('ctrl + a', 0.2)
-    keyboard.write(f'{count}')
-    count += 1
-    press_keys('tab', 0.2, 'ctrl + a', 0.2, 'ctrl + c')
-
-
-def ctrl_8_new_card_from_damage_card():
-    """ """
-    press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
-    header_tab_mp3()
-    press_keys(0.25, 'page up', 0.25, 'page up', 0.25, 'ctrl + v')
-
-
-def ctrl_a_listener():
-    """ """
+def ctrl_a_listener() -> None:
+    """ if 'ctrl + a' pressed, automatically added pressing 'ctrl + c' """
     global new_data
     old_data = pyperclip.paste()
     time.sleep(0.1)
@@ -310,8 +301,7 @@ def ctrl_a_listener():
 
 
 def run_program() -> None:
-    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
-    """
+    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
     hotkeys = {  # Create a dictionary of hotkeys and functions
         'space + enter': _a_lot_of_new_single_card,
         'ctrl + a': ctrl_a_listener,
@@ -321,19 +311,18 @@ def run_program() -> None:
         'ctrl + 1': header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
         'ctrl + 2': new_single_word_card,  # get cursor at the answer field in 'add new card', before click
         'ctrl + 4': ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
-        # 'ctrl + 5': ctrl_5_get_data_from_damge_card,  # my private case
-        # 'ctrl + 8': ctrl_8_new_card_from_damage_card,  # my private case
     }
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
     keyboard.wait()  # Start the keyboard listener
 
 
-def _a_lot_of_new_single_card():
+def _a_lot_of_new_single_card() -> None:
+    """ take new line from lines_hub, make new card , open google image"""
     lines_hub = """ """
 
     lines = [line for line in lines_hub.splitlines() if len(line.strip(' *@')) > 3]
-    first = lines[-1].split()[0]
+    first = lines[-1].split()[0]  # while cycle of card making , google image opened
     while True:
         if keyboard.is_pressed('space + enter'):
             try:
