@@ -141,7 +141,7 @@ def header_tab_mp3() -> None:
     keyboard.write(f"{header}\n{chr(10).join(mp3refers[:len_mp3refers])}")
     press_keys(.25, 'tab', .25, "ctrl + end")
     keyboard.write(f"\n\n{chr(10).join(mp3refers[len_mp3refers:])}")
-    ctrl_4_open_google_image(header)
+    #ctrl_4_open_google_image(header)
 
 
 def refers_mp3s(header: str) -> list[str]:
@@ -164,7 +164,7 @@ def new_single_word_card() -> None:
         press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
         in_text = pyperclip.paste()
         word = in_text.split()[0].split()[0].strip('_1234567890')
-        keyboard.write(f" * {word} *\n[sound:{word}.mp3]")
+        keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
         press_keys(0.1, 'tab', 0.1)
         keyboard.send("ctrl + v")
         keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
@@ -313,8 +313,8 @@ def run_program() -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
+        'space + enter': _a_lot_of_new_single_card,
         'ctrl + a': ctrl_a_listener,
-        'ctrl + c': ctrl_a_listener,
         'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
         'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
         'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
@@ -329,5 +329,22 @@ def run_program() -> None:
     keyboard.wait()  # Start the keyboard listener
 
 
-if __name__ == '__main__':
-    run_program()
+def _a_lot_of_new_single_card():
+    lines_hub = """ """
+
+    lines = [line for line in lines_hub.splitlines() if len(line.strip(' *@')) > 3]
+    first = lines[-1].split()[0]
+    while True:
+        if keyboard.is_pressed('space + enter'):
+            try:
+                text = lines.pop()
+                pyperclip.copy(text)
+                time.sleep(0.1)
+                new_single_word_card()
+                time.sleep(0.1)
+                ctrl_4_open_google_image(lines[-1].split()[0])
+                if first:
+                    ctrl_4_open_google_image(first)
+                    first = None
+            except IndexError:
+                raise IndexError('end of list')
