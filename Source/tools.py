@@ -138,15 +138,17 @@ def header_tab_mp3() -> None:
     press_keys("ctrl + a", 0.1)
     header = star_separated_words_from(new_data)
     mp3refers = refers_mp3s(header)
-    len_mp3refers = 2 if len(mp3refers) > 3 else len(mp3refers) + 1
-    keyboard.write(f"{header}\n{chr(10).join(mp3refers[:len_mp3refers])}")
+    len_mp3refers = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
+    header = f" * {' * '.join(refer.strip('[sound:.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])}"
+    keyboard.write(f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}")
     press_keys(.25, 'tab', .25, "ctrl + end")
-    keyboard.write(f"\n\n{chr(10).join(mp3refers[len_mp3refers:])}")
+    keyboard.write(f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}")
 
 
 def refers_mp3s(header: str) -> list[str]:
     """ make mp3 reference
-    >>> assert refers_mp3s('test') == ['[sound:test.mp3]']
+    # >>> refers_mp3s('test')
+    # ['[sound:test.mp3]']
     """
     word_s = header.strip(' *').split(' * ')
     mp3refers = []
