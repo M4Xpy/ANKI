@@ -46,7 +46,9 @@ def detect_language(text: str) -> str:
 
 
 def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[str] = None) -> Optional[str]:
-    """Generates audio file of the input_string in its detected language."""
+    """Generates audio file of the input_string in its detected language.
+    >>> generate_audio_file(text='test', save_file=-1, lang='en')
+    """
     text = text.lower()
     folder = ('C:\\Users\\Я\\Desktop\\audio',
               f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
