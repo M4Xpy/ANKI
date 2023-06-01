@@ -1,5 +1,3 @@
-from Source.mp3name_detector import one_line_code_compressor
-
 
 def one_line_code_compressor(code: str):
     """ Make one-line code from many-line code
