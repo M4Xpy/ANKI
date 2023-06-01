@@ -1,8 +1,9 @@
+import os
 import re
 from typing import Optional
 
 file_path = 'E:\\test_txt.txt', \
-            "..\\additional_data\\Карточки в простой текст.txt"
+            os.path.join(os.path.dirname(__file__), "..", "additional_data", "Карточки в простой текст.txt")
 
 
 def refers_finder(path_of_file: str, pattern: Optional[str] = '.{10}.mp3', cut: Optional[str] = '[sound:') -> set[str]:
