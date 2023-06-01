@@ -3,7 +3,7 @@ from typing import Optional
 
 file_path = 'C:\\Users\\Я\\Desktop\\D  .    3   .   1.txt', 'C:\\Users\\Я\\Desktop\\Все колоды.txt', \
         'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\Карточки в простой текст.txt', \
-        'E:\\test_txt.txt',
+            'E:\\test_txt.txt',
 
 
 def refers_finder(path_of_file: str, pattern: Optional[str] = '.{10}.mp3', cut: Optional[str] = '[sound:') -> set[str]:
@@ -16,9 +16,9 @@ def refers_finder(path_of_file: str, pattern: Optional[str] = '.{10}.mp3', cut: 
     with open(path_of_file, encoding="utf-8") as file:
         return set(refer.strip(cut) for refer in re.findall(pattern, file.read()))
     #     content = file.read()
-    #     snips = re.findall(pattern, content)
+    #     snips = re.findall(pattern, content)                                     # find snippets with certain pattern
     #     files = set()
     #     for refer in snips:
-    #         file = refer.strip(cut)
+    #         file = refer.strip(cut)                                                 # cut out file-refer from snippet
     #         files.add(file)
-    # return files
+    # return files     # commented code(for reading, debugging and refactoring) is the same steps as in above one-liner
