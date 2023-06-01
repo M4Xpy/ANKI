@@ -48,8 +48,10 @@ def detect_language(text: str) -> str:
 def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[str] = None) -> Optional[str]:
     """Generates audio file of the input_string in its detected language."""
     text = text.lower()
-    folder = ('C:\\Users\\Я\\Desktop\\audio', f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
-              f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media")[
+    folder = ('C:\\Users\\Я\\Desktop\\audio',
+              f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
+              f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
+              f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\mp3s_for_tests")[
         save_file]
     if not lang:
         lang = detect_language(text)  # Detect language of the input_string
@@ -145,15 +147,15 @@ def header_tab_mp3() -> None:
     keyboard.write(f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}")
 
 
-def refers_mp3s(header: str) -> list[str]:
+def refers_mp3s(header: str, save_file: Optional[int] = 1) -> list[str]:
     """ make mp3 reference
-    # >>> refers_mp3s('test')
-    # ['[sound:test.mp3]']
+    >>> refers_mp3s('test', save_file=-1)
+    ['[sound:test.mp3]']
     """
     word_s = header.strip(' *').split(' * ')
     mp3refers = []
     for word in word_s:
-        generate_audio_file(word, save_file=1, lang='en')
+        generate_audio_file(word, save_file, lang='en')
         mp3refers.append(f'[sound:{word}.mp3]')
     return mp3refers
 
