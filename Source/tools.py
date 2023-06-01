@@ -120,9 +120,7 @@ def request_for(text: str, template: Optional[str] = 'ai') -> str:
 
 
 def ctrl_c_w_request_for() -> None:
-    """ return to the clipboard the text received from the clipboard, processed by request_for
-    >>> ctrl_c_w_request_for()
-    """
+    """ return to the clipboard the text received from the clipboard, processed by request_for"""
     return copy_func_paste(request_for)
 
 
