@@ -51,7 +51,7 @@ def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[
     folder = ('C:\\Users\\Я\\Desktop\\audio',
               f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
               f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
-              f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\mp3s_for_tests")[
+              os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests"))[
         save_file]
     if not lang:
         lang = detect_language(text)  # Detect language of the input_string
@@ -149,8 +149,8 @@ def header_tab_mp3() -> None:
 
 def refers_mp3s(header: str, save_file: Optional[int] = 1) -> list[str]:
     """ make mp3 reference
-    # >>> refers_mp3s('test', save_file=-1)
-    # ['[sound:test.mp3]']
+    >>> refers_mp3s('test', save_file=-1)
+    ['[sound:test.mp3]']
     """
     word_s = header.strip(' *').split(' * ')
     mp3refers = []
