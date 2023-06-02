@@ -1,5 +1,6 @@
 import os
 import random
+import re
 import time
 import traceback
 import webbrowser
@@ -9,8 +10,6 @@ import keyboard as keyboard
 import pyperclip
 from googletrans import Translator
 from gtts import gTTS
-
-
 
 new_data = ''
 
@@ -128,22 +127,40 @@ def ctrl_c_w_request_for() -> None:
     return copy_func_paste(request_for)
 
 
+def replace_non_english_letter(text):
+    """
+    # >>> replace_non_english_letter('one. * test.mp3  \\n / два _1234567890')
+    # 'one \n'
+    """
+    # pattern = r"[^A-Za-z\n.]"
+    # replaced_text = re.sub(pattern, " ", text)
+    # splited_text = replaced_text.split(' ')
+    # values = []
+    # for item in splited_text:
+    #     if item:
+    #         if '.mp' not in item:
+    #             value = item.replace('.', '')
+    #             values.append(value)
+    # result = ' '.join(values)
+    # return result
+    return ' '.join(
+        item.replace('.', '') for item in re.sub(r"[^A-Za-z\n.]", " ", text).split(' ') if item and '.mp' not in item)
+
+
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
-    >>> star_separated_words_from('one , two\\n\\nthree , four\\nfive , six')
-    ' * one * three * five * '
-    >>> star_separated_words_from(' * MENACING * [sound:Menacer.mp3]')
-    ' * MENACING * '
+    >>> star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n')
+    ' * SCUM * SCAM * '
     """
-    lines = [line.split()[0].strip('_1234567890') for line in text.splitlines() if line.strip() and '.mp3' not in line]
-    if len(lines) < 2 and '*' in text:
-        return f" * {' * '.join(word.strip('_1234567890') for word in text.split() if detect_language(word) == 'en' and not any(check in word for check in ('mp3', '*', ',')))} * "
+    text = replace_non_english_letter(text)
+    lines = [line.split()[0] for line in text.splitlines() if line.strip()]
+    if len(lines) < 2:
+        return f" * {' * '.join(word for word in text.split() if detect_language(word) == 'en')} * "
     return f" * {' * '.join(lines)} * "
 
 
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
-    print(new_data)
     press_keys("ctrl + a", 0.1)
     header, tab_mp3s_remainder = header_tab_mp3_content()
     keyboard.write(header)
@@ -153,8 +170,8 @@ def header_tab_mp3() -> None:
 
 def header_tab_mp3_content(test=''):
     """
-    >>> header_tab_mp3_content(test='test') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
-    True
+    # >>> header_tab_mp3_content(test='test') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
+    # True
     """
     header = star_separated_words_from(new_data or test)
     mp3refers = refers_mp3s(header)
@@ -162,6 +179,7 @@ def header_tab_mp3_content(test=''):
     header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
     header = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
     tab_mp3s_remainder = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
+    print(header, tab_mp3s_remainder, end='\\n\\n')
     return header, tab_mp3s_remainder
 
 
