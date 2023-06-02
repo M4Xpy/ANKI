@@ -146,12 +146,17 @@ def header_tab_mp3() -> None:
     keyboard.write(tab_mp3s_remainder)
 
 
-def header_tab_mp3_content():
-
+def header_tab_mp3_content(test=''):
+    """
+    >>> header_tab_mp3_content(test=' * test * ') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
+    True
+    """
+    if test:
+        new_data = test
     header = star_separated_words_from(new_data)
     mp3refers = refers_mp3s(header)
     len_mp3refers = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
-    header = f" * {' * '.join(refer.strip('[sound:.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
+    header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
     header = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
     tab_mp3s_remainder = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
     return header, tab_mp3s_remainder

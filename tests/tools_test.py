@@ -16,6 +16,15 @@ class Test:
                 detect_language('')
 
     class TestStarSeparatedWordsFrom:
+        def test_heede_insteed_heeded(self):
+            assert star_separated_words_from("""HEED_7701 _внимание, осторожность
+
+heedless * ЛЕГКОМЫСЛЕННЫЙ * НЕБРЕЖНО * БЕСПЕЧНЫЙ * 
+
+heeded * ПРИСЛУШАТЬСЯ * УСЛЫШАННЫЙ * ПРИСЛУШАЛСЯ * ПРИСЛУШИВАЛСЯ * 
+
+heeding * ВНИМАТЕЛЕН * ВНИМАНИЕ * ПРИСЛУШИВАТЬСЯ * ПРИСЛУШИВАЯСЬ * """) == ' * HEED * heedless * heeded * heeding * '
+
         def test_star_separated_russian_words(self):
             assert star_separated_words_from(
                 """SALIVA_9006 _слюна
@@ -106,6 +115,11 @@ Principally - Преимущественно (Preimushchestvenno)
 
     class TestHeaderTabMp3Content:
         def test_header_tab_mp3_content(self):
-            assert header_tab_mp3_content(new_data=' * TEST * TEST * TEST * TEST * ') == (
-            ' * TEST * TEST * TEST * TEST * \n[sound:TEST.mp3]\n[sound:TEST.mp3]',
-            '\n\n[sound:TEST.mp3]\n[sound:TEST.mp3]')
+            assert header_tab_mp3_content(test=' * TEST * TEST * TEST * TEST * ') == (
+                ' * TEST * TEST * TEST * TEST * \n[sound:TEST.mp3]\n[sound:TEST.mp3]',
+                '\n\n[sound:TEST.mp3]\n[sound:TEST.mp3]')
+
+        def test_heeded_insteed_heede(self):
+            assert header_tab_mp3_content(test=' * HEED * heedless * heeded * heeding * ') == (
+            ' * heeded * heeding * HEED * heedless * \n[sound:heeded.mp3]\n[sound:heeding.mp3]',
+            '\n\n[sound:HEED.mp3]\n[sound:heedless.mp3]')
