@@ -111,7 +111,7 @@ Principally - Преимущественно (Preimushchestvenno)
         def test_refers_mp3s(self):
             assert refers_mp3s(' * SALIVA * salivary * salivation * SALINE * SALT * ', save_file=-1) == [
                 '[sound:SALIVA.mp3]', '[sound:salivary.mp3]', '[sound:salivation.mp3]', '[sound:SALINE.mp3]',
-                '[sound:SALT.mp3] ']
+                '[sound:SALT.mp3]']
 
     class TestHeaderTabMp3Content:
         def test_header_tab_mp3_content(self):

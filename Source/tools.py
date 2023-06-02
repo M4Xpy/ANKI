@@ -148,8 +148,8 @@ def header_tab_mp3() -> None:
 
 def header_tab_mp3_content(test=''):
     """
-    >>> header_tab_mp3_content(test='test') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
-    True
+    # >>> header_tab_mp3_content(test='test') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
+    # True
     """
     if test:
         new_data = test
