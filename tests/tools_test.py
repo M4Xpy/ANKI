@@ -1,6 +1,6 @@
 import pytest
 
-from Source.tools import detect_language, star_separated_words_from, filter_lines
+from Source.tools import detect_language, star_separated_words_from, filter_lines, refers_mp3s, header_tab_mp3_content
 
 
 class Test:
@@ -16,6 +16,22 @@ class Test:
                 detect_language('')
 
     class TestStarSeparatedWordsFrom:
+        def test_star_separated_russian_words(self):
+            assert star_separated_words_from(
+                """SALIVA_9006 _слюна
+
+salivary * СЛЮНОТЕЧЕНИЕ * СЛЮНООТДЕЛЕНИЕ * К СЛЮНЕ * СЛЮННЫЕ ЖЕЛЕЗЫ * 
+
+salivation * СЛЮНООТДЕЛЕНИЕ * ДО СЛЮНООТДЕЛЕНИЯ * 
+
+SALINE_8131 _соляной, физиологический раствор, солончак, солевой раствор, солевой, соленый, соль
+
+SALT_2685 _соль, солить, соленый, соляной, поваренная соль, солевой, засаливать, засоленный, изюминка
+
+
+"""
+            ) == ' * SALIVA * salivary * salivation * SALINE * SALT * '
+
         def test_star_separated_words_from(self):
             assert star_separated_words_from(
                 f' * BLASPHEMY * blasphemous * blaspheme * blasphemer *\\n[sound:BLASPHEMY.mp3]\\n[sound:blasphemous.mp3]'
@@ -82,4 +98,14 @@ Principally - Преимущественно (Preimushchestvenno)
 "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
 "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
 
+    class TestRefersMp3s:
+        def test_refers_mp3s(self):
+            assert refers_mp3s(' * SALIVA * salivary * salivation * SALINE * SALT * ', save_file=-1) == [
+                '[sound:SALIVA.mp3]', '[sound:salivary.mp3]', '[sound:salivation.mp3]', '[sound:SALINE.mp3]',
+                '[sound:SALT.mp3]']
 
+    class TestHeaderTabMp3Content:
+        def test_header_tab_mp3_content(self):
+            assert header_tab_mp3_content(new_data=' * TEST * TEST * TEST * TEST * ') == (
+            ' * TEST * TEST * TEST * TEST * \n[sound:TEST.mp3]\n[sound:TEST.mp3]',
+            '\n\n[sound:TEST.mp3]\n[sound:TEST.mp3]')

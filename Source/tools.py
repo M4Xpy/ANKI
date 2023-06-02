@@ -65,7 +65,7 @@ def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[
         if not save_file:
             return audio_file_path
     except:
-        if_error("_return", "audio_file_failed._Check_your_network_connection_and_try_again.")
+        if_error("_return", "generate_audio_file_failed._Check_your_network_connection_and_try_again.")
 
 
 def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
@@ -140,13 +140,21 @@ def star_separated_words_from(text: str) -> str:
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
     press_keys("ctrl + a", 0.1)
+    header, tab_mp3s_remainder = header_tab_mp3_content()
+    keyboard.write(header)
+    press_keys(.25, 'tab', .25, "ctrl + end")
+    keyboard.write(tab_mp3s_remainder)
+
+
+def header_tab_mp3_content():
+
     header = star_separated_words_from(new_data)
     mp3refers = refers_mp3s(header)
     len_mp3refers = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
-    header = f" * {' * '.join(refer.strip('[sound:.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])}"
-    keyboard.write(f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}")
-    press_keys(.25, 'tab', .25, "ctrl + end")
-    keyboard.write(f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}")
+    header = f" * {' * '.join(refer.strip('[sound:.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
+    header = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
+    tab_mp3s_remainder = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
+    return header, tab_mp3s_remainder
 
 
 def refers_mp3s(header: str, save_file: Optional[int] = 1) -> list[str]:
@@ -318,6 +326,7 @@ def run_program() -> None:
     }
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
+    print('program run')
     keyboard.wait()  # Start the keyboard listener
 
 
