@@ -11,6 +11,10 @@ from googletrans import Translator
 from gtts import gTTS
 
 
+
+new_data = ''
+
+
 def uniq_name(input_string: str, seed_sign: int = 0) -> str:
     """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
     >>> uniq_name("This is a test string.", seed_sign=1)
@@ -139,6 +143,7 @@ def star_separated_words_from(text: str) -> str:
 
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
+    print(new_data)
     press_keys("ctrl + a", 0.1)
     header, tab_mp3s_remainder = header_tab_mp3_content()
     keyboard.write(header)
@@ -148,12 +153,10 @@ def header_tab_mp3() -> None:
 
 def header_tab_mp3_content(test=''):
     """
-    # >>> header_tab_mp3_content(test='test') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
-    # True
+    >>> header_tab_mp3_content(test='test') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
+    True
     """
-    if test:
-        new_data = test
-    header = star_separated_words_from(new_data)
+    header = star_separated_words_from(new_data or test)
     mp3refers = refers_mp3s(header)
     len_mp3refers = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
     header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
