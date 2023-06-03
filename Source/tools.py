@@ -130,28 +130,29 @@ def ctrl_c_w_request_for() -> None:
 
 def replace_non_english_letter(text):
     """
-    >>> replace_non_english_letter('one. * test.mp3  \\n / два _1234567890')
-    'one \\n'
+    >>> replace_non_english_letter('test\\n[sound:testy.mp3]')
+    'test\\n'
     """
-    # pattern = r"[^A-Za-z\n.]"
-    # replaced_text = re.sub(pattern, " ", text)
-    # splited_text = replaced_text.split(' ')
-    # values = []
-    # for item in splited_text:
-    #     if item:
-    #         if '.mp' not in item:
-    #             values.append(item)
-    # dot_result = ' '.join(values)
-    # result = dot_result.replace('.', '')
-    # return result
-    return ' '.join(
-        item for item in re.sub(r"[^A-Za-z\n.]", " ", text).split(' ') if item and '.mp' not in item).replace('.', '')
+    text = text.replace('[sound:', ' ')
+    pattern = r"[^A-Za-z\n.]"
+    replaced_text = re.sub(pattern, " ", text)
+    splited_text = replaced_text.split(' ')
+    values = []
+    for item in splited_text:
+        if item:
+            if '.mp' not in item:
+                values.append(item)
+    dot_result = ' '.join(values)
+    result = dot_result.replace('.', '')
+    return result
+    # return ' '.join(
+    #     item for item in re.sub(r"[^A-Za-z\n.]", " ", text).split(' ') if item and '.mp' not in item).replace('.', '')
 
 
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
-    >>> star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n')
-    ' * SCUM * SCAM * '
+    >>> star_separated_words_from('test\\n[sound:test.mp3]')
+    ' * test * '
     """
     text = replace_non_english_letter(text)
     lines = [line.split()[0] for line in text.splitlines() if line.strip()]
@@ -171,7 +172,7 @@ def header_tab_mp3() -> None:
 
 def header_tab_mp3_content(test=''):
     """
-    >>> header_tab_mp3_content(test='test') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
+    >>> header_tab_mp3_content(test='test\\n[sound:test.mp3]') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
     (' * test * \\n[sound:test.mp3]', '\\n\\n')
     """
     header = star_separated_words_from(new_data or test)

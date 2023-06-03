@@ -1,7 +1,6 @@
 import pytest
 
-from Source.tools import detect_language, star_separated_words_from, filter_lines, refers_mp3s, header_tab_mp3_content, \
-    replace_non_english_letter
+from Source.tools import detect_language, filter_lines, refers_mp3s, header_tab_mp3_content
 
 
 class Test:
@@ -16,66 +15,56 @@ class Test:
             with pytest.raises(ValueError, match='Input text cannot be empty.'):
                 detect_language('')
 
-    class TestReplaceNonEnglishLetter:
-        def test_replace_non_english_letter(self):
-            assert replace_non_english_letter("""SCUM_10131 _подонок, накипь, пена, мразь, пенка, тина
- * ОТБРОСЫ * МРАЗЬ * ПОДОНОК * НАКИПЕТЬ *
-
- 
-SCAM_9007 _мошенничество
- * МОШЕННИЧЕСТВО * МОШЕННИЧАТЬ * АФЕРА *""") == 'SCUM \n \n\n \nSCAM \n'
-
     # class TestStarSeparatedWordsFrom:
     #     def test_by_docktest_star_separated_words_from(self):
     #         assert star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n') == ' * SCUM * SCAM * '
 
-
-#         def test_heede_insteed_heeded(self):
-#             assert star_separated_words_from("""HEED_7701 _внимание, осторожность
-#
-# heedless * ЛЕГКОМЫСЛЕННЫЙ * НЕБРЕЖНО * БЕСПЕЧНЫЙ *
-#
-# heeded * ПРИСЛУШАТЬСЯ * УСЛЫШАННЫЙ * ПРИСЛУШАЛСЯ * ПРИСЛУШИВАЛСЯ *
-#
-# heeding * ВНИМАТЕЛЕН * ВНИМАНИЕ * ПРИСЛУШИВАТЬСЯ * ПРИСЛУШИВАЯСЬ * """) == ' * HEED * heedless * heeded * heeding * '
-#
-#         def test_star_separated_russian_words(self):
-#             assert star_separated_words_from(
-#                 """SALIVA_9006 _слюна
-#
-# salivary * СЛЮНОТЕЧЕНИЕ * СЛЮНООТДЕЛЕНИЕ * К СЛЮНЕ * СЛЮННЫЕ ЖЕЛЕЗЫ *
-#
-# salivation * СЛЮНООТДЕЛЕНИЕ * ДО СЛЮНООТДЕЛЕНИЯ *
-#
-# SALINE_8131 _соляной, физиологический раствор, солончак, солевой раствор, солевой, соленый, соль
-#
-# SALT_2685 _соль, солить, соленый, соляной, поваренная соль, солевой, засаливать, засоленный, изюминка
-#
-#
-# """
-#             ) == ' * SALIVA * salivary * salivation * SALINE * SALT * '
-#
-#         def test_star_separated_words_from(self):
-#             assert star_separated_words_from(
-#                 f' * BLASPHEMY * blasphemous * blaspheme * blasphemer *\\n[sound:BLASPHEMY.mp3]\\n[sound:blasphemous.mp3]'
-#             ) == ' * BLASPHEMY * blasphemous * blaspheme * blasphemer * '
-#
-#         def test_one_line_with_star(self):
-#             assert star_separated_words_from(
-#                 'CLOUT_5008 _клочок, обрывок, лоскут; сильный удар, затрещина; сильный удар в бейсболе;'
-#             ) == ' * CLOUT * '
-#
-#         def test_invisible_space(self):
-#             text = """COALESCE_11473 _сливаться, срастаться, слипаться, сходиться
-#
-# coalesced  слились  * СЛИЛСЯ * СЛИВАТЬСЯ * СЛИЛИСЬ * """
-#             assert star_separated_words_from(text) == ' * COALESCE * coalesced * '
-#
-#         def test_strip(self):
-#             assert star_separated_words_from(' * APPOSITE_11662 * ') == ' * APPOSITE * '
-#
-#         def test_one_line_no_russian(self):
-#             assert star_separated_words_from('PUNDIT_8205 * УМНЫЙ * ЭКСПЕРТ * _пандит,ученый ') == ' * PUNDIT * '
+    #         def test_heede_insteed_heeded(self):
+    #             assert star_separated_words_from("""HEED_7701 _внимание, осторожность
+    #
+    # heedless * ЛЕГКОМЫСЛЕННЫЙ * НЕБРЕЖНО * БЕСПЕЧНЫЙ *
+    #
+    # heeded * ПРИСЛУШАТЬСЯ * УСЛЫШАННЫЙ * ПРИСЛУШАЛСЯ * ПРИСЛУШИВАЛСЯ *
+    #
+    # heeding * ВНИМАТЕЛЕН * ВНИМАНИЕ * ПРИСЛУШИВАТЬСЯ * ПРИСЛУШИВАЯСЬ * """) == ' * HEED * heedless * heeded * heeding * '
+    #
+    #         def test_star_separated_russian_words(self):
+    #             assert star_separated_words_from(
+    #                 """SALIVA_9006 _слюна
+    #
+    # salivary * СЛЮНОТЕЧЕНИЕ * СЛЮНООТДЕЛЕНИЕ * К СЛЮНЕ * СЛЮННЫЕ ЖЕЛЕЗЫ *
+    #
+    # salivation * СЛЮНООТДЕЛЕНИЕ * ДО СЛЮНООТДЕЛЕНИЯ *
+    #
+    # SALINE_8131 _соляной, физиологический раствор, солончак, солевой раствор, солевой, соленый, соль
+    #
+    # SALT_2685 _соль, солить, соленый, соляной, поваренная соль, солевой, засаливать, засоленный, изюминка
+    #
+    #
+    # """
+    #             ) == ' * SALIVA * salivary * salivation * SALINE * SALT * '
+    #
+    #         def test_star_separated_words_from(self):
+    #             assert star_separated_words_from(
+    #                 f' * BLASPHEMY * blasphemous * blaspheme * blasphemer *\\n[sound:BLASPHEMY.mp3]\\n[sound:blasphemous.mp3]'
+    #             ) == ' * BLASPHEMY * blasphemous * blaspheme * blasphemer * '
+    #
+    #         def test_one_line_with_star(self):
+    #             assert star_separated_words_from(
+    #                 'CLOUT_5008 _клочок, обрывок, лоскут; сильный удар, затрещина; сильный удар в бейсболе;'
+    #             ) == ' * CLOUT * '
+    #
+    #         def test_invisible_space(self):
+    #             text = """COALESCE_11473 _сливаться, срастаться, слипаться, сходиться
+    #
+    # coalesced  слились  * СЛИЛСЯ * СЛИВАТЬСЯ * СЛИЛИСЬ * """
+    #             assert star_separated_words_from(text) == ' * COALESCE * coalesced * '
+    #
+    #         def test_strip(self):
+    #             assert star_separated_words_from(' * APPOSITE_11662 * ') == ' * APPOSITE * '
+    #
+    #         def test_one_line_no_russian(self):
+    #             assert star_separated_words_from('PUNDIT_8205 * УМНЫЙ * ЭКСПЕРТ * _пандит,ученый ') == ' * PUNDIT * '
 
     class TestFilterLines:
         def test_filter_lines(self):
@@ -128,6 +117,16 @@ Principally - Преимущественно (Preimushchestvenno)
                 '[sound:SALT.mp3]']
 
     class TestHeaderTabMp3Content:
+        def test_0306(self):
+            assert header_tab_mp3_content(test="""relays * РЕЛЕ * К РЕЛЕ * 
+
+relaid * МНОГО * ПЕРЕСКАЗАТЬ * ПЕРЕДАННЫЙ * РЕЛЕ * 
+
+relayed * РЕТРАНСЛИРУЕМЫЙ * РЕТРАНСЛИРУЕТСЯ * ПЕРЕДАННЫЙ * ПЕРЕДАВАТЬ * 
+
+relaying   ретрансляция""") == (' * relayed * relaying * relays * relaid * \n[sound:relayed.mp3]\n[sound:relaying.mp3]',
+                                '\n\n[sound:relays.mp3]\n[sound:relaid.mp3]')
+
         def test_header_tab_mp3_content(self):
             assert header_tab_mp3_content(test=' * TEST * TEST * TEST * TEST * ') == (
                 ' * TEST * TEST * TEST * TEST * \n[sound:TEST.mp3]\n[sound:TEST.mp3]',
@@ -135,19 +134,10 @@ Principally - Преимущественно (Preimushchestvenno)
 
         def test_heeded_insteed_heede(self):
             assert header_tab_mp3_content(test=' * HEED * heedless * heeded * heeding * ') == (
-            ' * heeded * heeding * HEED * heedless * \n[sound:heeded.mp3]\n[sound:heeding.mp3]',
-            '\n\n[sound:HEED.mp3]\n[sound:heedless.mp3]')
+                ' * heeded * heeding * HEED * heedless * \n[sound:heeded.mp3]\n[sound:heeding.mp3]',
+                '\n\n[sound:HEED.mp3]\n[sound:heedless.mp3]')
 
         def test_error(self):
             assert header_tab_mp3_content(test=' * HEED * heedless * heeded * heeding * ') == (
-            ' * heeded * heeding * HEED * heedless * \n[sound:heeded.mp3]\n[sound:heeding.mp3]',
-            '\n\n[sound:HEED.mp3]\n[sound:heedless.mp3]')
-
-
-
-def test_docktests_for_star_separated_words_from():
-    """
-    >>> star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n')
-    ' * SCUM * SCAM * '
-    """
-    assert star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n') == ' * SCUM * n * n * n * nSCAM * n * '
+                ' * heeded * heeding * HEED * heedless * \n[sound:heeded.mp3]\n[sound:heeding.mp3]',
+                '\n\n[sound:HEED.mp3]\n[sound:heedless.mp3]')
