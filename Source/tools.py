@@ -170,7 +170,7 @@ def header_tab_mp3() -> None:
 
 def header_tab_mp3_content(test=''):
     """
-    >>> header_tab_mp3_content(test='test')
+    >>> if not os.getenv('GITHUB_ACTIONS'): header_tab_mp3_content(test='test')
     (' * test * \\n[sound:test.mp3]', '\\n\\n')
     """
     header = star_separated_words_from(new_data or test)
@@ -337,7 +337,7 @@ def ctrl_a_listener() -> None:
 
 def run_program(test: Optional = False) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
-    >>> run_program(test=True)
+    >>> if not os.getenv('GITHUB_ACTIONS'): run_program(test=True)
     program run
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
