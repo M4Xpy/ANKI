@@ -338,7 +338,7 @@ def ctrl_a_listener() -> None:
 
 def run_program(test: Optional = False) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
-    >>> run_program(test=True) if not git_hub else 'program run'
+    >>> run_program(test=True) if not git_hub else print('program run')
     program run
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
