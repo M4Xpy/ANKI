@@ -150,4 +150,4 @@ def test_docktests_for_star_separated_words_from():
     >>> star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n')
     ' * SCUM * SCAM * '
     """
-
+    assert star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n') == ' * SCUM * n * n * n * nSCAM * n * '

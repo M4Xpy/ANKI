@@ -14,14 +14,14 @@ from gtts import gTTS
 new_data = ''
 
 
-def uniq_name(input_string: str, seed_sign: int = 0) -> str:
+def uniq_name(input_string: str, test: bool = False) -> str:
     """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
-    >>> uniq_name("This is a test string.", seed_sign=1)
+    >>> uniq_name("This is a test string.", test=True)
     'This is a  testt strinn'
     """
     # check whether test or work mode
-    if seed_sign:
-        random.seed(seed_sign)
+    if test:
+        random.seed(test)
     # output_string = ""                        # save result in separate variable
     # for char in input_string[:20]:            # loop cutting to 20 signs string
     #     if random.random() < 0.05:            # 1 to 20 possibility of double sign
@@ -277,10 +277,11 @@ def press_keys(*args: Union[float, str]) -> None:
     """ Presses the given keys with optional time delays
     Args: *args (float or str): The keys to press, with optional time abcdelays between consecutive key presses.
     Raises:TypeError: If any argument in *args is not a float or string.
-    >>> press_keys()
+    >>> press_keys(0.001)
     """
     for arg in args:
         time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
+
 
 
 def filter_lines(text: str) -> str:
@@ -338,8 +339,11 @@ def ctrl_a_listener() -> None:
     pyperclip.copy(old_data)
 
 
-def run_program() -> None:
-    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses """
+def run_program(test: Optional = False) -> None:
+    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
+    >>> run_program(test=True)
+    program run
+    """
     hotkeys = {  # Create a dictionary of hotkeys and functions
         'space + enter': _a_lot_of_new_single_card,
         'ctrl + a': ctrl_a_listener,
@@ -353,7 +357,8 @@ def run_program() -> None:
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
     print('program run')
-    keyboard.wait()  # Start the keyboard listener
+    if not test:
+        keyboard.wait()  # Start the keyboard listener
 
 
 def _a_lot_of_new_single_card() -> None:
