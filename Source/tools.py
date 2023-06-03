@@ -129,8 +129,8 @@ def ctrl_c_w_request_for() -> None:
 
 def replace_non_english_letter(text):
     """
-    # >>> replace_non_english_letter('one. * test.mp3  \\n / два _1234567890')
-    # 'one \n'
+    >>> replace_non_english_letter('one. * test.mp3  \\n / два _1234567890')
+    'one \\n'
     """
     # pattern = r"[^A-Za-z\n.]"
     # replaced_text = re.sub(pattern, " ", text)
@@ -139,12 +139,12 @@ def replace_non_english_letter(text):
     # for item in splited_text:
     #     if item:
     #         if '.mp' not in item:
-    #             value = item.replace('.', '')
-    #             values.append(value)
-    # result = ' '.join(values)
+    #             values.append(item)
+    # dot_result = ' '.join(values)
+    # result = dot_result.replace('.', '')
     # return result
     return ' '.join(
-        item.replace('.', '') for item in re.sub(r"[^A-Za-z\n.]", " ", text).split(' ') if item and '.mp' not in item)
+        item for item in re.sub(r"[^A-Za-z\n.]", " ", text).split(' ') if item and '.mp' not in item).replace('.', '')
 
 
 def star_separated_words_from(text: str) -> str:
@@ -170,8 +170,8 @@ def header_tab_mp3() -> None:
 
 def header_tab_mp3_content(test=''):
     """
-    # >>> header_tab_mp3_content(test='test') == (f' * test * {chr(10)}[sound:test.mp3]', f'{chr(10)}{chr(10)}')
-    # True
+    >>> header_tab_mp3_content(test='test')
+    (' * test * \\n[sound:test.mp3]', '\\n\\n')
     """
     header = star_separated_words_from(new_data or test)
     mp3refers = refers_mp3s(header)
@@ -179,7 +179,6 @@ def header_tab_mp3_content(test=''):
     header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
     header = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
     tab_mp3s_remainder = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
-    print(header, tab_mp3s_remainder, end='\\n\\n')
     return header, tab_mp3s_remainder
 
 
@@ -199,7 +198,6 @@ def refers_mp3s(header: str, save_file: Optional[int] = 1) -> list[str]:
 def new_single_word_card() -> None:
     """ save old card , then made new card ready to save """
     try:
-        in_text = 'no_in_text'
         press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
         in_text = pyperclip.paste()
         word = in_text.split()[0].split()[0].strip('_1234567890')
@@ -238,7 +236,6 @@ def translations_of_the(word: str) -> set:
         en_ru_en_translator(input_text=f'{prefix} {word}', lang='en').upper() for prefix in ('', 'the', 'to'))
     adjective = en_ru_en_translator(input_text=f'too {word}', lang='en')
     translate_s.add(' '.join(word for word in adjective.split()[1:]).upper())
-    time.sleep(0.25)
     return translate_s
 
 
@@ -257,8 +254,8 @@ def ctrl_c_3_multi_translations() -> None:
 
 def multi_translations(word_s: str) -> str:
     """ return star separated translated vars of getted word
-    >>> multi_translations('ADJOIN')
-    'ADJOIN * ПРИМЫКАТЬ * '
+    >>> multi_translations('ADJOIN_8068')
+    'ADJOIN_8068 * ПРИМЫКАТЬ * '
     """
     # result_s = []
     # for _word in word_s.replace(',', ' ').split():
@@ -281,7 +278,6 @@ def press_keys(*args: Union[float, str]) -> None:
     """
     for arg in args:
         time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
-
 
 
 def filter_lines(text: str) -> str:
