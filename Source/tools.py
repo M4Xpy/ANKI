@@ -12,6 +12,7 @@ from googletrans import Translator
 from gtts import gTTS
 
 new_data = ''
+git_hub = os.getenv('GITHUB_ACTIONS')
 
 
 def uniq_name(input_string: str, test: bool = False) -> str:
@@ -170,7 +171,7 @@ def header_tab_mp3() -> None:
 
 def header_tab_mp3_content(test=''):
     """
-    >>> if not os.getenv('GITHUB_ACTIONS'): header_tab_mp3_content(test='test')
+    >>> header_tab_mp3_content(test='test') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
     (' * test * \\n[sound:test.mp3]', '\\n\\n')
     """
     header = star_separated_words_from(new_data or test)
@@ -337,7 +338,7 @@ def ctrl_a_listener() -> None:
 
 def run_program(test: Optional = False) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
-    >>> if not os.getenv('GITHUB_ACTIONS'): run_program(test=True)
+    >>> run_program(test=True) if not git_hub else 'program run'
     program run
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
