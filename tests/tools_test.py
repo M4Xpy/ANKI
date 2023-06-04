@@ -138,6 +138,4 @@ relaying   ретрансляция""") == (' * relayed * relaying * relays * re
                 '\n\n[sound:HEED.mp3]\n[sound:heedless.mp3]')
 
         def test_error(self):
-            assert header_tab_mp3_content(test=' * HEED * heedless * heeded * heeding * ') == (
-                ' * heeded * heeding * HEED * heedless * \n[sound:heeded.mp3]\n[sound:heeding.mp3]',
-                '\n\n[sound:HEED.mp3]\n[sound:heedless.mp3]')
+            assert header_tab_mp3_content(test='test[sound:test.mp3]') == (' * test * \n[sound:test.mp3]', '\n\n')

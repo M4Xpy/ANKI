@@ -204,8 +204,9 @@ def new_single_word_card() -> None:
         in_text = pyperclip.paste()
         word = in_text.split()[0].split()[0].strip('_1234567890')
         keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
-        press_keys(0.1, 'tab', 0.1, 'ctrl + v')
-        keyboard.write(f'\n * {" * ".join(word for word in translations_of_the(word))} *\n\n')
+        press_keys(0.1, 'tab', 0.1)
+        keyboard.write(f' * {" * ".join(word for word in translations_of_the(word))} *\n')
+        press_keys(0.1, 'ctrl + v')
     except IndexError:
         if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
     except:
