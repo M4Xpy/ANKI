@@ -2,7 +2,7 @@ from Source.mp3name_detector import find_in_the
 
 file_path = 'C:\\Users\\Я\\Desktop\\C_M_W    000.txt'
 
-print(find_in_the(file_path, content='mp3_words'))
+
 
 words = {'DISPARATE', 'hooter', 'emitted', 'REMIT', 'CONDEMN', 'GARNISH', 'DISPARITY', 'garnet', 'CRUCIBLE', 'rundown',
          'SCUM', 'TANGENT', 'CONSTRAIN', 'REMISS', 'POTASSIUM', 'LULL', 'TANGO', 'TERMINABLE', 'FLUFF', 'NREMITTING',
@@ -24,3 +24,6 @@ for word in words:
     else:
         result.append(word)
 print(result)
+
+if __name__ == '__main__':
+    print(find_in_the(file_path, content='mp3_words'))

@@ -1,3 +1,4 @@
+import inspect
 import os
 import random
 import re
@@ -11,7 +12,7 @@ import pyperclip
 from googletrans import Translator
 from gtts import gTTS
 
-new_data = None
+new_data = ''
 git_hub = os.getenv('GITHUB_ACTIONS')
 
 
@@ -53,7 +54,7 @@ def detect_language(text: str) -> str:
 
 def generate_audio_file(text: str,
                         save_file: int | None = 0,
-                        lang: str | None = None
+                        lang: str | None = ''
                         ) -> str | None:
     """Generates audio file of the input_string in its detected language.
     >>> generate_audio_file(text='test', save_file=-1, lang='en')
@@ -93,7 +94,7 @@ def en_ru_en_translator(input_text: str,
         if_error("_return", "Translation_failed._Check_your_network_connection_and_try_again.")
 
 
-def ctrl_4_open_google_image(text: str | None = None
+def ctrl_4_open_google_image(text: str | None = ''
                              ) -> None:
     """ open google image with received request """
     if not text:
@@ -182,7 +183,7 @@ def header_tab_mp3() -> None:
     keyboard.write(tab_mp3s_remainder)
 
 
-def header_tab_mp3_content(test: str | None = None
+def header_tab_mp3_content(test: str | None = ''
                            ) -> tuple[str, ...]:
     """
     >>> header_tab_mp3_content(test='test\\n[sound:test.mp3]') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
@@ -217,20 +218,21 @@ def new_single_word_card() -> None:
     try:
         press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
         in_text = pyperclip.paste()
+        print_line_number_name_and_value_of(in_text, 'in_text')
         word = in_text.split()[0].split()[0].strip('_1234567890')
+        print_line_number_name_and_value_of(word, 'word', 1)
         keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
         press_keys(0.1, 'tab', 0.1)
         keyboard.write(f' * {" * ".join(word for word in translations_of_the(word))} *\n')
-        press_keys(0.1, 'ctrl + v', 0.1, 'enter')
-        open_google_image(word, new_page=1)
+        press_keys(0.1, 'ctrl + v')
     except IndexError:
         if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
     except:
         if_error("keyboard_write", f"unknown error provoked following data, {in_text=}")
 
 
-def if_error(doing='_return',
-             report='error'
+def if_error(doing: str | None = '_return',
+             report: str | None = 'error'
              ) -> str | None:
     """ write traceback , error message
     >>> if_error()
@@ -247,8 +249,7 @@ def if_error(doing='_return',
         return report
 
 
-def translations_of_the(word: str
-                        ) -> set:
+def translations_of_the(word: str) -> set:
     """ Give different variants of word tranlation
     >>> sorted(translations_of_the('ZAP'))
     ['БЫСТРО', 'РАЗРЯД', 'РАЗРЯДКА', 'ЩЕЛКАТЬ']
@@ -305,8 +306,7 @@ def press_keys(*args: float | str
         time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
 
 
-def filter_lines(text: str
-                 ) -> str:
+def filter_lines(text: str) -> str:
     """
     return text without lines with words from chek_s tuple, remove 'Translation:'
     >>> filter_lines("T\\nproverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
@@ -321,7 +321,8 @@ def filter_lines(text: str
     # result = result.replace('Translation:', '')
     # return result
     return '\n'.join(line for line in text.splitlines() if not any(check in line.lower() for check in (
-        'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))).replace('Translation:', '')
+        'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))
+                     ).replace('Translation:', '')
 
 
 def copy_func_paste(func: Callable[[str], str]
@@ -356,10 +357,10 @@ def ctrl_a_listener() -> None:
     """ if 'ctrl + a' pressed, automatically added pressing 'ctrl + c' """
     global new_data
     old_data = pyperclip.paste()
-    time.sleep(0.1)
-    press_keys('ctrl + c', 0.1)
+    print_line_number_name_and_value_of(old_data, 'old_data')
+    press_keys('ctrl + c', 0.3)
     new_data = pyperclip.paste()
-    time.sleep(0.1)
+    print_line_number_name_and_value_of(new_data, 'new_data')
     pyperclip.copy(old_data)
 
 
@@ -406,3 +407,20 @@ def _a_lot_of_new_single_card() -> None:
                     first = None
             except IndexError:
                 raise IndexError('end of list')
+
+
+def print_line_number_name_and_value_of(variable: int | float | str | list | tuple | dict,
+                                        variable_name: str,
+                                        test_mode: int | None = 8
+                                        ) -> None:
+    """ for inspection of results
+    >>> test = 'test'
+    >>> print_line_number_name_and_value_of(test, 'test', test_mode=1)
+    ***************************
+    0 >>> test = test
+    ***************************
+    """
+    print({8: f"***************************\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n{variable}\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n***************************",
+           1: f"***************************\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} = {variable}\n***************************",
+           0: f"***************************\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} done \n***************************",
+           }[test_mode])
