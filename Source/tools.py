@@ -49,6 +49,7 @@ def detect_language(text: str) -> str:
     ValueError: Input text cannot be empty.
     """
     if text := text.strip():
+        print_line_number_name_and_value_of(text, 'text')
         return ('en', 'ru')[any(ord(char) > 127 for char in text)]
     raise ValueError('Input text cannot be empty.')
 
@@ -61,6 +62,7 @@ def generate_audio_file(text: str,
     >>> generate_audio_file(text='test', save_file=-1, lang='en')
     """
     text = text.lower()
+    print_line_number_name_and_value_of(text, 'text')
     folder = ('C:\\Users\\Я\\Desktop\\audio',
               f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
               f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
@@ -207,10 +209,12 @@ def refers_mp3s(header: str,
     ['[sound:test.mp3]']
     """
     word_s = header.strip(' *').split(' * ')
+    print_line_number_name_and_value_of(word_s, 'word_s')
     mp3refers = []
     for word in word_s:
         generate_audio_file(word, save_file, lang='en')
         mp3refers.append(f'[sound:{word}.mp3]')
+    print_line_number_name_and_value_of(mp3refers, 'mp3refers')
     return mp3refers
 
 
