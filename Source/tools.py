@@ -17,29 +17,6 @@ git_hub = os.getenv('GITHUB_ACTIONS')
 print_for_test = 1
 
 
-def run_program(test: bool | None = None
-                ) -> None:
-    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
-    >>> run_program(test=True) if not git_hub else print('program run')
-    program run
-    """
-    hotkeys = {  # Create a dictionary of hotkeys and functions
-        'space + enter': _a_lot_of_new_single_card,
-        'ctrl + a': ctrl_a_listener,
-        'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
-        'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
-        'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
-        'ctrl + 1': header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
-        'ctrl + 2': new_single_word_card,  # get cursor at the answer field in 'add new card', before click
-        'ctrl + 4': ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
-    }
-    for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
-        keyboard.add_hotkey(hotkey, function)
-    print('program run')
-    if not test:
-        keyboard.wait()  # Start the keyboard listener
-
-
 def uniq_name(input_string: str,
               test: bool | None = False
               ) -> str:
@@ -418,7 +395,7 @@ def print_line_number_name_and_value_of(variable: int | float | str | list | set
                                         ) -> None:
     """ for inspection of results
     >>> test = 'test'
-    >>> print_line_number_name_and_value_of(test, 'test', test_mode=1)
+    >>> print_line_number_name_and_value_of(test, 'test', test_mode=1) if not git_hub else pass
     """
     print({
               8: f"***************************\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n{variable}\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n***************************",
@@ -426,3 +403,26 @@ def print_line_number_name_and_value_of(variable: int | float | str | list | set
               2: f"{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} = {variable}".splitlines()[0],
               1: ''
           }[test_mode], end='')
+
+
+def run_program(test: bool | None = None
+                ) -> None:
+    """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
+    >>> run_program(test=True) if not git_hub else print('program run')
+    program run
+    """
+    hotkeys = {  # Create a dictionary of hotkeys and functions
+        'space + enter': _a_lot_of_new_single_card,
+        'ctrl + a': ctrl_a_listener,
+        'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
+        'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
+        'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
+        'ctrl + 1': header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
+        'ctrl + 2': new_single_word_card,  # get cursor at the answer field in 'add new card', before click
+        'ctrl + 4': ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
+    }
+    for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
+        keyboard.add_hotkey(hotkey, function)
+    print('program run')
+    if not test:
+        keyboard.wait()  # Start the keyboard listener
