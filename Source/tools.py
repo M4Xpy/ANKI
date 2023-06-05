@@ -395,7 +395,7 @@ def print_line_number_name_and_value_of(variable: int | float | str | list | set
                                         ) -> None:
     """ for inspection of results
     >>> test = 'test'
-    >>> print_line_number_name_and_value_of(test, 'test', test_mode=1) if not git_hub else pass
+    >>> print_line_number_name_and_value_of(test, 'test', test_mode=1) if not git_hub else print('', end='')
     """
     print({
               8: f"***************************\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n{variable}\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n***************************",
