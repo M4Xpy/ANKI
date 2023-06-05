@@ -15,57 +15,6 @@ class Test:
             with pytest.raises(ValueError, match='Input text cannot be empty.'):
                 detect_language('')
 
-    # class TestStarSeparatedWordsFrom:
-    #     def test_by_docktest_star_separated_words_from(self):
-    #         assert star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n') == ' * SCUM * SCAM * '
-
-    #         def test_heede_insteed_heeded(self):
-    #             assert star_separated_words_from("""HEED_7701 _внимание, осторожность
-    #
-    # heedless * ЛЕГКОМЫСЛЕННЫЙ * НЕБРЕЖНО * БЕСПЕЧНЫЙ *
-    #
-    # heeded * ПРИСЛУШАТЬСЯ * УСЛЫШАННЫЙ * ПРИСЛУШАЛСЯ * ПРИСЛУШИВАЛСЯ *
-    #
-    # heeding * ВНИМАТЕЛЕН * ВНИМАНИЕ * ПРИСЛУШИВАТЬСЯ * ПРИСЛУШИВАЯСЬ * """) == ' * HEED * heedless * heeded * heeding * '
-    #
-    #         def test_star_separated_russian_words(self):
-    #             assert star_separated_words_from(
-    #                 """SALIVA_9006 _слюна
-    #
-    # salivary * СЛЮНОТЕЧЕНИЕ * СЛЮНООТДЕЛЕНИЕ * К СЛЮНЕ * СЛЮННЫЕ ЖЕЛЕЗЫ *
-    #
-    # salivation * СЛЮНООТДЕЛЕНИЕ * ДО СЛЮНООТДЕЛЕНИЯ *
-    #
-    # SALINE_8131 _соляной, физиологический раствор, солончак, солевой раствор, солевой, соленый, соль
-    #
-    # SALT_2685 _соль, солить, соленый, соляной, поваренная соль, солевой, засаливать, засоленный, изюминка
-    #
-    #
-    # """
-    #             ) == ' * SALIVA * salivary * salivation * SALINE * SALT * '
-    #
-    #         def test_star_separated_words_from(self):
-    #             assert star_separated_words_from(
-    #                 f' * BLASPHEMY * blasphemous * blaspheme * blasphemer *\\n[sound:BLASPHEMY.mp3]\\n[sound:blasphemous.mp3]'
-    #             ) == ' * BLASPHEMY * blasphemous * blaspheme * blasphemer * '
-    #
-    #         def test_one_line_with_star(self):
-    #             assert star_separated_words_from(
-    #                 'CLOUT_5008 _клочок, обрывок, лоскут; сильный удар, затрещина; сильный удар в бейсболе;'
-    #             ) == ' * CLOUT * '
-    #
-    #         def test_invisible_space(self):
-    #             text = """COALESCE_11473 _сливаться, срастаться, слипаться, сходиться
-    #
-    # coalesced  слились  * СЛИЛСЯ * СЛИВАТЬСЯ * СЛИЛИСЬ * """
-    #             assert star_separated_words_from(text) == ' * COALESCE * coalesced * '
-    #
-    #         def test_strip(self):
-    #             assert star_separated_words_from(' * APPOSITE_11662 * ') == ' * APPOSITE * '
-    #
-    #         def test_one_line_no_russian(self):
-    #             assert star_separated_words_from('PUNDIT_8205 * УМНЫЙ * ЭКСПЕРТ * _пандит,ученый ') == ' * PUNDIT * '
-
     class TestFilterLines:
         def test_filter_lines(self):
             text = """Nouns:

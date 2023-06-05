@@ -1,7 +1,7 @@
 from Source.tools import star_separated_words_from, replace_non_english_letter
 
 
-def docktests_for_star_separated_words_from():
+def doctests_for_star_separated_words_from():
     """
     >>> star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n')
     ' * SCUM * SCAM * '
@@ -10,7 +10,7 @@ def docktests_for_star_separated_words_from():
     """
 
 
-def docktests_for_replace_non_english_letter():
+def doctests_for_replace_non_english_letter():
     """
     >>> replace_non_english_letter('one. * test.mp3  \\n / два _1234567890')
     'one \\n'

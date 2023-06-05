@@ -4,18 +4,20 @@ import re
 import time
 import traceback
 import webbrowser
-from typing import Optional, Union, Callable
+from typing import Callable
 
 import keyboard as keyboard
 import pyperclip
 from googletrans import Translator
 from gtts import gTTS
 
-new_data = ''
+new_data = None
 git_hub = os.getenv('GITHUB_ACTIONS')
 
 
-def uniq_name(input_string: str, test: bool = False) -> str:
+def uniq_name(input_string: str,
+              test: bool | None = False
+              ) -> str:
     """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
     >>> uniq_name("This is a test string.", test=True)
     'This is a  testt strinn'
@@ -49,7 +51,10 @@ def detect_language(text: str) -> str:
     raise ValueError('Input text cannot be empty.')
 
 
-def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[str] = None) -> Optional[str]:
+def generate_audio_file(text: str,
+                        save_file: int | None = 0,
+                        lang: str | None = None
+                        ) -> str | None:
     """Generates audio file of the input_string in its detected language.
     >>> generate_audio_file(text='test', save_file=-1, lang='en')
     """
@@ -72,7 +77,9 @@ def generate_audio_file(text: str, save_file: Optional[int] = 0, lang: Optional[
         if_error("_return", "generate_audio_file_failed._Check_your_network_connection_and_try_again.")
 
 
-def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
+def en_ru_en_translator(input_text: str,
+                        lang: str | None = None
+                        ) -> str:
     """
     >>> en_ru_en_translator('apple')
     'яблоко'
@@ -86,7 +93,8 @@ def en_ru_en_translator(input_text: str, lang: Optional[str] = None) -> str:
         if_error("_return", "Translation_failed._Check_your_network_connection_and_try_again.")
 
 
-def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
+def ctrl_4_open_google_image(text: str | None = None
+                             ) -> None:
     """ open google image with received request """
     if not text:
         text = pyperclip.paste()
@@ -99,11 +107,13 @@ def ctrl_4_open_google_image(text: Optional[str] = '') -> None:
         open_google_image(text.strip('_1234567890'))
 
 
-def open_google_image(word: str) -> None:
+def open_google_image(word: str,
+                      new_page: int | None = 0
+                      ) -> None:
     """ open google image with received request  """
     url = f'https://www.google.com/search?q={word}' \
           f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
-    webbrowser.open(url, new=0)
+    webbrowser.open(url, new=new_page)
 
 
 def open_google_translate(text: str) -> None:
@@ -112,7 +122,9 @@ def open_google_translate(text: str) -> None:
     webbrowser.open(url, new=0, )
 
 
-def request_for(text: str, template: Optional[str] = 'ai') -> str:
+def request_for(text: str,
+                template: str | None = 'ai'
+                ) -> str:
     """ insert request text to template
     >>> request_for(' _1234TEST34567890', template='check')
     'This is a TEST'
@@ -128,7 +140,7 @@ def ctrl_c_w_request_for() -> None:
     return copy_func_paste(request_for)
 
 
-def replace_non_english_letter(text):
+def replace_non_english_letter(text: str) -> str:
     """
     >>> replace_non_english_letter('test\\n[sound:testy.mp3]')
     'test\\n'
@@ -170,7 +182,8 @@ def header_tab_mp3() -> None:
     keyboard.write(tab_mp3s_remainder)
 
 
-def header_tab_mp3_content(test=''):
+def header_tab_mp3_content(test: str | None = None
+                           ) -> tuple[str, ...]:
     """
     >>> header_tab_mp3_content(test='test\\n[sound:test.mp3]') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
     (' * test * \\n[sound:test.mp3]', '\\n\\n')
@@ -184,7 +197,9 @@ def header_tab_mp3_content(test=''):
     return header, tab_mp3s_remainder
 
 
-def refers_mp3s(header: str, save_file: Optional[int] = 1) -> list[str]:
+def refers_mp3s(header: str,
+                save_file: int | None = 1
+                ) -> list[str]:
     """ make mp3 reference
     >>> refers_mp3s('test', save_file=-1)
     ['[sound:test.mp3]']
@@ -206,14 +221,17 @@ def new_single_word_card() -> None:
         keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
         press_keys(0.1, 'tab', 0.1)
         keyboard.write(f' * {" * ".join(word for word in translations_of_the(word))} *\n')
-        press_keys(0.1, 'ctrl + v')
+        press_keys(0.1, 'ctrl + v', 0.1, 'enter')
+        open_google_image(word, new_page=1)
     except IndexError:
         if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
     except:
         if_error("keyboard_write", f"unknown error provoked following data, {in_text=}")
 
 
-def if_error(doing='_return', report='error'):
+def if_error(doing='_return',
+             report='error'
+             ) -> str | None:
     """ write traceback , error message
     >>> if_error()
     error
@@ -229,7 +247,8 @@ def if_error(doing='_return', report='error'):
         return report
 
 
-def translations_of_the(word: str) -> set:
+def translations_of_the(word: str
+                        ) -> set:
     """ Give different variants of word tranlation
     >>> sorted(translations_of_the('ZAP'))
     ['БЫСТРО', 'РАЗРЯД', 'РАЗРЯДКА', 'ЩЕЛКАТЬ']
@@ -242,7 +261,8 @@ def translations_of_the(word: str) -> set:
     return translate_s
 
 
-def make_func_write(func: Callable[[str], str]) -> None:
+def make_func_write(func: Callable[[str], str]
+                    ) -> None:
     """ take data in clipboard , doing function , return result in clipboard"""
     # text = pyperclip.paste()
     # text = func(text)
@@ -255,7 +275,8 @@ def ctrl_c_3_multi_translations() -> None:
     return make_func_write(multi_translations)
 
 
-def multi_translations(word_s: str) -> str:
+def multi_translations(word_s: str
+                       ) -> str:
     """ return star separated translated vars of getted word
     >>> multi_translations('ADJOIN_8068')
     'ADJOIN_8068 * ПРИМЫКАТЬ * '
@@ -273,7 +294,8 @@ def multi_translations(word_s: str) -> str:
         word_s.replace(',', ' ').split())
 
 
-def press_keys(*args: Union[float, str]) -> None:
+def press_keys(*args: float | str
+               ) -> None:
     """ Presses the given keys with optional time delays
     Args: *args (float or str): The keys to press, with optional time abcdelays between consecutive key presses.
     Raises:TypeError: If any argument in *args is not a float or string.
@@ -283,7 +305,8 @@ def press_keys(*args: Union[float, str]) -> None:
         time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
 
 
-def filter_lines(text: str) -> str:
+def filter_lines(text: str
+                 ) -> str:
     """
     return text without lines with words from chek_s tuple, remove 'Translation:'
     >>> filter_lines("T\\nproverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
@@ -298,11 +321,11 @@ def filter_lines(text: str) -> str:
     # result = result.replace('Translation:', '')
     # return result
     return '\n'.join(line for line in text.splitlines() if not any(check in line.lower() for check in (
-        'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))).replace('Translation:',
-                                                                                                      '')
+        'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))).replace('Translation:', '')
 
 
-def copy_func_paste(func: Callable[[str], str]) -> None:
+def copy_func_paste(func: Callable[[str], str]
+                    ) -> None:
     """ return to the clipboard the text received from the clipboard, processed by the provided function """
     # text = pyperclip.paste()
     # text = func(text)
@@ -315,7 +338,9 @@ def ctrl_c_q_formatter() -> None:
     return copy_func_paste(filter_lines)
 
 
-def get_template(template: str, text: str) -> str:
+def get_template(template: str,
+                 text: str
+                 ) -> str:
     """ return chosen template with given word
     >>> get_template(template='check', text='test')
     'This is a test'
@@ -338,7 +363,8 @@ def ctrl_a_listener() -> None:
     pyperclip.copy(old_data)
 
 
-def run_program(test: Optional = False) -> None:
+def run_program(test: bool | None = None
+                ) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     >>> run_program(test=True) if not git_hub else print('program run')
     program run
