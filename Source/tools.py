@@ -14,13 +14,21 @@ from gtts import gTTS
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 1
+print_for_test: int = 0
+count = 0
 
 
 def step_by_step_print_executing_line_number_and_data(func):
+    """ Decorator that prints the executing line number and data.
+    >>> print(' 0   >>>   1  >>> (True,)') if git_hub or not print_for_test  else run_program(True)
+     0   >>>   1  >>> (True,)
+    """
+
     def wrapper(*args):
-        if print_for_test > 1:
-            print(f'  >>>  {inspect.currentframe().f_back.f_lineno} >>> {args}')
+        global count
+        if print_for_test:
+            print(f'{count:^3}  >>>  {inspect.currentframe().f_back.f_lineno:^3} >>> {args}')
+            count += 1
         return func(*args)
 
     return wrapper

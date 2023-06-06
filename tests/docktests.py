@@ -1,4 +1,11 @@
-from Source.tools import star_separated_words_from, replace_non_english_letter
+from Source.tools import *
+
+
+def doctests_for_step_by_step_print_executing_line_number_and_data():
+    """
+    >>> print(' 0   >>>   1  >>> (True,)') if git_hub or not print_for_test  else run_program(True)
+     0   >>>   1  >>> (True,)
+    """
 
 
 def doctests_for_star_separated_words_from():
