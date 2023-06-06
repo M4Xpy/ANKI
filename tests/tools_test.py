@@ -1,5 +1,5 @@
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
-    generate_audio_file, en_ru_en_translator
+    generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image
 
 
 class Test:
@@ -43,6 +43,17 @@ class Test:
             output = 'яблоко'
             assert en_ru_en_translator(input_) == output
             assert en_ru_en_translator(output) == input_
+
+    class TestCtrl4OpenGoogleImage:
+        def test_ctrl_4_open_google_image(self, monkeypatch):
+            # Simulate clipboard text
+            clipboard_text = ''
+            monkeypatch.setattr('Source.tools.pyperclip.paste', lambda: clipboard_text)
+
+            # Test case 1: When text parameter is empty
+            ctrl_4_open_google_image('')
+            # Add assertions here to verify the expected behavior
+
 
     class TestFilterLines:
         def test_filter_lines(self):

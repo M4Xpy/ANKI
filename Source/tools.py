@@ -116,7 +116,6 @@ def ctrl_4_open_google_image(text: str | None = ''
     else:
         open_google_image(text.strip('_1234567890'))
 
-
 @step_by_step_print_executing_line_number_and_data
 def open_google_image(word: str,
                       new_page: int | None = 0
