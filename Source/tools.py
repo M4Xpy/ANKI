@@ -129,7 +129,7 @@ def open_google_image(word: str,
           f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=new_page)
 
-#@step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def open_google_translate(text: str) -> None:
     """ open google translated with received request
     >>> open_google_translate('test')
@@ -138,7 +138,7 @@ def open_google_translate(text: str) -> None:
     webbrowser.open(url, new=0, )
 
 
-#@step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def request_for(text: str,
                 template: str | None = 'ai'
                 ) -> str:
