@@ -2,7 +2,8 @@ from unittest.mock import MagicMock, patch, call
 
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
     generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate, \
-    request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub, header_tab_mp3
+    request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub, header_tab_mp3, \
+    if_error
 
 
 class Test:
@@ -158,7 +159,10 @@ Principally - Преимущественно (Preimushchestvenno)
                       '[sound:SALT.mp3]']
             assert refers_mp3s(input_, -1) == output
 
-    #
+    class TestIfError:
+        def test_if_error(self):
+            assert if_error() == 'error'
+
     class TestHeaderTabMp3Content:
         def test_0306(self):
             input_ = """relays * РЕЛЕ * К РЕЛЕ *

@@ -5,6 +5,7 @@ import re
 import time
 import traceback
 import webbrowser
+from types import NoneType
 from typing import Callable
 
 import keyboard as keyboard
@@ -243,19 +244,14 @@ def refers_mp3s(header: str,
 @step_by_step_print_executing_line_number_and_data
 def new_single_word_card() -> tuple[str, str]:
     """ save old card , then made new card ready to save """
-    try:
-        press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
-        in_text = pyperclip.paste()
-        word = in_text.split()[0].split()[0].strip('_1234567890')
-        keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
-        press_keys(0.1, 'tab', 0.1)
-        keyboard.write(f' * {" * ".join(word for word in translations_of_the(word))} *\n')
-        press_keys(0.1, 'ctrl + v')
-        return in_text, word
-    except IndexError:
-        if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
-    except:
-        if_error("keyboard_write", f"unknown error provoked following data, {in_text=}")
+    press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
+    in_text = pyperclip.paste()
+    word = in_text.split()[0].split()[0].strip('_1234567890')
+    keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
+    press_keys(0.1, 'tab', 0.1)
+    keyboard.write(f' * {" * ".join(word for word in translations_of_the(word))} *\n')
+    press_keys(0.1, 'ctrl + v')
+    return in_text, word
 
 
 @step_by_step_print_executing_line_number_and_data
