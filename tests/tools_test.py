@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch, call
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
     generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate, \
     request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub, header_tab_mp3, \
-    if_error, translations_of_the
+    if_error, translations_of_the, multi_translations
 
 
 class Test:
@@ -159,9 +159,22 @@ Principally - Преимущественно (Preimushchestvenno)
                       '[sound:SALT.mp3]']
             assert refers_mp3s(input_, -1) == output
 
-    class TestNewSingleWordCard:
-        def test_new_single_word_card(self):
-            pass
+    class TestNotNow:
+        class TestNewSingleWordCard:
+            def test_new_single_word_card(self):
+                pass
+
+        class TestNakeFuncWrite:
+            def test_make_func_write(self):
+                pass
+
+        class TestCtrlC3MultiTranslations:
+            def test_ctrl_c_3_multi_translations(self):
+                pass
+
+        class Test:
+            def test_(self):
+                pass
 
     class TestIfError:
         def test_if_error(self):
@@ -172,6 +185,12 @@ Principally - Преимущественно (Preimushchestvenno)
             input_ = 'ZAP'
             output = ['БЫСТРО', 'РАЗРЯД', 'РАЗРЯДКА', 'ЩЕЛКАТЬ']
             assert sorted(translations_of_the(input_)) == output
+
+    class TestMultiTranslations:
+        def test_multi_translations(self):
+            input_ = 'ADJOIN_8068'
+            output = 'ADJOIN_8068 * ПРИМЫКАТЬ * '
+            assert multi_translations(input_) == output
 
     # class Test:
     #     def test_(self):
