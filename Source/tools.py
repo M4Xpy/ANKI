@@ -105,7 +105,9 @@ def en_ru_en_translator(input_text: str,
 @step_by_step_print_executing_line_number_and_data
 def ctrl_4_open_google_image(text: str | None = ''
                              ) -> None:
-    """ open google image with received request """
+    """ open google image with received request
+    >>> ctrl_4_open_google_image('test')
+    """
     if not text:
         text = pyperclip.paste()
     if len(text.splitlines()) > 1:
@@ -120,15 +122,18 @@ def ctrl_4_open_google_image(text: str | None = ''
 def open_google_image(word: str,
                       new_page: int | None = 0
                       ) -> None:
-    """ open google image with received request  """
+    """ open google image with received request
+    >>> open_google_image("TEST", 1)
+    """
     url = f'https://www.google.com/search?q={word}' \
           f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=new_page)
 
-
-@step_by_step_print_executing_line_number_and_data
+#@step_by_step_print_executing_line_number_and_data
 def open_google_translate(text: str) -> None:
-    """ open google translated with received request """
+    """ open google translated with received request
+    >>> open_google_translate('test')
+    """
     url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
     webbrowser.open(url, new=0, )
 

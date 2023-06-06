@@ -1,5 +1,7 @@
+from unittest.mock import MagicMock
+
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
-    generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image
+    generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate
 
 
 class Test:
@@ -53,6 +55,16 @@ class Test:
             # Test case 1: When text parameter is empty
             ctrl_4_open_google_image('')
             # Add assertions here to verify the expected behavior
+
+    class TestOpenGoogleImage:
+        def test_open_google_image(self):
+            assert open_google_image("TEST", 1) == None
+
+
+    class TestOpenGoogleTranslate:
+        def test_open_google_translate(self):
+            assert open_google_translate('test') == None
+
 
 
     class TestFilterLines:
