@@ -1,7 +1,14 @@
-from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content
+from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
+    generate_audio_file
 
 
 class Test:
+    # class Test:
+    #     def test_(self):
+    #         input_ = INPUT
+    #         output = OUTPUT
+    #         assert FUNCTION == OUTPUT
+
     class TestUniqName:
         def test_2(self):
             input_ = "one two three"
@@ -23,6 +30,12 @@ class Test:
             input_ = 'Привет, мир!'
             output = 'ru'
             assert detect_language(input_) == output
+
+    class TestGenerateAudioFile:
+        def test_generate_audio_file(self):
+            input_ = 'test'
+            output = None
+            assert generate_audio_file(input_, -1, 'en') == output
 
     class TestFilterLines:
         def test_filter_lines(self):

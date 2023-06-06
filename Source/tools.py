@@ -14,7 +14,7 @@ from gtts import gTTS
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 1
+print_for_test: int = 8
 
 
 def step_by_step_print_executing_line_number_and_data(func):
@@ -61,10 +61,10 @@ def detect_language(text: str) -> str:
 @step_by_step_print_executing_line_number_and_data
 def generate_audio_file(text: str,
                         save_file: int | None = 0,
-                        xxxx: str | None = ''
+                        language: str | None = ''
                         ) -> str | None:
     """Generates audio file of the input_string in its detected language.
-    >>> generate_audio_file(text='test', save_file=-1, xxxx='en')
+    >>> generate_audio_file(text='test', save_file=-1, language='en')
     """
     text: str = text.lower()
     folder: str = ('C:\\Users\\Я\\Desktop\\audio',
@@ -72,11 +72,11 @@ def generate_audio_file(text: str,
                    f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
                    os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests"))[
         save_file]
-    if not xxxx:
-        xxxx = detect_language(text)  # Detect language of the input_string
+    if not language:
+        language = detect_language(text)  # Detect language of the input_string
     audio_file_name = f'{text}.mp3'  # Generate audio file name
     try:
-        audio = gTTS(text=text, lang=xxxx, slow=False)  # Generate audio file
+        audio = gTTS(text=text, lang=language, slow=False)  # Generate audio file
         audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
         audio.save(audio_file_path)
         if not save_file:
