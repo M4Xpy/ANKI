@@ -1,5 +1,5 @@
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
-    generate_audio_file
+    generate_audio_file, en_ru_en_translator
 
 
 class Test:
@@ -36,6 +36,13 @@ class Test:
             input_ = 'test'
             output = None
             assert generate_audio_file(input_, -1, 'en') == output
+
+    class TestEnRuTranslator:
+        def test_en_ru_en_translator(self):
+            input_ = 'apple'
+            output = 'яблоко'
+            assert en_ru_en_translator(input_) == output
+            assert en_ru_en_translator(output) == input_
 
     class TestFilterLines:
         def test_filter_lines(self):

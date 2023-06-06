@@ -14,7 +14,7 @@ from gtts import gTTS
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 8
+print_for_test: int = 1
 
 
 def step_by_step_print_executing_line_number_and_data(func):
