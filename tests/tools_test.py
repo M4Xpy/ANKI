@@ -211,7 +211,8 @@ class Test:
 
     class TestRunProgram:
         def test_run_program(self):
-            assert None if git_hub else run_program(True) is None
+            if not git_hub:
+                assert run_program(True) is None
 
     # class Test:
     #     def test_(self):
