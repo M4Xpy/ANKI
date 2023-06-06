@@ -1,8 +1,8 @@
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch, call
 
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
     generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate, \
-    request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub
+    request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub, header_tab_mp3
 
 
 class Test:
@@ -61,11 +61,9 @@ class Test:
         def test_open_google_image(self):
             assert open_google_image("TEST", 1) == None
 
-
     class TestOpenGoogleTranslate:
         def test_open_google_translate(self):
             assert open_google_translate('test') == None
-
 
     class TestRequestFor:
         def test_request_for(self):
@@ -81,12 +79,27 @@ class Test:
             output = 'test\n'
             assert replace_non_english_letter(input_) == output
 
-
     class TestStarSeparatedWordsFrom:
         def test_star_separated_words_from(self):
             input_ = 'test\n[sound:test.mp3]'
             output = ' * test * '
             assert star_separated_words_from(input_) == output
+
+    class TestHeaderTabMp3:
+        def test_header_tab_mp3(self):
+            with patch('Source.tools.press_keys') as mock_press_keys, \
+                    patch('Source.tools.keyboard.write') as mock_keyboard_write:
+                # Mock the keyboard module
+                mock_keyboard = MagicMock()
+                mock_keyboard_write.side_effect = mock_keyboard.write
+                mock_press_keys.side_effect = mock_keyboard.press_keys
+
+                # Call the function
+                header_tab_mp3()
+
+                # Check the expected behavior
+                assert mock_press_keys.call_args_list == [call('ctrl + a', 0.1), call(0.25, 'tab', 0.25, 'ctrl + end')]
+                assert mock_keyboard_write.call_args_list == [call(' *  * \n[sound:.mp3]'), call('\n\n')]
 
     class TestFilterLines:
         def test_filter_lines(self):
