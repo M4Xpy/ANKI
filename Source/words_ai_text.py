@@ -2,8 +2,6 @@ from Source.mp3name_detector import find_in_the
 
 file_path = 'C:\\Users\\Я\\Desktop\\C_M_W    000.txt'
 
-
-
 words = {'DISPARATE', 'hooter', 'emitted', 'REMIT', 'CONDEMN', 'GARNISH', 'DISPARITY', 'garnet', 'CRUCIBLE', 'rundown',
          'SCUM', 'TANGENT', 'CONSTRAIN', 'REMISS', 'POTASSIUM', 'LULL', 'TANGO', 'TERMINABLE', 'FLUFF', 'NREMITTING',
          'PEDDLE', 'BLOAT', 'aptly', 'APT', 'INHABITED', 'runt', 'agility', 'FETE', 'SNUB', 'OFFEND', 'DIN', 'SPEW',
