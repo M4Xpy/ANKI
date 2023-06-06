@@ -12,11 +12,21 @@ import pyperclip
 from googletrans import Translator
 from gtts import gTTS
 
-new_data = ''
-git_hub = os.getenv('GITHUB_ACTIONS')
-print_for_test = 1
+new_data: str = ''
+git_hub: str | None = os.getenv('GITHUB_ACTIONS')
+print_for_test: int = 1
 
 
+def step_by_step_print_executing_line_number_and_data(func):
+    def wrapper(*args):
+        if print_for_test > 1:
+            print(f'  >>>  {inspect.currentframe().f_back.f_lineno} >>> {args}')
+        return func(*args)
+
+    return wrapper
+
+
+@step_by_step_print_executing_line_number_and_data
 def uniq_name(input_string: str,
               test: bool | None = False
               ) -> str:
@@ -27,7 +37,7 @@ def uniq_name(input_string: str,
     # check whether test or work mode
     if test:
         random.seed(test)
-    # output_string = ""                        # save result in separate variable
+    # output_string: str = ""                        # save result in separate variable
     # for char in input_string[:20]:            # loop cutting to 20 signs string
     #     if random.random() < 0.05:            # 1 to 20 possibility of double sign
     #         output_string += char.upper()
@@ -37,42 +47,36 @@ def uniq_name(input_string: str,
     return ''.join(char + char if random.random() < 0.05 else char for char in input_string[:20])
 
 
+@step_by_step_print_executing_line_number_and_data
 def detect_language(text: str) -> str:
     """
     >>> detect_language('если строка на русском')
     'ru'
     >>> detect_language('if string in english')
     'en'
-    >>> detect_language("                    ")
-    Traceback (most recent call last):
-        ...
-    ValueError: Input text cannot be empty.
     """
-    if text := text.strip():
-        print_line_number_name_and_value_of(text, 'text')
-        return ('en', 'ru')[any(ord(char) > 127 for char in text)]
-    raise ValueError('Input text cannot be empty.')
+    return ('en', 'ru')[ord(text.strip()[1]) > 127]
 
 
+@step_by_step_print_executing_line_number_and_data
 def generate_audio_file(text: str,
                         save_file: int | None = 0,
-                        lang: str | None = ''
+                        xxxx: str | None = ''
                         ) -> str | None:
     """Generates audio file of the input_string in its detected language.
-    >>> generate_audio_file(text='test', save_file=-1, lang='en')
+    >>> generate_audio_file(text='test', save_file=-1, xxxx='en')
     """
-    text = text.lower()
-    print_line_number_name_and_value_of(text, 'text')
-    folder = ('C:\\Users\\Я\\Desktop\\audio',
-              f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
-              f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
-              os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests"))[
+    text: str = text.lower()
+    folder: str = ('C:\\Users\\Я\\Desktop\\audio',
+                   f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
+                   f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
+                   os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests"))[
         save_file]
-    if not lang:
-        lang = detect_language(text)  # Detect language of the input_string
+    if not xxxx:
+        xxxx = detect_language(text)  # Detect language of the input_string
     audio_file_name = f'{text}.mp3'  # Generate audio file name
     try:
-        audio = gTTS(text=text, lang=lang, slow=False)  # Generate audio file
+        audio = gTTS(text=text, lang=xxxx, slow=False)  # Generate audio file
         audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
         audio.save(audio_file_path)
         if not save_file:
@@ -81,6 +85,7 @@ def generate_audio_file(text: str,
         if_error("_return", "generate_audio_file_failed._Check_your_network_connection_and_try_again.")
 
 
+@step_by_step_print_executing_line_number_and_data
 def en_ru_en_translator(input_text: str,
                         lang: str | None = None
                         ) -> str:
@@ -97,6 +102,7 @@ def en_ru_en_translator(input_text: str,
         if_error("_return", "Translation_failed._Check_your_network_connection_and_try_again.")
 
 
+@step_by_step_print_executing_line_number_and_data
 def ctrl_4_open_google_image(text: str | None = ''
                              ) -> None:
     """ open google image with received request """
@@ -111,6 +117,7 @@ def ctrl_4_open_google_image(text: str | None = ''
         open_google_image(text.strip('_1234567890'))
 
 
+@step_by_step_print_executing_line_number_and_data
 def open_google_image(word: str,
                       new_page: int | None = 0
                       ) -> None:
@@ -120,12 +127,14 @@ def open_google_image(word: str,
     webbrowser.open(url, new=new_page)
 
 
+@step_by_step_print_executing_line_number_and_data
 def open_google_translate(text: str) -> None:
     """ open google translated with received request """
     url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
     webbrowser.open(url, new=0, )
 
 
+@step_by_step_print_executing_line_number_and_data
 def request_for(text: str,
                 template: str | None = 'ai'
                 ) -> str:
@@ -139,11 +148,13 @@ def request_for(text: str,
     return get_template(template, text.strip(' _1234567890'))
 
 
+@step_by_step_print_executing_line_number_and_data
 def ctrl_c_w_request_for() -> None:
     """ return to the clipboard the text received from the clipboard, processed by request_for"""
     return copy_func_paste(request_for)
 
 
+@step_by_step_print_executing_line_number_and_data
 def replace_non_english_letter(text: str) -> str:
     """
     >>> replace_non_english_letter('test\\n[sound:testy.mp3]')
@@ -165,6 +176,7 @@ def replace_non_english_letter(text: str) -> str:
     #     item for item in re.sub(r"[^A-Za-z\n.]", " ", text).split(' ') if item and '.mp' not in item).replace('.', '')
 
 
+@step_by_step_print_executing_line_number_and_data
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
     >>> star_separated_words_from('test\\n[sound:test.mp3]')
@@ -177,6 +189,7 @@ def star_separated_words_from(text: str) -> str:
     return f" * {' * '.join(lines)} * "
 
 
+@step_by_step_print_executing_line_number_and_data
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
     press_keys("ctrl + a", 0.1)
@@ -186,6 +199,7 @@ def header_tab_mp3() -> None:
     keyboard.write(tab_mp3s_remainder)
 
 
+@step_by_step_print_executing_line_number_and_data
 def header_tab_mp3_content(test: str | None = ''
                            ) -> tuple[str, ...]:
     """
@@ -201,6 +215,7 @@ def header_tab_mp3_content(test: str | None = ''
     return header, tab_mp3s_remainder
 
 
+@step_by_step_print_executing_line_number_and_data
 def refers_mp3s(header: str,
                 save_file: int | None = 1
                 ) -> list[str]:
@@ -209,33 +224,32 @@ def refers_mp3s(header: str,
     ['[sound:test.mp3]']
     """
     word_s = header.strip(' *').split(' * ')
-    print_line_number_name_and_value_of(word_s, 'word_s')
     mp3refers = []
     for word in word_s:
-        generate_audio_file(word, save_file, lang='en')
+        generate_audio_file(word, save_file, 'en')
         mp3refers.append(f'[sound:{word}.mp3]')
-    print_line_number_name_and_value_of(mp3refers, 'mp3refers')
     return mp3refers
 
 
-def new_single_word_card() -> None:
+@step_by_step_print_executing_line_number_and_data
+def new_single_word_card() -> tuple[str, str]:
     """ save old card , then made new card ready to save """
     try:
         press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
         in_text = pyperclip.paste()
-        print_line_number_name_and_value_of(in_text, 'in_text')
         word = in_text.split()[0].split()[0].strip('_1234567890')
-        print_line_number_name_and_value_of(word, 'word')
         keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
         press_keys(0.1, 'tab', 0.1)
         keyboard.write(f' * {" * ".join(word for word in translations_of_the(word))} *\n')
         press_keys(0.1, 'ctrl + v')
+        return in_text, word
     except IndexError:
         if_error("keyboard_write", f"IndexError provoked following data, {in_text=}")
     except:
         if_error("keyboard_write", f"unknown error provoked following data, {in_text=}")
 
 
+@step_by_step_print_executing_line_number_and_data
 def if_error(doing: str | None = '_return',
              report: str | None = 'error'
              ) -> str | None:
@@ -254,21 +268,21 @@ def if_error(doing: str | None = '_return',
         return report
 
 
+@step_by_step_print_executing_line_number_and_data
 def translations_of_the(word: str) -> set:
     """ Give different variants of word tranlation
     >>> sorted(translations_of_the('ZAP'))
     ['БЫСТРО', 'РАЗРЯД', 'РАЗРЯДКА', 'ЩЕЛКАТЬ']
     """
     word = word.lower()
-    print_line_number_name_and_value_of(word, 'word')
     translate_s = set(
-        en_ru_en_translator(input_text=f'{prefix} {word}', lang='en').upper() for prefix in ('', 'the', 'to'))
-    adjective = en_ru_en_translator(input_text=f'too {word}', lang='en')
+        en_ru_en_translator(f'{prefix} {word}', 'en').upper() for prefix in ('', 'the', 'to'))
+    adjective = en_ru_en_translator(f'too {word}', 'en')
     translate_s.add(' '.join(word for word in adjective.split()[1:]).upper())
-    print_line_number_name_and_value_of(sorted(translate_s), 'translate_s')
     return translate_s
 
 
+@step_by_step_print_executing_line_number_and_data
 def make_func_write(func: Callable[[str], str]
                     ) -> None:
     """ take data in clipboard , doing function , return result in clipboard"""
@@ -278,11 +292,13 @@ def make_func_write(func: Callable[[str], str]
     keyboard.write(func(pyperclip.paste()))
 
 
+@step_by_step_print_executing_line_number_and_data
 def ctrl_c_3_multi_translations() -> None:
     """ take data in clipboard , make up to 4 translations , return result in clipboard"""
     return make_func_write(multi_translations)
 
 
+@step_by_step_print_executing_line_number_and_data
 def multi_translations(word_s: str
                        ) -> str:
     """ return star separated translated vars of getted word
@@ -302,6 +318,7 @@ def multi_translations(word_s: str
         word_s.replace(',', ' ').split())
 
 
+@step_by_step_print_executing_line_number_and_data
 def press_keys(*args: float | str
                ) -> None:
     """ Presses the given keys with optional time delays
@@ -313,13 +330,14 @@ def press_keys(*args: float | str
         time.sleep(arg) if isinstance(arg, float) else keyboard.send(arg)
 
 
+@step_by_step_print_executing_line_number_and_data
 def filter_lines(text: str) -> str:
     """
     return text without lines with words from chek_s tuple, remove 'Translation:'
-    >>> filter_lines("T\\nproverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
+    >>> filter_lines("Nouns:\\r\\nT\\r\\proverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
-    # chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases')
+    # chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases', 'None')
     # filtered_lines = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
@@ -327,11 +345,17 @@ def filter_lines(text: str) -> str:
     # result = '\n'.join(filtered_lines)
     # result = result.replace('Translation:', '')
     # return result
-    return '\n'.join(line for line in text.splitlines() if not any(check in line.lower() for check in (
-        'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases'))
-                     ).replace('Translation:', '')
+    return '\n'.join(line
+                     for line in text.splitlines()
+                     if not any(check.lower() in line.lower()
+                                for check in (
+                                    'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases',
+                                    'None')
+                                )
+                     ).replace('\n\n\n', '\n\n')
 
 
+@step_by_step_print_executing_line_number_and_data
 def copy_func_paste(func: Callable[[str], str]
                     ) -> None:
     """ return to the clipboard the text received from the clipboard, processed by the provided function """
@@ -341,11 +365,13 @@ def copy_func_paste(func: Callable[[str], str]
     pyperclip.copy(func(pyperclip.paste()))
 
 
+@step_by_step_print_executing_line_number_and_data
 def ctrl_c_q_formatter() -> None:
     """ take data from clipboard , filtered lines , return result to clipboard  """
     return copy_func_paste(filter_lines)
 
 
+@step_by_step_print_executing_line_number_and_data
 def get_template(template: str,
                  text: str
                  ) -> str:
@@ -354,23 +380,23 @@ def get_template(template: str,
     'This is a test'
     """
     return {
-        'ai': f"Provide all cognate nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.\nProvide popular phrases(better proverbs)  with word '{text}' , along with  translations into Russian",
+        'ai': f"Provide single-root nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.\nProvide popular phrases with word '{text}' , along with  translations into Russian",
         'check': f"This is a {text}"
 
     }[template]
 
 
+@step_by_step_print_executing_line_number_and_data
 def ctrl_a_listener() -> None:
     """ if 'ctrl + a' pressed, automatically added pressing 'ctrl + c' """
     global new_data
     old_data = pyperclip.paste()
-    print_line_number_name_and_value_of(old_data, 'old_data')
     press_keys('ctrl + c', 0.3)
     new_data = pyperclip.paste()
-    print_line_number_name_and_value_of(new_data, 'new_data')
     pyperclip.copy(old_data)
 
 
+@step_by_step_print_executing_line_number_and_data
 def _a_lot_of_new_single_card() -> None:
     """ take new line from lines_hub, make new card , open google image"""
     lines_hub = """ """
@@ -393,22 +419,7 @@ def _a_lot_of_new_single_card() -> None:
                 raise IndexError('end of list')
 
 
-def print_line_number_name_and_value_of(variable: int | float | str | list | set | tuple | dict,
-                                        variable_name: str,
-                                        test_mode: int | None = print_for_test
-                                        ) -> None:
-    """ for inspection of results
-    >>> test = 'test'
-    >>> print_line_number_name_and_value_of(test, 'test', test_mode=1) if not git_hub else print('', end='')
-    """
-    print({
-              8: f"***************************\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n{variable}\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} =\n***************************",
-              3: f"***************************\n{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} = {variable}\n***************************",
-              2: f"{~-inspect.currentframe().f_back.f_lineno} >>> {variable_name} = {variable}".splitlines()[0],
-              1: ''
-          }[test_mode], end='')
-
-
+@step_by_step_print_executing_line_number_and_data
 def run_program(test: bool | None = None
                 ) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
@@ -427,6 +438,5 @@ def run_program(test: bool | None = None
     }
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
-    print('program run')
     if not test:
         keyboard.wait()  # Start the keyboard listener
