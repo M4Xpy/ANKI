@@ -424,12 +424,11 @@ def _a_lot_of_new_single_card() -> None:
                 raise IndexError('end of list')
 
 
-@step_by_step_print_executing_line_number_and_data
+#@step_by_step_print_executing_line_number_and_data
 def run_program(test: bool | None = None
                 ) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
-    >>> run_program(test=True) if not git_hub else print('program run')
-    program run
+    >>> if not git_hub: run_program(test=True)
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
         'space + enter': _a_lot_of_new_single_card,

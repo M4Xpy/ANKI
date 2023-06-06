@@ -135,8 +135,12 @@ class Test:
             def test_ctrl_c_q_formatter(self):
                 pass
 
-        class Test:
-            def test_(self):
+        class TestCtrlAlistener:
+            def test_ctrl_a_listener(self):
+                pass
+
+        class TestAlotOfNewSingleCard:
+            def test_a_lot_of_new_single_card(self):
                 pass
 
     class TestIfError:
@@ -208,6 +212,10 @@ class Test:
     class TestGetTemplate:
         def test_get_template(self):
             assert get_template('check', 'test') == 'This is a test'
+
+    class TestRunProgram:
+        def test_run_program(self):
+            assert run_program(True) == output
 
     # class Test:
     #     def test_(self):
