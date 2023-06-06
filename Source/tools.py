@@ -155,7 +155,7 @@ def request_for(text: str,
 @step_by_step_print_executing_line_number_and_data
 def ctrl_c_w_request_for() -> None:
     """ return to the clipboard the text received from the clipboard, processed by request_for
-    >>> if not git_hub: ctrl_c_w_request_for()
+    >>> ctrl_c_w_request_for()
     """
     return copy_func_paste(request_for)
 
