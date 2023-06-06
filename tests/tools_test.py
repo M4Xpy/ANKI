@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch, call
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
     generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate, \
     request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub, header_tab_mp3, \
-    if_error
+    if_error, translations_of_the
 
 
 class Test:
@@ -159,9 +159,25 @@ Principally - Преимущественно (Preimushchestvenno)
                       '[sound:SALT.mp3]']
             assert refers_mp3s(input_, -1) == output
 
+    class TestNewSingleWordCard:
+        def test_new_single_word_card(self):
+            pass
+
     class TestIfError:
         def test_if_error(self):
             assert if_error() == 'error'
+
+    class TestTranslationsOfThe:
+        def test_translations_of_the(self):
+            input_ = 'ZAP'
+            output = ['БЫСТРО', 'РАЗРЯД', 'РАЗРЯДКА', 'ЩЕЛКАТЬ']
+            assert sorted(translations_of_the(input_)) == output
+
+    # class Test:
+    #     def test_(self):
+    #         input_ = INPUT
+    #         output = OUTPUT
+    #         assert FUNCTION(input_) == output
 
     class TestHeaderTabMp3Content:
         def test_0306(self):
