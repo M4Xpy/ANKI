@@ -1,9 +1,6 @@
 from unittest.mock import MagicMock, patch, call
 
-from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
-    generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate, \
-    request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub, header_tab_mp3, \
-    if_error, translations_of_the, multi_translations, press_keys, get_template
+from Source.tools import *
 
 
 class Test:
@@ -60,11 +57,11 @@ class Test:
 
     class TestOpenGoogleImage:
         def test_open_google_image(self):
-            assert open_google_image("TEST", 1) == None
+            assert open_google_image("TEST", 1) is None
 
     class TestOpenGoogleTranslate:
         def test_open_google_translate(self):
-            assert open_google_translate('test') == None
+            assert open_google_translate('test') is None
 
     class TestRequestFor:
         def test_request_for(self):
@@ -72,7 +69,7 @@ class Test:
 
     class TestCtrlCwRequestFor:
         def test_ctrl_c_w_request_for(self):
-            assert True if git_hub else ctrl_c_w_request_for() == None
+            assert True if git_hub else ctrl_c_w_request_for() is None
 
     class TestReplaceNonEnglishLetter:
         def test_replace_non_english_letter(self):
@@ -102,8 +99,6 @@ class Test:
                 assert mock_press_keys.call_args_list == [call('ctrl + a', 0.1), call(0.25, 'tab', 0.25, 'ctrl + end')]
                 assert mock_keyboard_write.call_args_list == [call(' *  * \n[sound:.mp3]'), call('\n\n')]
 
-
-
     class TestRefersMp3s:
         def test_refers_mp3s(self):
             input_ = ' * SALIVA * salivary * salivation * SALINE * SALT * '
@@ -126,11 +121,12 @@ class Test:
 
         class TestPressKeys:
             def test_press_keys(self):
-                assert press_keys(0.001) == None
+                assert press_keys(0.001) is None
 
         class TestCopyFuncPaste:
             def test_copy_func_paste(self):
                 pass
+
         class TestCtrlCqFormatter:
             def test_ctrl_c_q_formatter(self):
                 pass
@@ -215,7 +211,7 @@ class Test:
 
     class TestRunProgram:
         def test_run_program(self):
-            assert run_program(True) == output
+            assert run_program(True) is None
 
     # class Test:
     #     def test_(self):

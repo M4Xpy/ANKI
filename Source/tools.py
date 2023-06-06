@@ -5,7 +5,6 @@ import re
 import time
 import traceback
 import webbrowser
-from types import NoneType
 from typing import Callable
 
 import keyboard as keyboard
@@ -119,6 +118,7 @@ def ctrl_4_open_google_image(text: str | None = ''
     else:
         open_google_image(text.strip('_1234567890'))
 
+
 @step_by_step_print_executing_line_number_and_data
 def open_google_image(word: str,
                       new_page: int | None = 0
@@ -129,6 +129,7 @@ def open_google_image(word: str,
     url = f'https://www.google.com/search?q={word}' \
           f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=new_page)
+
 
 @step_by_step_print_executing_line_number_and_data
 def open_google_translate(text: str) -> None:
@@ -424,7 +425,7 @@ def _a_lot_of_new_single_card() -> None:
                 raise IndexError('end of list')
 
 
-#@step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def run_program(test: bool | None = None
                 ) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
