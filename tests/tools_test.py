@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch, call
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
     generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate, \
     request_for, ctrl_c_w_request_for, replace_non_english_letter, star_separated_words_from, git_hub, header_tab_mp3, \
-    if_error, translations_of_the, multi_translations, press_keys
+    if_error, translations_of_the, multi_translations, press_keys, get_template
 
 
 class Test:
@@ -102,55 +102,7 @@ class Test:
                 assert mock_press_keys.call_args_list == [call('ctrl + a', 0.1), call(0.25, 'tab', 0.25, 'ctrl + end')]
                 assert mock_keyboard_write.call_args_list == [call(' *  * \n[sound:.mp3]'), call('\n\n')]
 
-    class TestFilterLines:
-        def test_filter_lines(self):
-            input_ = """Nouns:
 
-Principal - Директор (Direktor)
-Principals - Директоры (Direktory)
-Principality - Княжество (Knyazhestvo)
-Principals - Главные лица (Glavnye litsa)
-Verbs:
-
-Principal - Основной (Osnovnoy)
-Adjectives:
-
-Principal - Главный (Glavnyy)
-Principled - Принципиальный (Principial'nyy)
-Adverbs:
-
-Principally - Преимущественно (Preimushchestvenno)
-Popular phrases (proverbs) with the word 'principal' and their translations into Russian:
-
-"The principal of success is hard work." - "Принцип успеха - тяжелая работа." (Printsip uspekha - tyazhelaya rabota)
-"Stick to your principles." - "Придерживайтесь своих принципов." (Priderzhivaytes' svoykh printsipov)
-"The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
-"Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
-"The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
-            output = """
-Principal - Директор (Direktor)
-Principals - Директоры (Direktory)
-Principality - Княжество (Knyazhestvo)
-Principals - Главные лица (Glavnye litsa)
-
-Principal - Основной (Osnovnoy)
-
-Principal - Главный (Glavnyy)
-Principled - Принципиальный (Principial'nyy)
-
-Principally - Преимущественно (Preimushchestvenno)
-
-"The principal of success is hard work." - "Принцип успеха - тяжелая работа." (Printsip uspekha - tyazhelaya rabota)
-"Stick to your principles." - "Придерживайтесь своих принципов." (Priderzhivaytes' svoykh printsipov)
-"The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
-"Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
-"The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
-            assert filter_lines(input_) == output
-
-        def test_6462(self):
-            input_ = """Nouns:\r\n\r\nBeneath - под (preposition), низ (noun)\r\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\n"""
-            output = """\nBeneath - под (preposition), низ (noun)\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\n\n"""
-            assert filter_lines(input_) == output
 
     class TestRefersMp3s:
         def test_refers_mp3s(self):
@@ -176,6 +128,13 @@ Principally - Преимущественно (Preimushchestvenno)
             def test_press_keys(self):
                 assert press_keys(0.001) == None
 
+        class TestCopyFuncPaste:
+            def test_copy_func_paste(self):
+                pass
+        class TestCtrlCqFormatter:
+            def test_ctrl_c_q_formatter(self):
+                pass
+
         class Test:
             def test_(self):
                 pass
@@ -195,6 +154,60 @@ Principally - Преимущественно (Preimushchestvenno)
             input_ = 'ADJOIN_8068'
             output = 'ADJOIN_8068 * ПРИМЫКАТЬ * '
             assert multi_translations(input_) == output
+
+        class TestFilterLines:
+            def test_filter_lines(self):
+                input_ = """Nouns:
+
+    Principal - Директор (Direktor)
+    Principals - Директоры (Direktory)
+    Principality - Княжество (Knyazhestvo)
+    Principals - Главные лица (Glavnye litsa)
+    Verbs:
+
+    Principal - Основной (Osnovnoy)
+    Adjectives:
+
+    Principal - Главный (Glavnyy)
+    Principled - Принципиальный (Principial'nyy)
+    Adverbs:
+
+    Principally - Преимущественно (Preimushchestvenno)
+    Popular phrases (proverbs) with the word 'principal' and their translations into Russian:
+
+    "The principal of success is hard work." - "Принцип успеха - тяжелая работа." (Printsip uspekha - tyazhelaya rabota)
+    "Stick to your principles." - "Придерживайтесь своих принципов." (Priderzhivaytes' svoykh printsipov)
+    "The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
+    "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
+    "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
+                output = """
+    Principal - Директор (Direktor)
+    Principals - Директоры (Direktory)
+    Principality - Княжество (Knyazhestvo)
+    Principals - Главные лица (Glavnye litsa)
+
+    Principal - Основной (Osnovnoy)
+
+    Principal - Главный (Glavnyy)
+    Principled - Принципиальный (Principial'nyy)
+
+    Principally - Преимущественно (Preimushchestvenno)
+
+    "The principal of success is hard work." - "Принцип успеха - тяжелая работа." (Printsip uspekha - tyazhelaya rabota)
+    "Stick to your principles." - "Придерживайтесь своих принципов." (Priderzhivaytes' svoykh printsipov)
+    "The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
+    "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
+    "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
+                assert filter_lines(input_) == output
+
+            def test_6462(self):
+                input_ = """Nouns:\r\n\r\nBeneath - под (preposition), низ (noun)\r\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\n"""
+                output = """\nBeneath - под (preposition), низ (noun)\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\n\n"""
+                assert filter_lines(input_) == output
+
+    class TestGetTemplate:
+        def test_get_template(self):
+            assert get_template('check', 'test') == 'This is a test'
 
     # class Test:
     #     def test_(self):
