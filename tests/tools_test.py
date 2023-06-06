@@ -1,7 +1,8 @@
 from unittest.mock import MagicMock
 
 from Source.tools import detect_language, filter_lines, uniq_name, refers_mp3s, header_tab_mp3_content, \
-    generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate
+    generate_audio_file, en_ru_en_translator, ctrl_4_open_google_image, open_google_image, open_google_translate, \
+    request_for, ctrl_c_w_request_for, replace_non_english_letter
 
 
 class Test:
@@ -9,7 +10,7 @@ class Test:
     #     def test_(self):
     #         input_ = INPUT
     #         output = OUTPUT
-    #         assert FUNCTION == OUTPUT
+    #         assert FUNCTION(input_) == output
 
     class TestUniqName:
         def test_2(self):
@@ -66,6 +67,19 @@ class Test:
             assert open_google_translate('test') == None
 
 
+    class TestRequestFor:
+        def test_request_for(self):
+            assert request_for(' _1234TEST34567890', 'check') == 'This is a TEST'
+
+    class TestCtrlCwRequestFor:
+        def test_ctrl_c_w_request_for(self):
+            assert ctrl_c_w_request_for() == None
+
+    class TestReplaceNonEnglishLetter:
+        def test_replace_non_english_letter(self):
+            input_ = 'test\n[sound:testy.mp3]'
+            output = 'test\n'
+            assert replace_non_english_letter(input_) == output
 
     class TestFilterLines:
         def test_filter_lines(self):

@@ -138,7 +138,7 @@ def open_google_translate(text: str) -> None:
     webbrowser.open(url, new=0, )
 
 
-@step_by_step_print_executing_line_number_and_data
+#@step_by_step_print_executing_line_number_and_data
 def request_for(text: str,
                 template: str | None = 'ai'
                 ) -> str:
@@ -152,9 +152,11 @@ def request_for(text: str,
     return get_template(template, text.strip(' _1234567890'))
 
 
-@step_by_step_print_executing_line_number_and_data
+#@step_by_step_print_executing_line_number_and_data
 def ctrl_c_w_request_for() -> None:
-    """ return to the clipboard the text received from the clipboard, processed by request_for"""
+    """ return to the clipboard the text received from the clipboard, processed by request_for
+    >>> ctrl_c_w_request_for()
+    """
     return copy_func_paste(request_for)
 
 
