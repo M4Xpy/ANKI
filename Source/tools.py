@@ -152,10 +152,10 @@ def request_for(text: str,
     return get_template(template, text.strip(' _1234567890'))
 
 
-#@step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def ctrl_c_w_request_for() -> None:
     """ return to the clipboard the text received from the clipboard, processed by request_for
-    >>> ctrl_c_w_request_for()
+    >>> if not git_hub: ctrl_c_w_request_for()
     """
     return copy_func_paste(request_for)
 
@@ -166,20 +166,23 @@ def replace_non_english_letter(text: str) -> str:
     >>> replace_non_english_letter('test\\n[sound:testy.mp3]')
     'test\\n'
     """
-    text = text.replace('[sound:', ' ')
-    pattern = r"[^A-Za-z\n.]"
-    replaced_text = re.sub(pattern, " ", text)
-    splited_text = replaced_text.split(' ')
-    values = []
-    for item in splited_text:
-        if item:
-            if '.mp' not in item:
-                values.append(item)
-    dot_result = ' '.join(values)
-    result = dot_result.replace('.', '')
-    return result
-    # return ' '.join(
-    #     item for item in re.sub(r"[^A-Za-z\n.]", " ", text).split(' ') if item and '.mp' not in item).replace('.', '')
+    # text = text.replace('[sound:', ' ')
+    # pattern = r"[^A-Za-z\n.]"
+    # replaced_text = re.sub(pattern, " ", text)
+    # splited_text = replaced_text.split(' ')
+    # values = []
+    # for item in splited_text:
+    #     if item:
+    #         if '.mp' not in item:
+    #             values.append(item)
+    # dot_result = ' '.join(values)
+    # result = dot_result.replace('.', '')
+    # return result
+    return ' '.join(item
+                    for item in re.sub(r"[^A-Za-z\n.]", " ", text.replace('[sound:', ' ')
+                                       ).split(' ')
+                    if item and '.mp' not in item
+                    ).replace('.', '')
 
 
 @step_by_step_print_executing_line_number_and_data
