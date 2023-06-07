@@ -363,7 +363,7 @@ def filter_lines(text: str) -> str:
     'TEST'
     """
     time.sleep(0.25)
-    chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases', 'None')
+    chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None')
     # filtered_lines = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
@@ -371,12 +371,34 @@ def filter_lines(text: str) -> str:
     # result = '\n'.join(filtered_lines)
     # result = result.replace('Translation:', '')
     # return result
-    return '\n'.join(line.replace('Translation:', '')
-                     for line in text.splitlines()
+    return replace_all_exceptions_in(
+        '\n'.join(line
+                  for line in text.splitlines()
                      if not any(check.lower() in line.lower()
                                 for check in (chek_s)
                                 )
-                     ).replace('\n\n\n', '\n\n')
+                                               )
+                                     )
+
+@step_by_step_print_executing_line_number_and_data
+def replace_all_exceptions_in(text, exceptions=None):
+    """
+    >>> replace_all_exceptions_in('aabbcc', exceptions=['a'])
+    'bbcc'
+    """
+    if not exceptions:
+        exceptions = ['Translation:', ''], ['Russian translation:', '']
+    for exception in exceptions:
+        if len(exception) < 2:
+            substitute = ''
+        else:
+            substitute = exception[1]
+        text = text.replace(exception[0], substitute)
+    while '\n\n\n' in text:
+        text = text.replace('\n\n\n', '\n\n')
+    return text
+
+
 
 
 @step_by_step_print_executing_line_number_and_data
