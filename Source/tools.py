@@ -15,7 +15,7 @@ from gtts import gTTS
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
 print_for_test: int = 1
-count = 0
+count = [0, 0]
 
 
 def step_by_step_print_executing_line_number_and_data(func):
@@ -27,8 +27,8 @@ def step_by_step_print_executing_line_number_and_data(func):
     def wrapper(*args):
         global count
         if print_for_test:
-            print(f'{count:^3}  >>>  {inspect.currentframe().f_back.f_lineno:^3} >>> {args}')
-            count += 1
+            print(f'{count[0]:^3}  >>>  {inspect.currentframe().f_back.f_lineno:^3} >>> {args}')
+            count[0] += 1
         return func(*args)
 
     return wrapper
@@ -252,16 +252,21 @@ def refers_mp3s(header: str,
 
 
 @step_by_step_print_executing_line_number_and_data
-def new_single_word_card() -> tuple[str, str]:
+def new_single_word_card() -> None:
     """ save old card , then made new card ready to save """
-    press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
+    global count
+    if count[1]:
+        press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
+    else:
+        count[1] = 1
     in_text = pyperclip.paste()
     word = in_text.split()[0].split()[0].strip('_1234567890')
-    keyboard.write(f" * {word} *\n{refers_mp3s(word)[0]}")
+    quuestion = f" * {word} *\n{refers_mp3s(word)[0]}"
+    answer = f' * {" * ".join(word for word in translations_of_the(word))} *\n'
+    keyboard.write(quuestion)
     press_keys(0.1, 'tab', 0.1)
-    keyboard.write(f' * {" * ".join(word for word in translations_of_the(word))} *\n')
+    keyboard.write(answer)
     press_keys(0.1, 'ctrl + v')
-    return in_text, word
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -353,20 +358,18 @@ def filter_lines(text: str) -> str:
     'TEST'
     """
     time.sleep(0.25)
-    # chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases', 'None')
+    chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases', 'None')
     # filtered_lines = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
-    #         filtered_lines.append(line)
+    #         filtered_lines.append(line.replace('Translation:', ''))
     # result = '\n'.join(filtered_lines)
     # result = result.replace('Translation:', '')
     # return result
-    return '\n'.join(line
+    return '\n'.join(line.replace('Translation:', '')
                      for line in text.splitlines()
                      if not any(check.lower() in line.lower()
-                                for check in (
-                                    'nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases',
-                                    'None')
+                                for check in (chek_s)
                                 )
                      ).replace('\n\n\n', '\n\n')
 
