@@ -156,6 +156,17 @@ class Test:
             assert multi_translations(input_) == output
 
         class TestFilterLines:
+            def test_0706(self):
+                input_ = 'Nouns:\r\n\r\nChivalry (Russian translation: рыцарство)\r\nChivalrousness (rarely used) (Russian translation: рыцарскость)\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\nChivalrous (Russian translation: рыцарский)\r\nAdverbs:\r\n\r\nChivalrously (Russian translation: рыцарски)'
+                output = '\nChivalry (Russian translation: рыцарство)\nChivalrousness (rarely used) (Russian translation: рыцарскость)\n\nChivalrous (Russian translation: рыцарский)\n\nChivalrously (Russian translation: рыцарски)'
+                assert filter_lines(input_) == output
+
+            def test_template(self):
+                input_ = """"""
+                output = """"""
+                assert filter_lines(input_) == output
+
+
             def test_filter_lines(self):
                 input_ = """Nouns:
 

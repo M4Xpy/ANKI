@@ -14,7 +14,7 @@ from gtts import gTTS
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 0
+print_for_test: int = 1
 count = 0
 
 
@@ -219,7 +219,8 @@ def header_tab_mp3() -> None:
 
 
 @step_by_step_print_executing_line_number_and_data
-def header_tab_mp3_content(test: str | None = ''
+def header_tab_mp3_content(test: str | None = '',
+                           data: str = new_data
                            ) -> tuple[str, ...]:
     """
     >>> header_tab_mp3_content(test='test\\n[sound:test.mp3]') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
@@ -351,6 +352,7 @@ def filter_lines(text: str) -> str:
     >>> filter_lines("Nouns:\\r\\nT\\r\\proverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
+    time.sleep(0.25)
     # chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'proverb', 'please note', 'phrases', 'None')
     # filtered_lines = []
     # for line in text.splitlines():
