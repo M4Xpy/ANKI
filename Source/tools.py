@@ -14,8 +14,9 @@ from gtts import gTTS
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 1
+print_for_test: int = 0
 count: list[int] = [0, 1]
+anki_2_1_49 = 0
 
 
 def step_by_step_print_executing_line_number_and_data(func: Any) -> Any:
