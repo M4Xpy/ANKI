@@ -15,7 +15,7 @@ from gtts import gTTS
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
 print_for_test: int = 1
-count = [0, 0]
+count = [0, 1]
 
 
 def step_by_step_print_executing_line_number_and_data(func):
@@ -212,21 +212,20 @@ def star_separated_words_from(text: str) -> str:
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
     press_keys("ctrl + a", 0.1)
-    header, tab_mp3s_remainder = header_tab_mp3_content()
+    data = pyperclip.paste()
+    header, tab_mp3s_remainder = header_tab_mp3_content(data)
     keyboard.write(header)
     press_keys(.25, 'tab', .25, "ctrl + end")
     keyboard.write(tab_mp3s_remainder)
 
 
 @step_by_step_print_executing_line_number_and_data
-def header_tab_mp3_content(test: str | None = '',
-                           data: str = new_data
-                           ) -> tuple[str, ...]:
+def header_tab_mp3_content(text: str) -> tuple[str, ...]:
     """
     >>> header_tab_mp3_content(test='test\\n[sound:test.mp3]') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
     (' * test * \\n[sound:test.mp3]', '\\n\\n')
     """
-    header = star_separated_words_from(new_data or test)
+    header = star_separated_words_from(text)
     mp3refers = refers_mp3s(header)
     len_mp3refers = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
     header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
@@ -255,18 +254,24 @@ def refers_mp3s(header: str,
 def new_single_word_card() -> None:
     """ save old card , then made new card ready to save """
     global count
+    press_keys('ctrl + e', 0.1)
     if count[1]:
-        press_keys(0.25, 'tab', 0.25, 'tab', 0.25, 'enter')
+        count[1] = 0
     else:
-        count[1] = 1
+        press_keys(0.1, 'ctrl + enter')
+    answer, quuestion = new_single_word_card_content()
+    keyboard.write(quuestion)
+    press_keys(0.01, 'tab', 0.01)
+    keyboard.write(answer)
+    press_keys(0.01, 'ctrl + v', 0.01)
+
+
+def new_single_word_card_content():
     in_text = pyperclip.paste()
     word = in_text.split()[0].split()[0].strip('_1234567890')
     quuestion = f" * {word} *\n{refers_mp3s(word)[0]}"
     answer = f' * {" * ".join(word for word in translations_of_the(word))} *\n'
-    keyboard.write(quuestion)
-    press_keys(0.1, 'tab', 0.1)
-    keyboard.write(answer)
-    press_keys(0.1, 'ctrl + v')
+    return answer, quuestion
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -405,15 +410,6 @@ def get_template(template: str,
     }[template]
 
 
-@step_by_step_print_executing_line_number_and_data
-def ctrl_a_listener() -> None:
-    """ if 'ctrl + a' pressed, automatically added pressing 'ctrl + c' """
-    global new_data
-    old_data = pyperclip.paste()
-    press_keys('ctrl + c', 0.3)
-    new_data = pyperclip.paste()
-    pyperclip.copy(old_data)
-
 
 @step_by_step_print_executing_line_number_and_data
 def _a_lot_of_new_single_card() -> None:
@@ -445,8 +441,7 @@ def run_program(test: bool | None = None
     >>> if not git_hub: run_program(test=True)
     """
     hotkeys = {  # Create a dictionary of hotkeys and functions
-        'space + enter': _a_lot_of_new_single_card,
-        'ctrl + a': ctrl_a_listener,
+        # 'space + enter': _a_lot_of_new_single_card,
         'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
         'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
         'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
