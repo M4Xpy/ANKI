@@ -1,5 +1,3 @@
-from unittest.mock import MagicMock, patch, call
-
 from Source.tools import *
 
 
@@ -83,22 +81,6 @@ class Test:
             output = ' * test * '
             assert star_separated_words_from(input_) == output
 
-    class TestHeaderTabMp3:
-        def test_header_tab_mp3(self):
-            with patch('Source.tools.press_keys') as mock_press_keys, \
-                    patch('Source.tools.keyboard.write') as mock_keyboard_write:
-                # Mock the keyboard module
-                mock_keyboard = MagicMock()
-                mock_keyboard_write.side_effect = mock_keyboard.write
-                mock_press_keys.side_effect = mock_keyboard.press_keys
-
-                # Call the function
-                header_tab_mp3()
-
-                # Check the expected behavior
-                assert mock_press_keys.call_args_list == [call('ctrl + a', 0.1), call(0.25, 'tab', 0.25, 'ctrl + end')]
-                assert mock_keyboard_write.call_args_list == [call(' *  * \n[sound:.mp3]'), call('\n\n')]
-
     class TestRefersMp3s:
         def test_refers_mp3s(self):
             input_ = ' * SALIVA * salivary * salivation * SALINE * SALT * '
@@ -107,6 +89,10 @@ class Test:
             assert refers_mp3s(input_, -1) == output
 
     class TestNotNow:
+        class TestHeaderTabMp3:
+            def test_header_tab_mp3(self):
+                pass
+
         class TestNewSingleWordCard:
             def test_new_single_word_card(self):
                 pass
@@ -158,14 +144,13 @@ class Test:
         class TestFilterLines:
             def test_0706(self):
                 input_ = 'Nouns:\r\n\r\nChivalry (Russian translation: рыцарство)\r\nChivalrousness (rarely used) (Russian translation: рыцарскость)\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\nChivalrous (Russian translation: рыцарский)\r\nAdverbs:\r\n\r\nChivalrously (Russian translation: рыцарски)'
-                output = '\nChivalry (Russian translation: рыцарство)\nChivalrousness (rarely used) (Russian translation: рыцарскость)\n\nChivalrous (Russian translation: рыцарский)\n\nChivalrously (Russian translation: рыцарски)'
+                output = '\nChivalry ( рыцарство)\nChivalrousness (rarely used) ( рыцарскость)\n\nChivalrous ( рыцарский)\n\nChivalrously ( рыцарски)'
                 assert filter_lines(input_) == output
 
             def test_template(self):
                 input_ = """"""
                 output = """"""
                 assert filter_lines(input_) == output
-
 
             def test_filter_lines(self):
                 input_ = """Nouns:

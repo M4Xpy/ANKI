@@ -14,7 +14,7 @@ from gtts import gTTS
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 1
+print_for_test: int = 0
 count = [0, 1]
 
 
@@ -266,6 +266,7 @@ def new_single_word_card() -> None:
     press_keys(0.01, 'ctrl + v', 0.01)
 
 
+@step_by_step_print_executing_line_number_and_data
 def new_single_word_card_content():
     in_text = pyperclip.paste()
     word = in_text.split()[0].split()[0].strip('_1234567890')
@@ -374,11 +375,12 @@ def filter_lines(text: str) -> str:
     return replace_all_exceptions_in(
         '\n'.join(line
                   for line in text.splitlines()
-                     if not any(check.lower() in line.lower()
-                                for check in (chek_s)
-                                )
-                                               )
-                                     )
+                  if not any(check.lower() in line.lower()
+                             for check in (chek_s)
+                             )
+                  )
+    )
+
 
 @step_by_step_print_executing_line_number_and_data
 def replace_all_exceptions_in(text, exceptions=None):
@@ -397,8 +399,6 @@ def replace_all_exceptions_in(text, exceptions=None):
     while '\n\n\n' in text:
         text = text.replace('\n\n\n', '\n\n')
     return text
-
-
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -426,11 +426,10 @@ def get_template(template: str,
     'This is a test'
     """
     return {
-        'ai': f"Provide single-root nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.\nProvide popular phrases with word '{text}' , along with  translations into Russian",
+        'ai': f"Provide popular phrases with word '{text}' , along with  translations into Russian\nProvide single-root nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.",
         'check': f"This is a {text}"
 
     }[template]
-
 
 
 @step_by_step_print_executing_line_number_and_data
