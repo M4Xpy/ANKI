@@ -14,7 +14,7 @@ from gtts import gTTS
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 0
+print_for_test: int = 1
 count: list[int] = [0, 1]
 
 
@@ -212,7 +212,7 @@ def star_separated_words_from(text: str) -> str:
 def header_tab_mp3() -> None:
     """write star_separated_words press tab and at the end of the page write mp3 refers"""
     press_keys("ctrl + a", 0.1)
-    data = pyperclip.paste()
+    data: Any = pyperclip.paste()
     header, tab_mp3s_remainder = header_tab_mp3_content(data)
     keyboard.write(header)
     press_keys(.25, 'tab', .25, "ctrl + end")
@@ -225,9 +225,9 @@ def header_tab_mp3_content(text: str) -> tuple[str, ...]:
     >>> header_tab_mp3_content(test='test\\n[sound:test.mp3]') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
     (' * test * \\n[sound:test.mp3]', '\\n\\n')
     """
-    header = star_separated_words_from(text)
-    mp3refers = refers_mp3s(header)
-    len_mp3refers = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
+    header: str = star_separated_words_from(text)
+    mp3refers: list[str] = refers_mp3s(header)
+    len_mp3refers: int = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
     header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
     header = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
     tab_mp3s_remainder = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
@@ -242,8 +242,8 @@ def refers_mp3s(header: str,
     >>> refers_mp3s('test', save_file=-1)
     ['[sound:test.mp3]']
     """
-    word_s = header.strip(' *').split(' * ')
-    mp3refers = []
+    word_s: list[str] = header.strip(' *').split(' * ')
+    mp3refers: list[str] = []
     for word in word_s:
         generate_audio_file(word, save_file, 'en')
         mp3refers.append(f'[sound:{word}.mp3]')
@@ -267,12 +267,12 @@ def new_single_word_card() -> None:
 
 
 @step_by_step_print_executing_line_number_and_data
-def new_single_word_card_content():
-    in_text = pyperclip.paste()
-    word = in_text.split()[0].split()[0].strip('_1234567890')
-    quuestion = f" * {word} *\n{refers_mp3s(word)[0]}"
-    answer = f' * {" * ".join(word for word in translations_of_the(word))} *\n'
-    return answer, quuestion
+def new_single_word_card_content() -> tuple[str, str]:
+    in_text: str = pyperclip.paste()
+    word: str = in_text.split()[0].split()[0].strip('_1234567890')
+    question: str = f" * {word} *\n{refers_mp3s(word)[0]}"
+    answer: str = f' * {" * ".join(word for word in translations_of_the(word))} *\n'
+    return answer, question
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -301,9 +301,9 @@ def translations_of_the(word: str) -> set:
     ['БЫСТРО', 'РАЗРЯД', 'РАЗРЯДКА', 'ЩЕЛКАТЬ']
     """
     word = word.lower()
-    translate_s = set(
+    translate_s: set[str | None] = set(
         en_ru_en_translator(f'{prefix} {word}', 'en').upper() for prefix in ('', 'the', 'to'))
-    adjective = en_ru_en_translator(f'too {word}', 'en')
+    adjective: str = en_ru_en_translator(f'too {word}', 'en')
     translate_s.add(' '.join(word for word in adjective.split()[1:]).upper())
     return translate_s
 
@@ -331,13 +331,13 @@ def multi_translations(word_s: str
     >>> multi_translations('ADJOIN_8068')
     'ADJOIN_8068 * ПРИМЫКАТЬ * '
     """
-    # result_s = []
+    # result_s: list[str] = []
     # for _word in word_s.replace(',', ' ').split():
-    #     word = _word.strip(' _1234567890')  # return 'ABLE' from 'ABLE_299'
-    #     translations = translations_of_the(word)  # gives up to four translations of the word
-    #     result = f"{word} * {' * '.join(map(str, translations))} * "  # return star separated translations words
+    #     word: str = _word.strip(' _1234567890')  # return 'ABLE' from 'ABLE_299'
+    #     translations: set = translations_of_the(word)  # gives up to four translations of the word
+    #     result:str = f"{word} * {' * '.join(map(str, translations))} * "  # return star separated translations words
     #     result_s.append(result)
-    # result = '\n\n'.join(result for result in result_s)
+    # result: str = '\n\n'.join(result for result in result_s)
     # return result        # code above(for reading, debugging and refactoring) is the same steps as in under one-liner
     return '\n\n'.join(
         f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * " for word in
@@ -364,26 +364,28 @@ def filter_lines(text: str) -> str:
     'TEST'
     """
     time.sleep(0.25)
-    chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None')
-    # filtered_lines = []
+    chek_s: tuple[str, ...] = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None')
+    # filtered_lines: list[str] = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
     #         filtered_lines.append(line.replace('Translation:', ''))
-    # result = '\n'.join(filtered_lines)
-    # result = result.replace('Translation:', '')
+    # result: str = '\n'.join(filtered_lines)
+    # result: str = result.replace('Translation:', '')
     # return result
     return replace_all_exceptions_in(
         '\n'.join(line
                   for line in text.splitlines()
                   if not any(check.lower() in line.lower()
-                             for check in (chek_s)
+                             for check in chek_s
                              )
                   )
     )
 
 
 @step_by_step_print_executing_line_number_and_data
-def replace_all_exceptions_in(text, exceptions=None):
+def replace_all_exceptions_in(text: str,
+                              exceptions: list[str] | None = None
+                              ) -> str:
     """
     >>> replace_all_exceptions_in('aabbcc', exceptions=['a'])
     'bbcc'
@@ -392,7 +394,7 @@ def replace_all_exceptions_in(text, exceptions=None):
         exceptions = ['Translation:', ''], ['Russian translation:', '']
     for exception in exceptions:
         if len(exception) < 2:
-            substitute = ''
+            substitute: str = ''
         else:
             substitute = exception[1]
         text = text.replace(exception[0], substitute)
@@ -405,9 +407,9 @@ def replace_all_exceptions_in(text, exceptions=None):
 def copy_func_paste(func: Callable[[str], str]
                     ) -> None:
     """ return to the clipboard the text received from the clipboard, processed by the provided function """
-    # text = pyperclip.paste()
-    # text = func(text)
-    # pyperclip.copy(text)
+    # input_text: str = pyperclip.paste()
+    # output_text: str = func(input_text)
+    # pyperclip.copy(output_text)
     pyperclip.copy(func(pyperclip.paste()))
 
 
@@ -435,14 +437,14 @@ def get_template(template: str,
 @step_by_step_print_executing_line_number_and_data
 def _a_lot_of_new_single_card() -> None:
     """ take new line from lines_hub, make new card , open google image"""
-    lines_hub = """ """
+    lines_hub: str = """ """
 
-    lines = [line for line in lines_hub.splitlines() if len(line.strip(' *@')) > 3]
-    first = lines[-1].split()[0]  # while cycle of card making , google image opened
+    lines: list[str] = [line for line in lines_hub.splitlines() if len(line.strip(' *@')) > 3]
+    first: str | None = lines[-1].split()[0]  # while cycle of card making , google image opened
     while True:
         if keyboard.is_pressed('space + enter'):
             try:
-                text = lines.pop()
+                text: str = lines.pop()
                 pyperclip.copy(text)
                 time.sleep(0.1)
                 new_single_word_card()
@@ -461,7 +463,7 @@ def run_program(test: bool | None = None
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
     >>> if not git_hub: run_program(test=True)
     """
-    hotkeys = {  # Create a dictionary of hotkeys and functions
+    hotkeys: dict[str:Callable] = {  # Create a dictionary of hotkeys and functions
         # 'space + enter': _a_lot_of_new_single_card,
         'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
         'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
