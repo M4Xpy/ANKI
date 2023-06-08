@@ -5,6 +5,7 @@ import re
 import time
 import traceback
 import webbrowser
+from datetime import date
 from typing import Callable, Any
 
 import keyboard as keyboard
@@ -12,12 +13,13 @@ import pyperclip
 from googletrans import Translator
 from gtts import gTTS
 
+from Source.mp3name_detector import find_in_the
+
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 0
+print_for_test: int = 1
 count: list[int] = [0, 1]
-anki_2_1_49 = 0
-
+start = True
 
 def step_by_step_print_executing_line_number_and_data(func: Any) -> Any:
     """ Decorator that prints the executing line number and data.
@@ -53,7 +55,11 @@ def uniq_name(input_string: str,
     #     else:
     #         output_string += char.lower()     # 19 to 20 possibility of single sign
     # return output_string                      # #-lines fully equal last comprehension line
-    return ''.join(char + char if random.random() < 0.05 else char for char in input_string[:20])
+    return ''.join(char + char
+                   if random.random() < 0.05
+                   else char
+                   for char in input_string[:20]
+                   )
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -203,7 +209,10 @@ def star_separated_words_from(text: str) -> str:
     ' * test * '
     """
     text = replace_non_english_letter(text)
-    lines = [line.split()[0] for line in text.splitlines() if line.strip()]
+    lines = [line.split()[0]
+             for line in text.splitlines()
+             if line.strip()
+             ]
     if len(lines) < 2:
         return f" * {' * '.join(word for word in text.split() if detect_language(word) == 'en')} * "
     return f" * {' * '.join(lines)} * "
@@ -341,8 +350,9 @@ def multi_translations(word_s: str
     # result: str = '\n\n'.join(result for result in result_s)
     # return result        # code above(for reading, debugging and refactoring) is the same steps as in under one-liner
     return '\n\n'.join(
-        f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * " for word in
-        word_s.replace(',', ' ').split())
+        f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * "
+        for word in word_s.replace(',', ' ').split()
+    )
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -365,7 +375,8 @@ def filter_lines(text: str) -> str:
     'TEST'
     """
     time.sleep(0.25)
-    chek_s: tuple[str, ...] = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None')
+    chek_s: tuple[str, ...] = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
+                               'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
     # filtered_lines: list[str] = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
@@ -429,7 +440,8 @@ def get_template(template: str,
     'This is a test'
     """
     return {
-        'ai': f"Provide popular phrases with word '{text}' , along with  translations into Russian\nProvide single-root nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.",
+        'ai': f"Provide popular phrases with word '{text}' , along with  translations into Russian\nProvide single-root"
+              f" nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.",
         'check': f"This is a {text}"
 
     }[template]
@@ -440,7 +452,10 @@ def _a_lot_of_new_single_card() -> None:
     """ take new line from lines_hub, make new card , open google image"""
     lines_hub: str = """ """
 
-    lines: list[str] = [line for line in lines_hub.splitlines() if len(line.strip(' *@')) > 3]
+    lines: list[str] = [line
+                        for line in lines_hub.splitlines()
+                        if len(line.strip(' *@')) > 3
+                        ]
     first: str | None = lines[-1].split()[0]  # while cycle of card making , google image opened
     while True:
         if keyboard.is_pressed('space + enter'):
@@ -459,6 +474,40 @@ def _a_lot_of_new_single_card() -> None:
 
 
 @step_by_step_print_executing_line_number_and_data
+def ai_request_list():
+    global start
+    today = date.today().day
+    file = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\MONTH\\{today}.txt'
+    if start:
+        start = False
+        return sorted(find_in_the(file, 'mp3_words'))
+
+
+
+words_list = ai_request_list()
+
+
+
+def ai_request_for_10_sentences_at_time_from():
+    """
+
+    """
+    global words_list
+    leno = len(words_list)
+    if leno:
+        share = (10, leno)[leno < 9]
+        now_list = words_list[:share]
+        words_list = words_list[share:]
+        return f'provide popular phrase with following words, with a translation into Russian, ' \
+               f'highlighting these words and their corresponding-translation-words in a sentence with an uppercase.\n' \
+               f'{now_list}'
+
+
+def page_down_ai_request_for_10_sentences_at_time():
+    pyperclip.copy(ai_request_for_10_sentences_at_time_from())
+
+
+@step_by_step_print_executing_line_number_and_data
 def run_program(test: bool | None = None
                 ) -> None:
     """ register set of hotkeys and their corresponding functions, starts a keyboard listener of hotkeys presses
@@ -466,12 +515,13 @@ def run_program(test: bool | None = None
     """
     hotkeys: dict[str:Callable] = {  # Create a dictionary of hotkeys and functions
         # 'space + enter': _a_lot_of_new_single_card,
+        'page down'   : page_down_ai_request_for_10_sentences_at_time,
         'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
         'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
         'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
-        'ctrl + 1': header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
-        'ctrl + 2': new_single_word_card,  # get cursor at the answer field in 'add new card', before click
-        'ctrl + 4': ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
+        'ctrl + 1'    : header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
+        'ctrl + 2'    : new_single_word_card,  # get cursor at the answer field in 'add new card', before click
+        'ctrl + 4'    : ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
     }
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)

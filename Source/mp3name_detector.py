@@ -19,9 +19,9 @@ def find_in_the(path_of_file: str,
     ['63544041144321.jpg', '64312840290305.jpeg', '65081639436289.png']
     """
     pattern, cut_prefix, cut_suffix, cut_before = {
-        None: (pattern, cut_prefix, cut_suffix, cut_before),
-        'mp3_words': ('.{15}.mp3', None, '.mp3', ':'),
-        'mp3': ('.{15}.mp3', None, None, ':'),
+        None          : (pattern, cut_prefix, cut_suffix, cut_before),
+        'mp3_words'   : ('.{15}.mp3', None, '.mp3', ':'),
+        'mp3'         : ('.{15}.mp3', None, None, ':'),
         'image_refers': ('paste-.{20}', 'paste-"', '" ', None),
 
     }[content]
