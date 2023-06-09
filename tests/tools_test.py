@@ -145,12 +145,12 @@ class Test:
             def test_0706(self):
                 input_ = 'Nouns:\r\n\r\nChivalry (Russian translation: рыцарство)\r\nChivalrousness (rarely used) (Russian translation: рыцарскость)\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\nChivalrous (Russian translation: рыцарский)\r\nAdverbs:\r\n\r\nChivalrously (Russian translation: рыцарски)'
                 output = '\nChivalry ( рыцарство)\nChivalrousness (rarely used) ( рыцарскость)\n\nChivalrous ( рыцарский)\n\nChivalrously ( рыцарски)'
-                assert filter_lines(input_) == output
+                assert del_trash_lines_and_words(input_) == output
 
             def test_template(self):
                 input_ = """"""
                 output = """"""
-                assert filter_lines(input_) == output
+                assert del_trash_lines_and_words(input_) == output
 
             def test_filter_lines(self):
                 input_ = """Nouns:
@@ -194,12 +194,12 @@ class Test:
     "The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
     "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
     "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
-                assert filter_lines(input_) == output
+                assert del_trash_lines_and_words(input_) == output
 
             def test_6462(self):
                 input_ = """Nouns:\r\n\r\nBeneath - под (preposition), низ (noun)\r\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\n"""
                 output = """\nBeneath - под (preposition), низ (noun)\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\n\n"""
-                assert filter_lines(input_) == output
+                assert del_trash_lines_and_words(input_) == output
 
     class TestGetTemplate:
         def test_get_template(self):

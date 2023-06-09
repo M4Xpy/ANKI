@@ -15,9 +15,10 @@ from gtts import gTTS
 
 from Source.mp3name_detector import find_in_the
 
+ai_request_for_sentence = 'Дайте мне популярные предложения параллельно с переводом на английский язык со словами'
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 1
+print_for_test: int = 0
 count: list[int] = [0, 1]
 start = True
 
@@ -368,17 +369,18 @@ def press_keys(*args: float | str
 
 
 @step_by_step_print_executing_line_number_and_data
-def filter_lines(text: str,
-                 chek_s: tuple[str, ...] | None = None
-                 ) -> str:
+def del_trash_lines_and_words(text: str,
+                              del_lines: tuple[str, ...] | None = None,
+                              del_words: tuple[str, ...] | None = None
+                              ) -> str:
     """
     return text without lines with words from chek_s tuple, remove 'Translation:'
-    >>> filter_lines("Nouns:\\r\\nT\\r\\proverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
+    >>> del_trash_lines_and_words("Nouns:\\r\\nT\\r\\proverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
     time.sleep(0.25)
-    if not chek_s:
-        chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
+    if not del_lines:
+        del_lines = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
                                    'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
     # filtered_lines: list[str] = []
     # for line in text.splitlines():
@@ -391,23 +393,23 @@ def filter_lines(text: str,
         '\n'.join(line
                   for line in text.splitlines()
                   if not any(check.lower() in line.lower()
-                             for check in chek_s
+                             for check in del_lines
                              )
-                  )
-    )
+                  ),
+    del_words)
 
 
 @step_by_step_print_executing_line_number_and_data
 def replace_all_exceptions_in(text: str,
-                              exceptions: list[str] | None = None
+                              del_words: list[str] | None = None
                               ) -> str:
     """
-    >>> replace_all_exceptions_in('aabbcc', exceptions=['a'])
+    >>> replace_all_exceptions_in('aabbcc', del_words=['a'])
     'bbcc'
     """
-    if not exceptions:
-        exceptions = ['Translation:', ''], ['Russian translation:', '']
-    for exception in exceptions:
+    if not del_words:
+        del_words = ['Translation:', ''], ['Russian translation:', '']
+    for exception in del_words:
         if len(exception) < 2:
             substitute: str = ''
         else:
@@ -431,7 +433,7 @@ def copy_func_paste(func: Callable[[str], str]
 @step_by_step_print_executing_line_number_and_data
 def ctrl_c_q_formatter() -> None:
     """ take data from clipboard , filtered lines , return result to clipboard  """
-    return copy_func_paste(filter_lines)
+    return copy_func_paste(del_trash_lines_and_words)
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -502,7 +504,9 @@ def ai_request_for_10_sentences_at_time_from():
         share = (10, leno)[leno < 9]
         now_list = tuple(words_list[:share])
         words_list = words_list[share:]
-        return f'Дайте мне популярные предложения параллельно с переводом на английский язык со словами {", ".join(now_list)}'
+        return f'{ai_request_for_sentence} {", ".join(now_list)}'
+
+
 
 
 def page_down_ai_request_for_10_sentences_at_time():
@@ -510,6 +514,18 @@ def page_down_ai_request_for_10_sentences_at_time():
     press_keys(0.1, 'ctrl + v', 0.1, 'enter')
 
 
+def copy_func(func):####################################################
+    text = pyperclip.paste()######################################
+    
+
+def home_ai_answer_handling():
+    """
+    >>> home_ai_answer_handling()
+    """
+    text = pyperclip.paste()
+    lines = 'User', 'ChatGPT', ai_request_for_sentence
+    gist =  del_trash_lines_and_words(text, lines)
+    print(gist)
 
 
 
@@ -521,13 +537,14 @@ def run_program(test: bool | None = None
     """
     hotkeys: dict[str:Callable] = {  # Create a dictionary of hotkeys and functions
         # 'space + enter': _a_lot_of_new_single_card,
+        'home'        : home_ai_answer_handling,
         'page down'   : page_down_ai_request_for_10_sentences_at_time,
-        'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
-        'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
-        'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
-        'ctrl + 1'    : header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
-        'ctrl + 2'    : new_single_word_card,  # get cursor at the answer field in 'add new card', before click
-        'ctrl + 4'    : ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
+        'ctrl + c + w': ctrl_c_w_request_for,                           # return in clipboard template with copied word
+        'ctrl + c + 3': ctrl_c_3_multi_translations,      # return in clipboard up to 4 translations of the copied word
+        'ctrl + c + q': ctrl_c_q_formatter,                            # return in clipboard text without certain words
+        'ctrl + 1'    : header_tab_mp3,                           # get word , make and save mp3 and write refer of mp3
+        'ctrl + 2'    : new_single_word_card,          # get cursor at the answer field in 'add new card', before click
+        'ctrl + 4'    : ctrl_4_open_google_image,                    # open google image(s) with word(s) from clipboard
     }
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
