@@ -368,15 +368,18 @@ def press_keys(*args: float | str
 
 
 @step_by_step_print_executing_line_number_and_data
-def filter_lines(text: str) -> str:
+def filter_lines(text: str,
+                 chek_s: tuple[str, ...] | None = None
+                 ) -> str:
     """
     return text without lines with words from chek_s tuple, remove 'Translation:'
     >>> filter_lines("Nouns:\\r\\nT\\r\\proverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
     time.sleep(0.25)
-    chek_s: tuple[str, ...] = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
-                               'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
+    if not chek_s:
+        chek_s = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
+                                   'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
     # filtered_lines: list[str] = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
@@ -477,10 +480,11 @@ def _a_lot_of_new_single_card() -> None:
 def ai_request_list():
     global start
     today = date.today().day
-    file = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\MONTH\\{today}.txt'
+    _31 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\_31\\{today}.txt'
+    _15 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\_15\\{today}.txt'
     if start:
         start = False
-        return sorted(find_in_the(file, 'mp3_words'))
+        return sorted(find_in_the(_15, 'mp3_words') )
 
 
 
@@ -496,15 +500,17 @@ def ai_request_for_10_sentences_at_time_from():
     leno = len(words_list)
     if leno:
         share = (10, leno)[leno < 9]
-        now_list = words_list[:share]
+        now_list = tuple(words_list[:share])
         words_list = words_list[share:]
-        return f'provide popular phrase with following words, with a translation into Russian, ' \
-               f'highlighting these words and their corresponding-translation-words in a sentence with an uppercase.\n' \
-               f'{now_list}'
+        return f'Дайте мне популярные предложения параллельно с переводом на английский язык со словами {", ".join(now_list)}'
 
 
 def page_down_ai_request_for_10_sentences_at_time():
-    pyperclip.copy(ai_request_for_10_sentences_at_time_from())
+    pyperclip.copy(ai_request_for_10_sentences_at_time_from() or " ")
+    press_keys(0.1, 'ctrl + v', 0.1, 'enter')
+
+
+
 
 
 @step_by_step_print_executing_line_number_and_data
