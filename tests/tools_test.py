@@ -137,9 +137,9 @@ class Test:
 
     class TestMultiTranslations:
         def test_multi_translations(self):
-            input_ = 'ADJOIN_8068'
+            in_put = 'ADJOIN_8068'
             output = 'ADJOIN_8068 * ПРИМЫКАТЬ * '
-            assert multi_translations(input_) == output
+            assert output == multi_translations(in_put) == clone_multi_translations(in_put)
 
         class TestFilterLines:
             def test_0706(self):

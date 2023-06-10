@@ -2,6 +2,7 @@ import inspect
 import os
 import random
 import re
+import sys
 import time
 import traceback
 import webbrowser
@@ -18,19 +19,32 @@ from Source.mp3name_detector import find_in_the
 ai_request_for_sentence = 'Дайте мне популярные предложения параллельно с переводом на английский язык со словами'
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-print_for_test: int = 0
 count: list[int] = [0, 1]
 start = True
 
+
+def whether_test_mode():
+    return True if not any([
+        'PYTEST_CURRENT_TEST' in os.environ,
+        '__pytest' in sys.modules,
+        '__unittest' in sys.modules,
+        'GITHUB_ACTIONS' in os.environ,
+        'CI' in os.environ,
+        'doctest' in sys.modules
+    ]) else False
+
+
+not_test = whether_test_mode()
+
+
 def step_by_step_print_executing_line_number_and_data(func: Any) -> Any:
     """ Decorator that prints the executing line number and data.
-    >>> print(' 0   >>>   1  >>> (True,)') if git_hub or not print_for_test  else run_program(True)
-     0   >>>   1  >>> (True,)
+    >>> run_program(True)
     """
 
     def wrapper(*args: tuple[Any, ...]) -> Any:
-        global count
-        if print_for_test:
+        if not_test:
+            global count
             print(f'{count[0]:^3}  >>>  {inspect.currentframe().f_back.f_lineno:^3} >>> {args}')
             count[0] += 1
         return func(*args)
@@ -181,8 +195,8 @@ def ctrl_c_w_request_for() -> None:
 @step_by_step_print_executing_line_number_and_data
 def replace_non_english_letter(text: str) -> str:
     """
-    >>> replace_non_english_letter('test\\n[sound:testy.mp3]')
-    'test\\n'
+    >>> replace_non_english_letter('test-test\\n[sound:testy.mp3]')
+    'test-test\n'
     """
     # text = text.replace('[sound:', ' ')
     # pattern = r"[^A-Za-z\n.]"
@@ -197,16 +211,16 @@ def replace_non_english_letter(text: str) -> str:
     # result = dot_result.replace('.', '')
     # return result
     return ' '.join(item
-                    for item in re.sub(r"[^A-Za-z\n.]", " ", text.replace('[sound:', ' ')
+                    for item in re.sub(r"[^A-Za-z\n.-]", " ", text.replace('[sound:', ' ')
                                        ).split(' ')
                     if item and '.mp' not in item
                     ).replace('.', '')
 
 
-@step_by_step_print_executing_line_number_and_data
+# @step_by_step_print_executing_line_number_and_data
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
-    >>> star_separated_words_from('test\\n[sound:test.mp3]')
+    >>> star_separated_words_from('test-test\\n[sound:test.mp3]')
     ' * test * '
     """
     text = replace_non_english_letter(text)
@@ -230,11 +244,11 @@ def header_tab_mp3() -> None:
     keyboard.write(tab_mp3s_remainder)
 
 
-@step_by_step_print_executing_line_number_and_data
+# @step_by_step_print_executing_line_number_and_data
 def header_tab_mp3_content(text: str) -> tuple[str, ...]:
     """
-    >>> header_tab_mp3_content(test='test\\n[sound:test.mp3]') if not git_hub else (' * test * \\n[sound:test.mp3]', '\\n\\n')
-    (' * test * \\n[sound:test.mp3]', '\\n\\n')
+    >>> header_tab_mp3_content('test-test\\n[sound:test.mp3]') > ()
+    True
     """
     header: str = star_separated_words_from(text)
     mp3refers: list[str] = refers_mp3s(header)
@@ -242,7 +256,7 @@ def header_tab_mp3_content(text: str) -> tuple[str, ...]:
     header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
     header = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
     tab_mp3s_remainder = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
-    return header, tab_mp3s_remainder
+    return (header, tab_mp3s_remainder)
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -335,23 +349,27 @@ def ctrl_c_3_multi_translations() -> None:
     return make_func_write(multi_translations)
 
 
-@step_by_step_print_executing_line_number_and_data
-def multi_translations(word_s: str
-                       ) -> str:
+def clone_multi_translations(word_s: str) -> str:
     """ return star separated translated vars of getted word
-    >>> multi_translations('ADJOIN_8068')
-    'ADJOIN_8068 * ПРИМЫКАТЬ * '
+    >>> in_put, out_put = "ADJOIN_8068", "ADJOIN_8068 * ПРИМЫКАТЬ * "
+    >>> assert out_put == multi_translations(in_put) == clone_multi_translations(in_put)
     """
-    # result_s: list[str] = []
-    # for _word in word_s.replace(',', ' ').split():
-    #     word: str = _word.strip(' _1234567890')  # return 'ABLE' from 'ABLE_299'
-    #     translations: set = translations_of_the(word)  # gives up to four translations of the word
-    #     result:str = f"{word} * {' * '.join(map(str, translations))} * "  # return star separated translations words
-    #     result_s.append(result)
-    # result: str = '\n\n'.join(result for result in result_s)
-    # return result        # code above(for reading, debugging and refactoring) is the same steps as in under one-liner
+    result_s: list[str] = []
+    word_s_replace = word_s.replace(',', ' ')
+    words_split = word_s_replace.split()
+    for _word in words_split:
+        word = _word.strip(' _1234567890')
+        translations: set = translations_of_the(word)  # gives up to four translations of the word
+        result: str = f"{_word} * {' * '.join(translations)} * "  # return star separated translations words
+        result_s.append(result)
+    result: str = '\n\n'.join(result_s)
+    return result
+
+
+@step_by_step_print_executing_line_number_and_data
+def multi_translations(word_s: str) -> str:
     return '\n\n'.join(
-        f"{word} * {' * '.join(map(str, translations_of_the(word.strip(' _1234567890'))))} * "
+        f"{word} * {' * '.join(translations_of_the(word.strip(' _1234567890')))} * "
         for word in word_s.replace(',', ' ').split()
     )
 
@@ -381,7 +399,7 @@ def del_trash_lines_and_words(text: str,
     time.sleep(0.25)
     if not del_lines:
         del_lines = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
-                                   'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
+                     'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
     # filtered_lines: list[str] = []
     # for line in text.splitlines():
     #     if not any(check in line.lower() for check in chek_s):
@@ -396,7 +414,7 @@ def del_trash_lines_and_words(text: str,
                              for check in del_lines
                              )
                   ),
-    del_words)
+        del_words)
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -482,16 +500,16 @@ def _a_lot_of_new_single_card() -> None:
 def ai_request_list():
     global start
     today = date.today().day
-    _31 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\_31\\{today}.txt'
-    _15 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\_15\\{today}.txt'
+    _31 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+          f'undone_anki_txt_format\\_31\\{today}.txt'
+    _15 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+          f'undone_anki_txt_format\\_15\\{today}.txt'
     if start:
         start = False
-        return sorted(find_in_the(_15, 'mp3_words') )
-
+        return sorted(find_in_the(_31, 'mp3_words'))
 
 
 words_list = ai_request_list()
-
 
 
 def ai_request_for_10_sentences_at_time_from():
@@ -507,16 +525,11 @@ def ai_request_for_10_sentences_at_time_from():
         return f'{ai_request_for_sentence} {", ".join(now_list)}'
 
 
-
-
 def page_down_ai_request_for_10_sentences_at_time():
-    pyperclip.copy(ai_request_for_10_sentences_at_time_from() or " ")
-    press_keys(0.1, 'ctrl + v', 0.1, 'enter')
+    if words_list:
+        pyperclip.copy(ai_request_for_10_sentences_at_time_from())
+        press_keys(0.1, 'ctrl + v', 0.1, 'enter')
 
-
-def copy_func(func):####################################################
-    text = pyperclip.paste()######################################
-    
 
 def home_ai_answer_handling():
     """
@@ -524,8 +537,15 @@ def home_ai_answer_handling():
     """
     text = pyperclip.paste()
     lines = 'User', 'ChatGPT', ai_request_for_sentence
-    gist =  del_trash_lines_and_words(text, lines)
+    gist = del_trash_lines_and_words(text, lines)
     print(gist)
+
+
+def delete_backspace_page_down_presser():
+    while words_list:
+        time.sleep(4)
+        page_down_ai_request_for_10_sentences_at_time()
+        time.sleep(random.randint(100, 150))
 
 
 
@@ -537,14 +557,15 @@ def run_program(test: bool | None = None
     """
     hotkeys: dict[str:Callable] = {  # Create a dictionary of hotkeys and functions
         # 'space + enter': _a_lot_of_new_single_card,
-        'home'        : home_ai_answer_handling,
-        'page down'   : page_down_ai_request_for_10_sentences_at_time,
-        'ctrl + c + w': ctrl_c_w_request_for,                           # return in clipboard template with copied word
-        'ctrl + c + 3': ctrl_c_3_multi_translations,      # return in clipboard up to 4 translations of the copied word
-        'ctrl + c + q': ctrl_c_q_formatter,                            # return in clipboard text without certain words
-        'ctrl + 1'    : header_tab_mp3,                           # get word , make and save mp3 and write refer of mp3
-        'ctrl + 2'    : new_single_word_card,          # get cursor at the answer field in 'add new card', before click
-        'ctrl + 4'    : ctrl_4_open_google_image,                    # open google image(s) with word(s) from clipboard
+        'backspace + delete': delete_backspace_page_down_presser,
+        'home': home_ai_answer_handling,
+        'page down': page_down_ai_request_for_10_sentences_at_time,
+        'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
+        'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
+        'ctrl + c + q': ctrl_c_q_formatter,  # return in clipboard text without certain words
+        'ctrl + 1': header_tab_mp3,  # get word , make and save mp3 and write refer of mp3
+        'ctrl + 2': new_single_word_card,  # get cursor at the answer field in 'add new card', before click
+        'ctrl + 4': ctrl_4_open_google_image,  # open google image(s) with word(s) from clipboard
     }
     for hotkey, function in hotkeys.items():  # Register the hotkeys and their corresponding functions
         keyboard.add_hotkey(hotkey, function)
