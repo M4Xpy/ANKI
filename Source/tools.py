@@ -535,7 +535,7 @@ def home_ai_answer_handling():
     """
     >>> home_ai_answer_handling()
     """
-    text = pyperclip.paste()
+    wi
     lines = 'User', 'ChatGPT', ai_request_for_sentence
     gist = del_trash_lines_and_words(text, lines)
     print(gist)
@@ -546,6 +546,11 @@ def delete_backspace_page_down_presser():
         time.sleep(4)
         page_down_ai_request_for_10_sentences_at_time()
         time.sleep(random.randint(100, 150))
+
+
+def with_open(file_path,
+              mode='a+',
+              to_return=)
 
 
 
