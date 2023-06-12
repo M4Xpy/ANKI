@@ -13,6 +13,7 @@ import keyboard as keyboard
 import pyperclip
 from googletrans import Translator
 from gtts import gTTS
+from moviepy.editor import concatenate_audioclips, AudioFileClip
 
 from Source.mp3name_detector import find_in_the
 
@@ -21,16 +22,17 @@ new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
 count: list[int] = [0, 1]
 start = True
+today = date.today().day
 
 
 def whether_test_mode():
     return True if not any([
+        'CI'                  in os.environ,
+        'GITHUB_ACTIONS'      in os.environ,
         'PYTEST_CURRENT_TEST' in os.environ,
-        '__pytest' in sys.modules,
-        '__unittest' in sys.modules,
-        'GITHUB_ACTIONS' in os.environ,
-        'CI' in os.environ,
-        'doctest' in sys.modules
+        'doctest'            in sys.modules,
+        '__pytest'           in sys.modules,
+        '__unittest'         in sys.modules,
     ]) else False
 
 
@@ -499,7 +501,6 @@ def _a_lot_of_new_single_card() -> None:
 @step_by_step_print_executing_line_number_and_data
 def ai_request_list():
     global start
-    today = date.today().day
     _31 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
           f'undone_anki_txt_format\\_31\\{today}.txt'
     _15 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
@@ -531,14 +532,84 @@ def page_down_ai_request_for_10_sentences_at_time():
         press_keys(0.1, 'ctrl + v', 0.1, 'enter')
 
 
+def concatenate_audio(audio_clips_paths, output_path):
+    clips = [AudioFileClip(path) for path in audio_clips_paths]
+    final_clip = concatenate_audioclips(clips)
+    final_clip.write_audiofile(output_path, codec='mp3')
+
+
 def home_ai_answer_handling():
     """
     >>> home_ai_answer_handling()
     """
-    wi
-    lines = 'User', 'ChatGPT', ai_request_for_sentence
-    gist = del_trash_lines_and_words(text, lines)
-    print(gist)
+    gist = raw_txt_to_sentences_list()
+    loop_sentences_list(gist)
+
+
+def loop_sentences_list(gist):
+    triples = []
+    odd = True
+    for line in gist.splitlines():
+        if len(line) > 3:
+            if odd:
+                odd = False
+                russian = line
+            else:
+                odd = True
+                #triples.append([line, russian])
+                make_single_and_triple_audio(line, russian)
+    #return triples
+
+
+def raw_txt_to_sentences_list():
+    file_path = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+                f'undone_ChatGPT\\_15_undone_chut_ChatGPT\\{10} undone_ChatGPT.txt'
+    with open(file_path, encoding="utf-8") as file:
+        content = file.read()
+    lines = ('User', 'ChatGPT', 'Hide sidebar', 'Chat history', 'Конечно!', 'Send a message.', 'Regenerate response',
+             "2 / 2", "3 / 3",
+             ai_request_for_sentence)
+    gist = del_trash_lines_and_words(content, lines)
+    return gist
+
+
+def make_single_and_triple_audio(english_sentense, russian_sentence):
+    english = english_sentense.upper().strip('.!?,()')
+    russian = russian_sentence.upper().strip('.!?,()')
+    audio_path = f"C:\\ANKIsentences\\triples_audio\\15\\10\\{english}.mp3"
+    en_temporary = f"C:\\ANKIsentences\\singles_audio\\15\\10\\{english}_en.mp3"
+    ru_temporary = f"C:\\ANKIsentences\\singles_audio\\15\\10\\{russian}_ru.mp3"
+
+    if no_error_in_files(en_temporary, english, ru_temporary, russian):
+        print(f'{english_sentense} - {russian_sentence}')
+        # en_audio = gTTS(text=english_sentense, lang='en', slow=True)
+        # ru_audio = gTTS(text=russian_sentence, lang='ru', slow=False)
+        #
+        # en_audio.save(en_temporary)
+        # ru_audio.save(ru_temporary)
+        # concatenate_audio([en_temporary, ru_temporary, en_temporary], audio_path)
+        # time.sleep(random.randint(8, 13))
+    else:
+        print(f'{english_sentense}\n{russian_sentence}\ngenerated ERROR')
+        sys.exit()
+
+
+def no_error_in_files(en_temporary, english, ru_temporary, russian):
+    conditions = [
+        detect_language(russian) == 'ru',
+        detect_language(english) == 'en',
+        not os.path.exists(en_temporary),
+        not os.path.exists(ru_temporary),
+    ]
+
+    return all(conditions)
+
+
+def add_prefix_to_files(folder_path):
+    for filename in os.listdir(folder_path):
+        if os.path.isfile(os.path.join(folder_path, filename)):
+            new_filename = f'{filename.replace("(", "").replace(")", "")}'
+            os.rename(os.path.join(folder_path, filename), os.path.join(folder_path, new_filename))
 
 
 def delete_backspace_page_down_presser():
@@ -546,12 +617,6 @@ def delete_backspace_page_down_presser():
         time.sleep(4)
         page_down_ai_request_for_10_sentences_at_time()
         time.sleep(random.randint(100, 150))
-
-
-def with_open(file_path,
-              mode='a+',
-              to_return=)
-
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -562,8 +627,8 @@ def run_program(test: bool | None = None
     """
     hotkeys: dict[str:Callable] = {  # Create a dictionary of hotkeys and functions
         # 'space + enter': _a_lot_of_new_single_card,
-        'backspace + delete': delete_backspace_page_down_presser,
-        'home': home_ai_answer_handling,
+        # 'backspace + delete': delete_backspace_page_down_presser,
+        # 'home': home_ai_answer_handling,
         'page down': page_down_ai_request_for_10_sentences_at_time,
         'ctrl + c + w': ctrl_c_w_request_for,  # return in clipboard template with copied word
         'ctrl + c + 3': ctrl_c_3_multi_translations,  # return in clipboard up to 4 translations of the copied word
