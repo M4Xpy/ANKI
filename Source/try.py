@@ -1,4 +1,8 @@
 import os
+import time
+
+import keyboard
+
 
 def add_prefix_to_files(folder_path):
     for filename in os.listdir(folder_path):
@@ -9,4 +13,9 @@ def add_prefix_to_files(folder_path):
 # Example usage
 folder_path = f"C:\\ANKIsentences\\triples_audio\\15\\10"
 
-add_prefix_to_files(folder_path)
+def lazy_mouse():
+    while True:
+        keyboard.press('down')
+        time.sleep(10)
+
+lazy_mouse()

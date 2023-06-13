@@ -18,7 +18,7 @@ from moviepy.editor import concatenate_audioclips, AudioFileClip
 from Source.mp3name_detector import find_in_the
 
 ai_request_for_sentence = 'Дайте мне популярные предложения , ' \
-                          'параллельно с переводом этих предложений на английский язык , с аглийскими словами'
+                          'параллельно с переводом этих предложений на английский язык , с английскими словами'
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
 count: list[int] = [0, 1]
@@ -229,7 +229,7 @@ def replace_non_english_letter(text: str) -> str:
             ).replace('.', '')
 
 
-# @step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def star_separated_words_from(text: str) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
     >>> star_separated_words_from('test-test\\n[sound:test.mp3]')
@@ -256,7 +256,7 @@ def header_tab_mp3() -> None:
     keyboard.write(tab_mp3s_remainder)
 
 
-# @step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def header_tab_mp3_content(text: str) -> tuple[str, ...]:
     """
     >>> header_tab_mp3_content('test-test\\n[sound:test.mp3]') > ()
@@ -529,12 +529,13 @@ def ai_request_list():
           f'undone_anki_txt_format\\_15\\{today}.txt'
     if start:
         start = False
-        return sorted(find_in_the(_15, 'mp3_words'))
+        return sorted(find_in_the(_31, 'mp3_words'))
 
 
 words_list = ai_request_list()
 
 
+@step_by_step_print_executing_line_number_and_data
 def ai_request_for_10_sentences_at_time_from():
     """
 
@@ -548,26 +549,30 @@ def ai_request_for_10_sentences_at_time_from():
         return f'{ai_request_for_sentence} ({", ".join(now_list)})'
 
 
+@step_by_step_print_executing_line_number_and_data
 def page_down_ai_request_for_10_sentences_at_time():
     if words_list:
         keyboard.write(ai_request_for_10_sentences_at_time_from())
         press_keys(0.1, 'enter')
 
 
+@step_by_step_print_executing_line_number_and_data
 def concatenate_audio(audio_clips_paths, output_path):
     clips = [AudioFileClip(path) for path in audio_clips_paths]
     final_clip = concatenate_audioclips(clips)
     final_clip.write_audiofile(output_path, codec='mp3')
 
 
+#@step_by_step_print_executing_line_number_and_data
 def home_ai_answer_handling(folder):
     """
     >>> home_ai_answer_handling(15)
     """
-    gist = raw_txt_to_sentences_list()
+    gist = raw_txt_to_sentences_list(folder)
     loop_sentences_list(gist, folder)
 
 
+@step_by_step_print_executing_line_number_and_data
 def loop_sentences_list(gist, folder):
     count = 0
     triples = []
@@ -585,9 +590,10 @@ def loop_sentences_list(gist, folder):
     # return triples
 
 
-def raw_txt_to_sentences_list():
+@step_by_step_print_executing_line_number_and_data
+def raw_txt_to_sentences_list(folder):
     file_path = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-                f'undone_ChatGPT\\_31_undone_chut_ChatGPT\\{today} undone_ChatGPT.txt'
+                f'undone_ChatGPT\\_{folder}_undone_chut_ChatGPT\\{today} undone_ChatGPT.txt'
     with open(file_path, encoding="utf-8") as file:
         content = file.read()
     lines = ('Дайте мне популярные предложения', 'User', 'ChatGPT', 'Hide sidebar', 'Chat history', 'Конечно!',
@@ -597,6 +603,7 @@ def raw_txt_to_sentences_list():
     return gist
 
 
+@step_by_step_print_executing_line_number_and_data
 def make_single_and_triple_audio(english_sentense,
                                  russian_sentence,
                                  folder
@@ -614,12 +621,13 @@ def make_single_and_triple_audio(english_sentense,
         en_audio.save(en_temporary)
         ru_audio.save(ru_temporary)
         concatenate_audio([en_temporary, ru_temporary, en_temporary], audio_path)
-        time.sleep(random.randint(5, 9))
+        keyboard.press('down')
+        time.sleep(10)
     else:
-        print(f'{english_sentense}\n{russian_sentence}\ngenerated ERROR')
-        sys.exit()
+        print('UPS')
 
 
+@step_by_step_print_executing_line_number_and_data
 def no_error_in_files(en_temporary,
                       english,
                       ru_temporary,
@@ -635,6 +643,7 @@ def no_error_in_files(en_temporary,
     return all(conditions)
 
 
+@step_by_step_print_executing_line_number_and_data
 def error_exception_but_file_present(folder,
                                      file_names,
                                      format,
@@ -643,10 +652,14 @@ def error_exception_but_file_present(folder,
                                      present=True
                                      ):
     for file_name in file_names:
-        if not any((os.path.exists(f"{folder}{file_name.upper}_en{format}"),os.path.exists(f"{folder}{file_name.upper()}_ru{format}"))):
+        if not any(
+                (os.path.exists(f"{folder}{file_name.upper}_en{format}"),
+                 os.path.exists(f"{folder}{file_name.upper()}_ru{format}"))
+                ):
             print(f'{file_name} ')
 
 
+@step_by_step_print_executing_line_number_and_data
 def whole_folder_error_handling(folder_path):
     for filename in os.listdir(folder_path):
         if os.path.isfile(os.path.join(folder_path, filename)):
@@ -654,11 +667,12 @@ def whole_folder_error_handling(folder_path):
             os.rename(os.path.join(folder_path, filename), os.path.join(folder_path, new_filename))
 
 
+@step_by_step_print_executing_line_number_and_data
 def delete_backspace_page_down_presser():
     while words_list:
         time.sleep(4)
         page_down_ai_request_for_10_sentences_at_time()
-        time.sleep(random.randint(68, 102))
+        time.sleep(random.randint(55, 77))
 
 
 @step_by_step_print_executing_line_number_and_data
