@@ -149,31 +149,33 @@ def open_google_image(word: str,
     webbrowser.open(url, new=new_page)
 
 
-#@step_by_step_print_executing_line_number_and_data
-
-
-
-@step_by_step_print_executing_line_number_and_data
-def request_for(
-        text: str,
-        template: str | None = 'ai'
-        ) -> str:
-    """ insert request text to template
-    >>> request_for(' _1234TEST34567890', template='check')
-    'This is a TEST'
-    """
-    # text = text.strip(' _1234567890')
-    # result = get_template(template, text)
-    # return result        # code above(for reading, debugging and refactoring) is the same steps as in under one-liner
-    return get_template(template, text.strip(' _1234567890'))
-
-
 @step_by_step_print_executing_line_number_and_data
 def ctrl_c_w_request_for() -> None:
     """ return to the clipboard the text received from the clipboard, processed by request_for
     >>> ctrl_c_w_request_for()
     """
-    return copy_func_paste(request_for)
+    return copy_func_paste(get_template)
+
+
+
+
+
+@step_by_step_print_executing_line_number_and_data
+def get_template(text: str,
+                 template: str = 'ai',
+                 ) -> str:
+    """ return chosen template with given word
+    >>> get_template(template='check', text='test')
+    'This is a test'
+    """
+    text = text.strip(' _1234567890')
+    return {
+            'ai'   : f"Provide popular phrases with word '{text}' , along with  translations into Russian\n"
+                     f"Provide single-root nouns, verbs, adjectives, adverbs for the word '{text}', "
+                     f"along with translations into Russian.",
+            'check': f"This is a {text}"
+
+            }[template]
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -449,24 +451,6 @@ def copy_func_paste(
 def ctrl_c_q_formatter() -> None:
     """ take data from clipboard , filtered lines , return result to clipboard  """
     return copy_func_paste(del_trash_lines_and_words)
-
-
-@step_by_step_print_executing_line_number_and_data
-def get_template(
-        template: str,
-        text: str
-        ) -> str:
-    """ return chosen template with given word
-    >>> get_template(template='check', text='test')
-    'This is a test'
-    """
-    return {
-            'ai'   : f"Provide popular phrases with word '{text}' , along with  translations into Russian\n"
-                     f"Provide single-root nouns, verbs, adjectives, adverbs for the word '{text}', "
-                     f"along with translations into Russian.",
-            'check': f"This is a {text}"
-
-            }[template]
 
 
 @step_by_step_print_executing_line_number_and_data
