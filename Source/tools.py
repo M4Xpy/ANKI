@@ -17,8 +17,14 @@ from moviepy.editor import concatenate_audioclips, AudioFileClip
 
 from Source.mp3name_detector import find_in_the
 
-ai_request_for_sentence = 'Дайте мне популярные предложения , ' \
-                          'параллельно с переводом этих предложений на английский язык , с английскими словами'
+ai_request_for_sentence = {
+        1: 'Дайте мне популярные предложения , параллельно с переводом этих предложений на английский язык ,'
+           ' с английскими словами',
+        2: 'A simple sentences,in past or future tense, '
+           'along with the translation of these sentences into russian, with English words',
+        3: 'Popular sentences with the words'
+        }[1]
+
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
 count: list[int] = [0, 1]
@@ -487,8 +493,9 @@ def get_template(
     'This is a test'
     """
     return {
-            'ai'   : f"Provide popular phrases with word '{text}' , along with  translations into Russian\nProvide single-root"
-                     f" nouns, verbs, adjectives, adverbs for the word '{text}', along with translations into Russian.",
+            'ai'   : f"Provide popular phrases with word '{text}' , along with  translations into Russian\n"
+                     f"Provide single-root nouns, verbs, adjectives, adverbs for the word '{text}', "
+                     f"along with translations into Russian.",
             'check': f"This is a {text}"
 
             }[template]
@@ -526,10 +533,13 @@ def ai_request_list():
     _31 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
           f'undone_anki_txt_format\\_31\\{today}.txt'
     _15 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-          f'undone_anki_txt_format\\_15\\{today}.txt'
+          f'undone_anki_txt_format\\_15\\{(today, today - 15)[today < 15]}.txt'
+    remainder = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
+                f"undone_anki_txt_format\\remainder\\{today}.txt"
     if start:
         start = False
-        return sorted(find_in_the(_31, 'mp3_words'))
+
+        return sorted(find_in_the(_15, 'mp3_words'))
 
 
 words_list = ai_request_list()
@@ -553,7 +563,7 @@ def ai_request_for_10_sentences_at_time_from():
 def page_down_ai_request_for_10_sentences_at_time():
     if words_list:
         keyboard.write(ai_request_for_10_sentences_at_time_from())
-        press_keys(0.1, 'enter')
+        # press_keys(0.1, 'enter')
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -563,7 +573,7 @@ def concatenate_audio(audio_clips_paths, output_path):
     final_clip.write_audiofile(output_path, codec='mp3')
 
 
-#@step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def home_ai_answer_handling(folder):
     """
     >>> home_ai_answer_handling(15)
@@ -594,6 +604,8 @@ def loop_sentences_list(gist, folder):
 def raw_txt_to_sentences_list(folder):
     file_path = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
                 f'undone_ChatGPT\\_{folder}_undone_chut_ChatGPT\\{today} undone_ChatGPT.txt'
+    # file_path = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
+    #           f"undone_anki_txt_format\\remainder\\chutGPT\\{today}chutGPT"
     with open(file_path, encoding="utf-8") as file:
         content = file.read()
     lines = ('Дайте мне популярные предложения', 'User', 'ChatGPT', 'Hide sidebar', 'Chat history', 'Конечно!',
@@ -675,6 +687,17 @@ def delete_backspace_page_down_presser():
         time.sleep(random.randint(55, 77))
 
 
+def home_add_single_phrase():
+    press_keys('ctrl + c', 0.1)
+    phrase = pyperclip.paste()
+    translate = en_ru_en_translator(phrase, 'en')
+    result = f'{phrase} *** {translate}\n'
+    file_path = 'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\REPETE_ME\\' \
+                f'{today}.txt'
+    with open(file_path, 'a+', encoding="utf-8") as fl:
+        fl.write(result)
+
+
 @step_by_step_print_executing_line_number_and_data
 def run_program(test: bool | None = None
                 ) -> None:
@@ -684,6 +707,7 @@ def run_program(test: bool | None = None
     hotkeys: dict[str:Callable] = {  # Create a dictionary of hotkeys and functions
             # 'space + enter': _a_lot_of_new_single_card,
             # 'home': home_ai_answer_handling,
+            'delete'            : home_add_single_phrase,
             'backspace + delete': delete_backspace_page_down_presser,
             'page down'         : page_down_ai_request_for_10_sentences_at_time,
             'ctrl + c + w'      : ctrl_c_w_request_for,  # return in clipboard template with copied word
