@@ -28,12 +28,12 @@ ai_request_for_sentence = {
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
 count: list[int] = [0, 1]
-start = True
-today = date.today().day
+start: bool = True
+today: callable = date.today().day
 
 
-def whether_test_mode():
-    return True if not any(
+def whether_test_mode() -> bool:
+    return False if not any(
             [
                     'CI' in os.environ,
                     'GITHUB_ACTIONS' in os.environ,
@@ -42,19 +42,21 @@ def whether_test_mode():
                     '__pytest' in sys.modules,
                     '__unittest' in sys.modules,
                     ]
-            ) else False
+            ) else True
 
 
-not_test = whether_test_mode()
+now_test = whether_test_mode()
 
 
-def step_by_step_print_executing_line_number_and_data(func: Any) -> Any:
+def step_by_step_print_executing_line_number_and_data(func: Any
+                                                      ) -> Any:
     """ Decorator that prints the executing line number and data.
     >>> run_program(True)
     """
 
-    def wrapper(*args: tuple[Any, ...]) -> Any:
-        if not_test:
+    def wrapper(*args: tuple[Any, ...]
+                ) -> Any:
+        if not now_test:
             global count
             print(f'{count[0]:^3}  >>>  {inspect.currentframe().f_back.f_lineno:^3} >>> {args}')
             count[0] += 1
@@ -63,30 +65,7 @@ def step_by_step_print_executing_line_number_and_data(func: Any) -> Any:
     return wrapper
 
 
-@step_by_step_print_executing_line_number_and_data
-def uniq_name(input_string: str,
-              test: bool | None = False
-              ) -> str:
-    """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
-    >>> uniq_name("This is a test string.", test=True)
-    'This is a  testt strinn'
-    """
-    # check whether test or work mode
-    if test:
-        random.seed(test)
-    # output_string: str = ""                        # save result in separate variable
-    # for char in input_string[:20]:            # loop cutting to 20 signs string
-    #     if random.random() < 0.05:            # 1 to 20 possibility of double sign
-    #         output_string += char.upper()
-    #     else:
-    #         output_string += char.lower()     # 19 to 20 possibility of single sign
-    # return output_string                      # #-lines fully equal last comprehension line
-    return ''.join(
-            char + char
-            if random.random() < 0.05
-            else char
-            for char in input_string[:20]
-            )
+
 
 
 @step_by_step_print_executing_line_number_and_data
