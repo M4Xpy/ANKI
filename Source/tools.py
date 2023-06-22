@@ -157,9 +157,6 @@ def ctrl_c_w_request_for() -> None:
     return copy_func_paste(get_template)
 
 
-
-
-
 @step_by_step_print_executing_line_number_and_data
 def get_template(text: str,
                  template: str = 'ai',
@@ -178,24 +175,29 @@ def get_template(text: str,
             }[template]
 
 
+def clone_replace_non_english_letter(text: str
+                                     ) -> str:
+    """
+    >>> clone = clone_replace_non_english_letter('test-test\\n[sound:testy.mp3]')
+    >>> assert 'test-test\\n' == clone == replace_non_english_letter('test-test\\n[sound:testy.mp3]')
+    """
+    text = text.replace('[sound:', ' ')
+    pattern = r"[^A-Za-z\n.-]"
+    replaced_text = re.sub(pattern, " ", text)
+    splited_text = replaced_text.split(' ')
+    values = []
+    for item in splited_text:
+        if item:
+            if '.mp' not in item:
+                values.append(item)
+    dot_result = ' '.join(values)
+    result = dot_result.replace('.', '')
+    return result
+
+
 @step_by_step_print_executing_line_number_and_data
-def replace_non_english_letter(text: str) -> str:
-    """
-    >>> replace_non_english_letter('test-test\\n[sound:testy.mp3]')
-    'test-test\n'
-    """
-    # text = text.replace('[sound:', ' ')
-    # pattern = r"[^A-Za-z\n.]"
-    # replaced_text = re.sub(pattern, " ", text)
-    # splited_text = replaced_text.split(' ')
-    # values = []
-    # for item in splited_text:
-    #     if item:
-    #         if '.mp' not in item:
-    #             values.append(item)
-    # dot_result = ' '.join(values)
-    # result = dot_result.replace('.', '')
-    # return result
+def replace_non_english_letter(text: str
+                               ) -> str:
     return ' '.join(
             item
             for item in re.sub(
@@ -206,7 +208,8 @@ def replace_non_english_letter(text: str) -> str:
 
 
 @step_by_step_print_executing_line_number_and_data
-def star_separated_words_from(text: str) -> str:
+def star_separated_words_from(text: str
+                              ) -> str:
     """ extract first word of each line, removing any digits or underscores from the word, and join them with asterisks
     >>> star_separated_words_from('test-test\\n[sound:test.mp3]')
     ' * test * '
@@ -359,7 +362,8 @@ def clone_multi_translations(word_s: str) -> str:
 
 
 @step_by_step_print_executing_line_number_and_data
-def multi_translations(word_s: str) -> str:
+def multi_translations(word_s: str
+                       ) -> str:
     return '\n\n'.join(
             f"{word} * {' * '.join(translations_of_the(word.strip(' _1234567890')))} * "
             for word in word_s.replace(',', ' ').split()
