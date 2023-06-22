@@ -384,34 +384,51 @@ def press_keys(
 
 
 @step_by_step_print_executing_line_number_and_data
-def del_trash_lines_and_words(
-        text: str,
-        del_lines: tuple[str, ...] | None = None,
-        del_words: tuple[str, ...] | None = None,
-        ) -> str:
+def ctrl_c_q_formatter() -> None:
+    """ take data from clipboard , filtered lines , return result to clipboard  """
+    return copy_func_paste(del_trash_lines_and_words)
+
+
+def clone_del_trash_lines_and_words(text: str,
+                                    del_lines: tuple[str, ...] | None = None,
+                                    del_words: tuple[str, ...] | None = None,
+                                    ) -> str:
     """
     return text without lines with words from chek_s tuple, remove 'Translation:'
-    >>> del_trash_lines_and_words("Nouns:\\r\\nT\\r\\proverb\\nE\\nproverbs\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
+    >>> del_trash_lines_and_words("Nouns:\\r\\nT\\r\\nE\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
+    'TEST'
+    >>> clone_del_trash_lines_and_words("Nouns:\\r\\nT\\r\\nE\\nS\\nPlease note\\nT\\nTranslation:").replace('\\n', '')
     'TEST'
     """
     time.sleep(0.25)
     if not del_lines:
         del_lines = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
                      'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
-    # filtered_lines: list[str] = []
-    # for line in text.splitlines():
-    #     if not any(check in line.lower() for check in chek_s):
-    #         filtered_lines.append(line.replace('Translation:', ''))
-    # result: str = '\n'.join(filtered_lines)
-    # result: str = result.replace('Translation:', '')
-    # return result
+    filtered_lines: list[str] = []
+    text_split_lines = text.splitlines()
+    for line in text_split_lines:
+        if not any(check in line.lower() for check in del_lines):
+            filtered_lines.append(line.replace('Translation:', ''))
+    result: str = '\n'.join(filtered_lines)
+    rr_result = replace_all_exceptions_in(result, del_words)
+    return rr_result
+
+
+@step_by_step_print_executing_line_number_and_data
+def del_trash_lines_and_words(text: str,
+                              del_lines: tuple[str, ...] | None = None,
+                              del_words: tuple[str, ...] | None = None,
+                              ) -> str:
+    time.sleep(0.25)
     return replace_all_exceptions_in(
             '\n'.join(
                     line
                     for line in text.splitlines()
                     if not any(
                             check.lower() in line.lower()
-                            for check in del_lines
+                            for check in del_lines or ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note',
+                                                       'phrases', 'None', 'Single-root nouns,', 'Noun:', 'Verb:',
+                                                       'Adjective:', 'Adverb:')
                             )
                     ),
             del_words
@@ -449,12 +466,6 @@ def copy_func_paste(
     # output_text: str = func(input_text)
     # pyperclip.copy(output_text)
     pyperclip.copy(func(pyperclip.paste()))
-
-
-@step_by_step_print_executing_line_number_and_data
-def ctrl_c_q_formatter() -> None:
-    """ take data from clipboard , filtered lines , return result to clipboard  """
-    return copy_func_paste(del_trash_lines_and_words)
 
 
 @step_by_step_print_executing_line_number_and_data
