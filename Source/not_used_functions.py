@@ -1,4 +1,5 @@
 import random
+import webbrowser
 
 from Source.tools import now_test, step_by_step_print_executing_line_number_and_data
 
@@ -29,3 +30,10 @@ def uniq_name(input_string: str,
             else char
             for char in input_string
             )
+
+
+def open_google_translate(text: str) -> None:
+    """ open google translated with received request
+    >>> open_google_translate('test')
+    """
+    webbrowser.open(f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate' )

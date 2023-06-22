@@ -65,11 +65,9 @@ def step_by_step_print_executing_line_number_and_data(func: Any
     return wrapper
 
 
-
-
-
 @step_by_step_print_executing_line_number_and_data
-def detect_language(text: str) -> str:
+def detect_language(text: str
+                    ) -> str:
     """
     >>> detect_language('если строка на русском')
     'ru'
@@ -79,13 +77,13 @@ def detect_language(text: str) -> str:
     return ('en', 'ru')[ord(text.strip()[1]) > 127]
 
 
-@step_by_step_print_executing_line_number_and_data
+# @step_by_step_print_executing_line_number_and_data
 def generate_audio_file(text: str,
                         save_file: int | None = 0,
                         language: str | None = '',
                         ) -> str | None:
     """Generates audio file of the input_string in its detected language.
-    >>> generate_audio_file(text='test', save_file=-1, language='en')
+    >>> generate_audio_file(text='test', save_file=-1)
     """
     text: str = text.lower()
     folder: str = ('C:\\Users\\Я\\Desktop\\audio',
@@ -93,8 +91,7 @@ def generate_audio_file(text: str,
                    f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
                    os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests"))[
         save_file]
-    if not language:
-        language = detect_language(text)  # Detect language of the input_string
+    language = language or detect_language(text)  # Detect language of the input_string
     audio_file_name = f'{text}.mp3'  # Generate audio file name
     try:
         audio = gTTS(text=text, lang=language, slow=False)  # Generate audio file
@@ -107,10 +104,9 @@ def generate_audio_file(text: str,
 
 
 @step_by_step_print_executing_line_number_and_data
-def en_ru_en_translator(
-        input_text: str,
-        lang: str | None = None
-        ) -> str:
+def en_ru_en_translator(input_text: str,
+                        lang: str | None = None
+                        ) -> str:
     """
     >>> en_ru_en_translator('apple')
     'яблоко'
@@ -125,9 +121,8 @@ def en_ru_en_translator(
 
 
 @step_by_step_print_executing_line_number_and_data
-def ctrl_4_open_google_image(
-        text: str | None = ''
-        ) -> None:
+def ctrl_4_open_google_image(text: str | None = ''
+                             ) -> None:
     """ open google image with received request
     >>> ctrl_4_open_google_image('test')
     """
@@ -143,10 +138,9 @@ def ctrl_4_open_google_image(
 
 
 @step_by_step_print_executing_line_number_and_data
-def open_google_image(
-        word: str,
-        new_page: int | None = 0
-        ) -> None:
+def open_google_image(word: str,
+                      new_page: int | None = 0
+                      ) -> None:
     """ open google image with received request
     >>> open_google_image("TEST", 1)
     """
@@ -155,13 +149,8 @@ def open_google_image(
     webbrowser.open(url, new=new_page)
 
 
-@step_by_step_print_executing_line_number_and_data
-def open_google_translate(text: str) -> None:
-    """ open google translated with received request
-    >>> open_google_translate('test')
-    """
-    url = f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate'
-    webbrowser.open(url, new=0, )
+#@step_by_step_print_executing_line_number_and_data
+
 
 
 @step_by_step_print_executing_line_number_and_data
