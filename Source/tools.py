@@ -33,6 +33,7 @@ today: callable = date.today().day
 
 
 def whether_test_mode() -> bool:
+    """ determines whether the code is running in a test or working mode """
     return False if not any(
             [
                     'CI' in os.environ,
@@ -68,7 +69,7 @@ def step_by_step_print_executing_line_number_and_data(func: Any
 @step_by_step_print_executing_line_number_and_data
 def detect_language(text: str
                     ) -> str:
-    """
+    """ determine whether text in english or russian
     >>> detect_language('если строка на русском')
     'ru'
     >>> detect_language('if string in english')
@@ -107,7 +108,7 @@ def generate_audio_file(text: str,
 def en_ru_en_translator(input_text: str,
                         lang: str | None = None
                         ) -> str:
-    """
+    """ translate text from english to russian or vice-versa
     >>> en_ru_en_translator('apple')
     'яблоко'
     >>> en_ru_en_translator('яблоко')
@@ -177,14 +178,15 @@ def get_template(text: str,
 
 def clone_replace_non_english_letter(text: str
                                      ) -> str:
-    """
+    """Replaces non-English letters in the given text with spaces and removes certain substrings
     >>> clone: str = clone_replace_non_english_letter('test-test\\n[sound:testy.mp3]')
     >>> assert 'test-test\\n' == clone == replace_non_english_letter('test-test\\n[sound:testy.mp3]')
     """
-    text: str = text.replace('[sound:', ' ')
-    pattern: str = r"[^A-Za-z\n.-]"
+    text: str = text.replace('[sound:', ' ')  # after re.sub , remainder handled by "if '.mp' not in item:" string
+
+    pattern: str = r"[^A-Za-z\n.-]"    # pattern , after which only english letter , \n , - , stayed
     replaced_text: str = re.sub(pattern, " ", text)
-    split_text_list: list[str] = replaced_text.split(' ')
+    split_text_list: list[str] = replaced_text.split(' ')   # list of english words and newline characters
     values: list[str] = []
     for item in split_text_list:
         if item:
@@ -449,8 +451,7 @@ def replace_all_exceptions_in(text: str,
             substitute: str = exception[1]
         text: str = text.replace(exception[0], substitute)
     while '\n\n\n' in text:
-        text;
-        str = text.replace('\n\n\n', '\n\n')
+        text: str = text.replace('\n\n\n', '\n\n')
     return text
 
 
@@ -490,16 +491,16 @@ def _a_lot_of_new_single_card() -> None:
 @step_by_step_print_executing_line_number_and_data
 def ai_request_list():
     global start
-    _31: str = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-               f'undone_anki_txt_format\\_31\\{today}.txt'
-    _15: str = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-               f'undone_anki_txt_format\\_15\\{(today, today - 15)[today < 15]}.txt'
-    remainder: str = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
-                     f"undone_anki_txt_format\\remainder\\{today}.txt"
+    path: str = (f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+                 f'undone_anki_txt_format\\_31\\{today}.txt',
+                 f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+                 f'undone_anki_txt_format\\_15\\{(today, today - 15)[today < 15]}.txt',
+                 f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
+                 f"undone_anki_txt_format\\remainder\\{today}.txt")[0]
     if start:
         start = False
 
-        return sorted(find_in_the(_15, 'mp3_words'))
+        return sorted(find_in_the(path, 'mp3_words'))
 
 
 words_list: list[str | None] = ai_request_list()
@@ -560,11 +561,12 @@ def loop_sentences_list(gist, folder):
 
 @step_by_step_print_executing_line_number_and_data
 def raw_txt_to_sentences_list(folder):
-    file_path: str = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-                     f'undone_ChatGPT\\_{folder}_undone_chut_ChatGPT\\{today} undone_ChatGPT.txt'
-    # file_path: str = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
-    #           f"undone_anki_txt_format\\remainder\\chutGPT\\{today}chutGPT"
-    with open(file_path, encoding="utf-8") as file:
+    file_path: tuple[str, str] = (
+            f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+            f'undone_ChatGPT\\_{folder}_undone_chut_ChatGPT\\{today} undone_ChatGPT.txt',
+            f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
+            f"undone_anki_txt_format\\remainder\\chutGPT\\{today}chutGPT")
+    with open(file_path[0], encoding="utf-8") as file:
         content: str = file.read()
     lines: tuple[str, ...] = (
             'Дайте мне популярные предложения', 'User', 'ChatGPT', 'Hide sidebar', 'Chat history', 'Конечно!',
@@ -614,17 +616,6 @@ def no_error_in_files(en_temporary,
     return all(conditions)
 
 
-@step_by_step_print_executing_line_number_and_data
-def error_exception_but_file_present(folder,
-                                     file_names,
-                                     format,
-                                     ):
-    for file_name in file_names:
-        if not any(
-                (os.path.exists(f"{folder}{file_name.upper}_en{format}"),
-                 os.path.exists(f"{folder}{file_name.upper()}_ru{format}"))
-                ):
-            print(f'{file_name} ')
 
 
 @step_by_step_print_executing_line_number_and_data

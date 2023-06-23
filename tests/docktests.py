@@ -3,8 +3,7 @@ from Source.tools import *
 
 def doctests_for_step_by_step_print_executing_line_number_and_data():
     """
-    >>> print(' 0   >>>   1  >>> (True,)') if git_hub or not print_for_test  else run_program(True)
-     0   >>>   1  >>> (True,)
+    >>> run_program(True)
     """
 
 

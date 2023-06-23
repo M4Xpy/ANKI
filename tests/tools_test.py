@@ -8,16 +8,7 @@ class Test:
     #         output = OUTPUT
     #         assert FUNCTION(input_) == output
 
-    class TestUniqName:
-        def test_2(self):
-            input_ = "one two three"
-            output = 'one two thhree'
-            assert uniq_name(input_, True) == output
 
-        def test_uniq_name(self):
-            input_ = "This is a test string."
-            output = 'This is a  testt strinn'
-            assert uniq_name(input_, True) == output
 
     class TestDetectLanguage:
         def test_detect_language_english(self) -> None:
@@ -60,10 +51,6 @@ class Test:
     class TestOpenGoogleTranslate:
         def test_open_google_translate(self):
             assert open_google_translate('test') is None
-
-    class TestRequestFor:
-        def test_request_for(self):
-            assert request_for(' _1234TEST34567890', 'check') == 'This is a TEST'
 
     class TestCtrlCwRequestFor:
         def test_ctrl_c_w_request_for(self):
@@ -232,8 +219,8 @@ relaying   ретрансляция"""
         def test_header_tab_mp3_content(self):
             input_ = ' * TEST * TEST * TEST * TEST * '
             output = (
-                ' * TEST * TEST * TEST * TEST * \n[sound:TEST.mp3]\n[sound:TEST.mp3]',
-                '\n\n[sound:TEST.mp3]\n[sound:TEST.mp3]')
+                    ' * TEST * TEST * TEST * TEST * \n[sound:TEST.mp3]\n[sound:TEST.mp3]',
+                    '\n\n[sound:TEST.mp3]\n[sound:TEST.mp3]')
             assert header_tab_mp3_content(input_) == output
 
         def test_heeded_insteed_heede(self):

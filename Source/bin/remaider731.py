@@ -2,8 +2,7 @@ remainder = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additi
             f"undone_anki_txt_format\\remainder\\all731.txt"
 part = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
        f"undone_anki_txt_format\\remainder\\"
-path = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
-              f"undone_anki_txt_format\\remainder\\chutGPT\\13chutGPT.txt"
+path = f"/additional_data/ANKI_CARDS/undone_anki_txt_format/remainder/chutGPT/13chutGPT.txt"
 
 
 def write_split_files():
