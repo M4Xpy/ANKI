@@ -17,7 +17,7 @@ from moviepy.editor import concatenate_audioclips, AudioFileClip
 
 from Source.mp3name_detector import find_in_the
 
-ai_request_for_sentence = {
+ai_request_for_sentence: str = {
         1: 'Дайте мне популярные предложения , параллельно с переводом этих предложений на английский язык ,'
            ' с английскими словами',
         2: 'A simple sentences,in past or future tense, '
@@ -27,7 +27,7 @@ ai_request_for_sentence = {
 
 new_data: str = ''
 git_hub: str | None = os.getenv('GITHUB_ACTIONS')
-count: list[int] = [0, 1]
+count: list[int] = [0, 1, 0]
 start: bool = True
 today: callable = date.today().day
 
@@ -45,7 +45,7 @@ def whether_test_mode() -> bool:
             ) else True
 
 
-now_test = whether_test_mode()
+now_test: bool = whether_test_mode()
 
 
 def step_by_step_print_executing_line_number_and_data(func: Any
@@ -91,11 +91,11 @@ def generate_audio_file(text: str,
                    f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
                    os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests"))[
         save_file]
-    language = language or detect_language(text)  # Detect language of the input_string
-    audio_file_name = f'{text}.mp3'  # Generate audio file name
+    language: str = language or detect_language(text)  # Detect language of the input_string
+    audio_file_name: str = f'{text}.mp3'  # Generate audio file name
     try:
-        audio = gTTS(text=text, lang=language, slow=False)  # Generate audio file
-        audio_file_path = os.path.join(folder, audio_file_name)  # Save audio file to directory
+        audio: gTTS = gTTS(text=text, lang=language, slow=False)  # Generate audio file
+        audio_file_path: str = os.path.join(folder, audio_file_name)  # Save audio file to directory
         audio.save(audio_file_path)
         if not save_file:
             return audio_file_path
@@ -127,9 +127,9 @@ def ctrl_4_open_google_image(text: str | None = ''
     >>> ctrl_4_open_google_image('test')
     """
     if not text:
-        text = pyperclip.paste()
+        text: str = pyperclip.paste()
     if len(text.splitlines()) > 1:
-        text = star_separated_words_from(text)
+        text: str = star_separated_words_from(text)
     if '*' in text:
         for word in text.replace('*', '').split()[::-1]:
             open_google_image(word)
@@ -144,8 +144,8 @@ def open_google_image(word: str,
     """ open google image with received request
     >>> open_google_image("TEST", 1)
     """
-    url = f'https://www.google.com/search?q={word}' \
-          f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
+    url: str = f'https://www.google.com/search?q={word}' \
+               f'&tbm=isch&hl=en&tbs=itp:clipart&sa=X&ved=0CAIQpwVqFwoTCKCx4PzezvsCFQAAAAAdAAAAABAD&biw=1349&bih=625'
     webbrowser.open(url, new=new_page)
 
 
@@ -165,7 +165,7 @@ def get_template(text: str,
     >>> get_template(template='check', text='test')
     'This is a test'
     """
-    text = text.strip(' _1234567890')
+    text: str = text.strip(' _1234567890')
     return {
             'ai'   : f"Provide popular phrases with word '{text}' , along with  translations into Russian\n"
                      f"Provide single-root nouns, verbs, adjectives, adverbs for the word '{text}', "
@@ -178,20 +178,20 @@ def get_template(text: str,
 def clone_replace_non_english_letter(text: str
                                      ) -> str:
     """
-    >>> clone = clone_replace_non_english_letter('test-test\\n[sound:testy.mp3]')
+    >>> clone: str = clone_replace_non_english_letter('test-test\\n[sound:testy.mp3]')
     >>> assert 'test-test\\n' == clone == replace_non_english_letter('test-test\\n[sound:testy.mp3]')
     """
-    text = text.replace('[sound:', ' ')
-    pattern = r"[^A-Za-z\n.-]"
-    replaced_text = re.sub(pattern, " ", text)
-    splited_text = replaced_text.split(' ')
-    values = []
-    for item in splited_text:
+    text: str = text.replace('[sound:', ' ')
+    pattern: str = r"[^A-Za-z\n.-]"
+    replaced_text: str = re.sub(pattern, " ", text)
+    split_text_list: list[str] = replaced_text.split(' ')
+    values: list[str] = []
+    for item in split_text_list:
         if item:
             if '.mp' not in item:
                 values.append(item)
-    dot_result = ' '.join(values)
-    result = dot_result.replace('.', '')
+    dot_result: str = ' '.join(values)
+    result: str = dot_result.replace('.', '')
     return result
 
 
@@ -214,11 +214,11 @@ def star_separated_words_from(text: str
     >>> star_separated_words_from('test-test\\n[sound:test.mp3]')
     ' * test * '
     """
-    text = replace_non_english_letter(text)
-    lines = [line.split()[0]
-             for line in text.splitlines()
-             if line.strip()
-             ]
+    text: str = replace_non_english_letter(text)
+    lines: list[str] = [line.split()[0]
+                        for line in text.splitlines()
+                        if line.strip()
+                        ]
     if len(lines) < 2:
         return f" * {' * '.join(word for word in text.split() if detect_language(word) == 'en')} * "
     return f" * {' * '.join(lines)} * "
@@ -244,10 +244,10 @@ def header_tab_mp3_content(text: str) -> tuple[str, ...]:
     header: str = star_separated_words_from(text)
     mp3refers: list[str] = refers_mp3s(header)
     len_mp3refers: int = -2 if len(mp3refers) > 3 else -(len(mp3refers) + 1)
-    header = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
-    header = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
-    tab_mp3s_remainder = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
-    return (header, tab_mp3s_remainder)
+    header: str = f" * {' * '.join(refer.removeprefix('[sound:').removesuffix('.mp3]') for refer in mp3refers[len_mp3refers:] + mp3refers[:len_mp3refers])} * "
+    header: str = f"{header}\n{chr(10).join(mp3refers[len_mp3refers:])}"
+    tab_mp3s_remainder: str = f"\n\n{chr(10).join(mp3refers[:len_mp3refers])}"
+    return header, tab_mp3s_remainder
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -276,8 +276,8 @@ def new_single_word_card() -> None:
         count[1] = 0
     else:
         press_keys(0.1, 'ctrl + enter')
-    answer, quuestion = new_single_word_card_content()
-    keyboard.write(quuestion)
+    answer, question = new_single_word_card_content()
+    keyboard.write(question)
     press_keys(0.01, 'tab', 0.01)
     keyboard.write(answer)
     press_keys(0.01, 'ctrl + v', 0.01)
@@ -318,7 +318,7 @@ def translations_of_the(word: str) -> set:
     >>> sorted(translations_of_the('ZAP'))
     ['БЫСТРО', 'РАЗРЯД', 'РАЗРЯДКА', 'ЩЕЛКАТЬ']
     """
-    word = word.lower()
+    word: str = word.lower()
     translate_s: set[str | None] = set(
             en_ru_en_translator(f'{prefix} {word}', 'en').upper() for prefix in ('', 'the', 'to')
             )
@@ -332,9 +332,6 @@ def make_func_write(
         func: Callable[[str], str]
         ) -> None:
     """ take data in clipboard , doing function , return result in clipboard"""
-    # text = pyperclip.paste()
-    # text = func(text)
-    # keyboard.write(text)
     keyboard.write(func(pyperclip.paste()))
 
 
@@ -350,10 +347,10 @@ def clone_multi_translations(word_s: str) -> str:
     >>> assert out_put == multi_translations(in_put) == clone_multi_translations(in_put)
     """
     result_s: list[str] = []
-    word_s_replace = word_s.replace(',', ' ')
-    words_split = word_s_replace.split()
+    word_s_replace: str = word_s.replace(',', ' ')
+    words_split: list[str] = word_s_replace.split()
     for _word in words_split:
-        word = _word.strip(' _1234567890')
+        word: str = _word.strip(' _1234567890')
         translations: set = translations_of_the(word)  # gives up to four translations of the word
         result: str = f"{_word} * {' * '.join(translations)} * "  # return star separated translations words
         result_s.append(result)
@@ -402,15 +399,15 @@ def clone_del_trash_lines_and_words(text: str,
     """
     time.sleep(0.25)
     if not del_lines:
-        del_lines = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
-                     'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
+        del_lines: tuple[str, ...] = ('nouns:', 'verbs:', 'adjectives:', 'adverbs:', 'please note', 'phrases', 'None',
+                                      'Single-root nouns,', 'Noun:', 'Verb:', 'Adjective:', 'Adverb:')
     filtered_lines: list[str] = []
-    text_split_lines = text.splitlines()
+    text_split_lines: list[str] = text.splitlines()
     for line in text_split_lines:
         if not any(check in line.lower() for check in del_lines):
             filtered_lines.append(line.replace('Translation:', ''))
     result: str = '\n'.join(filtered_lines)
-    rr_result = replace_all_exceptions_in(result, del_words)
+    rr_result: str = replace_all_exceptions_in(result, del_words)
     return rr_result
 
 
@@ -436,10 +433,9 @@ def del_trash_lines_and_words(text: str,
 
 
 @step_by_step_print_executing_line_number_and_data
-def replace_all_exceptions_in(
-        text: str,
-        del_words: list[str] | None = None
-        ) -> str:
+def replace_all_exceptions_in(text: str,
+                              del_words: list[str] | None = None
+                              ) -> str:
     """
     >>> replace_all_exceptions_in('aabbcc', del_words=['a'])
     'bbcc'
@@ -450,21 +446,18 @@ def replace_all_exceptions_in(
         if len(exception) < 2:
             substitute: str = ''
         else:
-            substitute = exception[1]
-        text = text.replace(exception[0], substitute)
+            substitute: str = exception[1]
+        text: str = text.replace(exception[0], substitute)
     while '\n\n\n' in text:
-        text = text.replace('\n\n\n', '\n\n')
+        text;
+        str = text.replace('\n\n\n', '\n\n')
     return text
 
 
 @step_by_step_print_executing_line_number_and_data
-def copy_func_paste(
-        func: Callable[[str], str]
-        ) -> None:
+def copy_func_paste(func: Callable[[str], str]
+                    ) -> None:
     """ return to the clipboard the text received from the clipboard, processed by the provided function """
-    # input_text: str = pyperclip.paste()
-    # output_text: str = func(input_text)
-    # pyperclip.copy(output_text)
     pyperclip.copy(func(pyperclip.paste()))
 
 
@@ -489,7 +482,7 @@ def _a_lot_of_new_single_card() -> None:
                 ctrl_4_open_google_image(lines[-1].split()[0])
                 if first:
                     ctrl_4_open_google_image(first)
-                    first = None
+                    first: str | None = None
             except IndexError:
                 raise IndexError('end of list')
 
@@ -497,19 +490,19 @@ def _a_lot_of_new_single_card() -> None:
 @step_by_step_print_executing_line_number_and_data
 def ai_request_list():
     global start
-    _31 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-          f'undone_anki_txt_format\\_31\\{today}.txt'
-    _15 = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-          f'undone_anki_txt_format\\_15\\{(today, today - 15)[today < 15]}.txt'
-    remainder = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
-                f"undone_anki_txt_format\\remainder\\{today}.txt"
+    _31: str = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+               f'undone_anki_txt_format\\_31\\{today}.txt'
+    _15: str = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+               f'undone_anki_txt_format\\_15\\{(today, today - 15)[today < 15]}.txt'
+    remainder: str = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
+                     f"undone_anki_txt_format\\remainder\\{today}.txt"
     if start:
         start = False
 
         return sorted(find_in_the(_15, 'mp3_words'))
 
 
-words_list = ai_request_list()
+words_list: list[str | None] = ai_request_list()
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -518,9 +511,9 @@ def ai_request_for_10_sentences_at_time_from():
 
     """
     global words_list
-    leno = len(words_list)
+    leno: int = len(words_list)
     if leno:
-        share = (10, leno)[leno < 9]
+        share: int = (10, leno)[leno < 9]
         now_list = tuple(words_list[:share])
         words_list = words_list[share:]
         return f'{ai_request_for_sentence} ({", ".join(now_list)})'
@@ -535,8 +528,8 @@ def page_down_ai_request_for_10_sentences_at_time():
 
 @step_by_step_print_executing_line_number_and_data
 def concatenate_audio(audio_clips_paths, output_path):
-    clips = [AudioFileClip(path) for path in audio_clips_paths]
-    final_clip = concatenate_audioclips(clips)
+    clips: list[AudioFileClip] = [AudioFileClip(path) for path in audio_clips_paths]
+    final_clip: AudioFileClip = concatenate_audioclips(clips)
     final_clip.write_audiofile(output_path, codec='mp3')
 
 
@@ -545,40 +538,39 @@ def home_ai_answer_handling(folder):
     """
     >>> home_ai_answer_handling(15)
     """
-    gist = raw_txt_to_sentences_list(folder)
+    gist: str = raw_txt_to_sentences_list(folder)
     loop_sentences_list(gist, folder)
 
 
 @step_by_step_print_executing_line_number_and_data
 def loop_sentences_list(gist, folder):
-    count = 0
-    triples = []
-    odd = True
+    global count
+    count[2] = 0
+    odd: bool = True
     for line in gist.splitlines():
         if len(line) > 3:
             if odd:
-                odd = False
-                russian = line
+                odd: bool = False
+                russian: str = line
             else:
-                odd = True
-                # triples.append([line, russian])
+                odd: bool = True
                 make_single_and_triple_audio(line, russian, folder)
-            count += 1
-    # return triples
+            count[2] += 1
 
 
 @step_by_step_print_executing_line_number_and_data
 def raw_txt_to_sentences_list(folder):
-    file_path = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-                f'undone_ChatGPT\\_{folder}_undone_chut_ChatGPT\\{today} undone_ChatGPT.txt'
-    # file_path = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
+    file_path: str = f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
+                     f'undone_ChatGPT\\_{folder}_undone_chut_ChatGPT\\{today} undone_ChatGPT.txt'
+    # file_path: str = f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
     #           f"undone_anki_txt_format\\remainder\\chutGPT\\{today}chutGPT"
     with open(file_path, encoding="utf-8") as file:
-        content = file.read()
-    lines = ('Дайте мне популярные предложения', 'User', 'ChatGPT', 'Hide sidebar', 'Chat history', 'Конечно!',
-             'Send a message.', 'Regenerate response', "2 / 2", "3 / 3",
-             ai_request_for_sentence)
-    gist = del_trash_lines_and_words(content, lines)
+        content: str = file.read()
+    lines: tuple[str, ...] = (
+            'Дайте мне популярные предложения', 'User', 'ChatGPT', 'Hide sidebar', 'Chat history', 'Конечно!',
+            'Send a message.', 'Regenerate response', "2 / 2", "3 / 3",
+            ai_request_for_sentence)
+    gist: str = del_trash_lines_and_words(content, lines)
     return gist
 
 
@@ -587,15 +579,15 @@ def make_single_and_triple_audio(english_sentense,
                                  russian_sentence,
                                  folder
                                  ):
-    english = english_sentense.upper().strip('.!?,()')
-    russian = russian_sentence.upper().strip('.!?,()')
-    audio_path = f"C:\\ANKIsentences\\triples_audio\\{folder}\\{today}\\{english}.mp3"
-    en_temporary = f"C:\\ANKIsentences\\singles_audio\\{folder}\\{today}\\{english}_en.mp3"
-    ru_temporary = f"C:\\ANKIsentences\\singles_audio\\{folder}\\{today}\\{russian}_ru.mp3"
+    english: str = english_sentense.upper().strip('.!?,()')
+    russian: str = russian_sentence.upper().strip('.!?,()')
+    audio_path: str = f"C:\\ANKIsentences\\triples_audio\\{folder}\\{today}\\{english}.mp3"
+    en_temporary: str = f"C:\\ANKIsentences\\singles_audio\\{folder}\\{today}\\{english}_en.mp3"
+    ru_temporary: str = f"C:\\ANKIsentences\\singles_audio\\{folder}\\{today}\\{russian}_ru.mp3"
 
     if no_error_in_files(en_temporary, english, ru_temporary, russian):
-        en_audio = gTTS(text=english_sentense, lang='en', slow=True)
-        ru_audio = gTTS(text=russian_sentence, lang='ru', slow=False)
+        en_audio: gTTS = gTTS(text=english_sentense, lang='en', slow=True)
+        ru_audio: gTTS = gTTS(text=russian_sentence, lang='ru', slow=False)
 
         en_audio.save(en_temporary)
         ru_audio.save(ru_temporary)
@@ -612,7 +604,7 @@ def no_error_in_files(en_temporary,
                       ru_temporary,
                       russian
                       ):
-    conditions = [
+    conditions: list[bool] = [
             detect_language(russian) == 'ru',
             detect_language(english) == 'en',
             not os.path.exists(en_temporary),
@@ -626,9 +618,6 @@ def no_error_in_files(en_temporary,
 def error_exception_but_file_present(folder,
                                      file_names,
                                      format,
-                                     suffix='',
-
-                                     present=True
                                      ):
     for file_name in file_names:
         if not any(
@@ -642,7 +631,7 @@ def error_exception_but_file_present(folder,
 def whole_folder_error_handling(folder_path):
     for filename in os.listdir(folder_path):
         if os.path.isfile(os.path.join(folder_path, filename)):
-            new_filename = f'{filename.replace("(", "").replace(")", "")}'
+            new_filename: str = f'{filename.replace("(", "").replace(")", "")}'
             os.rename(os.path.join(folder_path, filename), os.path.join(folder_path, new_filename))
 
 
@@ -656,11 +645,11 @@ def delete_backspace_page_down_presser():
 
 def home_add_single_phrase():
     press_keys('ctrl + c', 0.1)
-    phrase = pyperclip.paste()
-    translate = en_ru_en_translator(phrase, 'en')
-    result = f'{phrase} *** {translate}\n'
-    file_path = 'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\REPETE_ME\\' \
-                f'{today}.txt'
+    phrase: str | None = pyperclip.paste()
+    translate: str = en_ru_en_translator(phrase, 'en')
+    result: str = f'{phrase} *** {translate}\n'
+    file_path: str = 'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\REPETE_ME\\' \
+                     f'{today}.txt'
     with open(file_path, 'a+', encoding="utf-8") as fl:
         fl.write(result)
 
