@@ -26,9 +26,6 @@ def raw_txt_to_sentences_list(folder):
 
 @step_by_step_print_executing_line_number_and_data
 def home_ai_answer_handling(folder):
-    """
-    >>> home_ai_answer_handling(15)
-    """
     gist: str = raw_txt_to_sentences_list(folder)
     loop_sentences_list(gist, folder)
 
@@ -94,3 +91,7 @@ def no_error_in_files(en_temporary,
             ]
 
     return all(conditions)
+
+
+if __name__ == '__main__':
+    home_ai_answer_handling(15)
