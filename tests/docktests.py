@@ -1,12 +1,6 @@
 from Source.tools import *
 
 
-def doctests_for_step_by_step_print_executing_line_number_and_data():
-    """
-    >>> run_program(True)
-    """
-
-
 def doctests_for_star_separated_words_from():
     """
     >>> star_separated_words_from('SCUM \\n \\n \\n \\nSCAM \\n')
