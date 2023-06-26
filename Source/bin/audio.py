@@ -1,7 +1,7 @@
 from datetime import time
 
-import gTTS as gTTS
 import keyboard as keyboard
+from gtts import gTTS
 from moviepy.editor import concatenate_audioclips, AudioFileClip
 
 from Source.tools import *
@@ -92,6 +92,6 @@ def no_error_in_files(en_temporary,
 
     return all(conditions)
 
-
-if __name__ == '__main__':
-    home_ai_answer_handling(15)
+# if __name__ == '__main__':
+#     pass
+#     #home_ai_answer_handling(15)
