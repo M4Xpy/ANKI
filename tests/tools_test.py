@@ -1,4 +1,4 @@
-from Source.not_used_functions import open_google_translate
+from Source.bin.not_used_functions import open_google_translate
 from Source.tools import *
 
 
@@ -8,8 +8,6 @@ class Test:
     #         input_ = INPUT
     #         output = OUTPUT
     #         assert FUNCTION(input_) == output
-
-
 
     class TestDetectLanguage:
         def test_detect_language_english(self) -> None:
@@ -131,8 +129,12 @@ class Test:
 
         class TestFilterLines:
             def test_0706(self):
-                input_ = 'Nouns:\r\n\r\nChivalry (Russian translation: рыцарство)\r\nChivalrousness (rarely used) (Russian translation: рыцарскость)\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\nChivalrous (Russian translation: рыцарский)\r\nAdverbs:\r\n\r\nChivalrously (Russian translation: рыцарски)'
-                output = '\nChivalry ( рыцарство)\nChivalrousness (rarely used) ( рыцарскость)\n\nChivalrous ( рыцарский)\n\nChivalrously ( рыцарски)'
+                input_ = 'Nouns:\r\n\r\nChivalry (Russian translation: рыцарство)\r\nChivalrousness (rarely used) ' \
+                         '(Russian translation: рыцарскость)\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\nChivalrous ' \
+                         '(Russian translation: рыцарский)\r\nAdverbs:\r\n\r\nChivalrously ' \
+                         '(Russian translation: рыцарски)'
+                output = '\nChivalry ( рыцарство)\nChivalrousness (rarely used) ( рыцарскость)\n\nChivalrous ' \
+                         '( рыцарский)\n\nChivalrously ( рыцарски)'
                 assert del_trash_lines_and_words(input_) == output
 
             def test_template(self):
@@ -162,8 +164,10 @@ class Test:
     "The principal of success is hard work." - "Принцип успеха - тяжелая работа." (Printsip uspekha - tyazhelaya rabota)
     "Stick to your principles." - "Придерживайтесь своих принципов." (Priderzhivaytes' svoykh printsipov)
     "The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
-    "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
-    "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
+    "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." 
+    (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
+    "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." 
+    (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
                 output = """
     Principal - Директор (Direktor)
     Principals - Директоры (Direktory)
@@ -180,13 +184,18 @@ class Test:
     "The principal of success is hard work." - "Принцип успеха - тяжелая работа." (Printsip uspekha - tyazhelaya rabota)
     "Stick to your principles." - "Придерживайтесь своих принципов." (Priderzhivaytes' svoykh printsipov)
     "The principal aim is to learn." - "Главная цель - учиться." (Glavnaya tsel' - uchit'sya)
-    "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
-    "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
+    "Act with integrity, guided by your principles." - "Действуйте с честностью, руководствуясь своими принципами." 
+    (Deystvuyte s chestnost'yu, rukovodstvuyas' svoyimi printsipami)
+    "The principal role in this play is challenging." - "Главная роль в этой пьесе вызывает сложности." 
+    (Glavnaya rol' v etoy p'ese vyzyvaet slozhnosti)"""
                 assert del_trash_lines_and_words(input_) == output
 
             def test_6462(self):
-                input_ = """Nouns:\r\n\r\nBeneath - под (preposition), низ (noun)\r\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\r\nVerbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\n"""
-                output = """\nBeneath - под (preposition), низ (noun)\nExample: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\n\n"""
+                input_ = """Nouns:\r\n\r\nBeneath - под (preposition), низ (noun)\r
+                Example: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\r
+                Verbs:\r\n\r\nNone\r\nAdjectives:\r\n\r\n"""
+                output = """\nBeneath - под (preposition), низ (noun)
+                Example: "The treasure lies beneath the surface." - Сокровище находится под поверхностью.\n\n"""
                 assert del_trash_lines_and_words(input_) == output
 
     class TestGetTemplate:

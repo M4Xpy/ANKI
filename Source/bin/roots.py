@@ -47,6 +47,8 @@ The city's streets pulsated with energy, a constant reminder of the DIVERSITY th
 In this realm of endless possibilities, the power to EMPOWER oneself was within reach. The city's magnetic pull inspired those who dared to challenge the norm and carve their own path. They believed in the potential for IMPROVEMENT and embraced the unknown with open arms.
 
 """.lower().split()
+
+
 def roote_maker(words_list):
     prefixes = [
             'a', 'anti', 'auto', 'be', 'bi', 'co', 'com', 'con', 'de', 'dis', 'en', 'ex', 'il', 'im', 'in', 'inter',
@@ -67,7 +69,10 @@ def roote_maker(words_list):
             roots.add(root.removesuffix(_))
     return roots
 
+
 ss = roote_maker(words)
+
+
 def corresponding_report(ss, text):
     set_words = set(words)
     set_words = set(map(str.lower, set_words))

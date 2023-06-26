@@ -18,13 +18,13 @@ def write_split_files():
             beg = fin
 
 
-
 def ru_by_en_line_order(path,
                         splitter,
                         ):
     with open(path, encoding="utf-8") as file:
         lines = file.read()
         print(lines)
+
 
 if __name__ == '__main__':
     write_split_files()

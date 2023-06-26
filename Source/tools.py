@@ -490,22 +490,23 @@ def _a_lot_of_new_single_card() -> None:
 def ai_request_list():
     global start
     path: str = (os.path.join(
-        os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
-        , "_31", f"{today}.txt"
-        ),
+            os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
+            , "_31", f"{today}.txt"
+            ),
                  os.path.join(
-                     os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
-                     , "_15", f"{(today, today - 15)[today < 15]}.txt"
-                     ),
+                         os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
+                         , "_15", f"{(today, today - 15)[today < 15]}.txt"
+                         ),
                  os.path.join(
-                     os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
-                     , "remainder", f"{today}.txt"
-                     ),
-                 )[0]
+                         os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
+                         , "remainder", f"{today}.txt"
+                         ),
+            )[0]
     if start:
         start = False
 
         return sorted(find_in_the(path, 'mp3_words'))
+
 
 if __name__ == '__main__':
     words_list: list[str | None] = ai_request_list()
