@@ -1,3 +1,4 @@
+from Source.not_used_functions import open_google_translate
 from Source.tools import *
 
 
@@ -190,7 +191,7 @@ class Test:
 
     class TestGetTemplate:
         def test_get_template(self):
-            assert get_template('check', 'test') == 'This is a test'
+            assert get_template('test', 'check') == 'This is a test'
 
     class TestRunProgram:
         def test_run_program(self):
