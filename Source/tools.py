@@ -51,7 +51,6 @@ now_test: bool = whether_test_mode()
 def step_by_step_print_executing_line_number_and_data(func: Any
                                                       ) -> Any:
     """ Decorator that prints the executing line number and data.
-    >>> run_program(True)
     """
 
     def wrapper(*args: tuple[Any, ...]
