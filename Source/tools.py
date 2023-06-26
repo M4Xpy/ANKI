@@ -490,12 +490,19 @@ def _a_lot_of_new_single_card() -> None:
 @step_by_step_print_executing_line_number_and_data
 def ai_request_list():
     global start
-    path: str = (f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-                 f'undone_anki_txt_format\\_31\\{today}.txt',
-                 f'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\' \
-                 f'undone_anki_txt_format\\_15\\{(today, today - 15)[today < 15]}.txt',
-                 f"C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\" \
-                 f"undone_anki_txt_format\\remainder\\{today}.txt")[2]
+    path: str = (os.path.join(
+        os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
+        , "_31", f"{today}.txt"
+        ),
+                 os.path.join(
+                     os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
+                     , "_15", f"{(today, today - 15)[today < 15]}.txt"
+                     ),
+                 os.path.join(
+                     os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "undone_anki_txt_format"
+                     , "remainder", f"{today}.txt"
+                     ),
+                 )[0]
     if start:
         start = False
 
@@ -547,8 +554,10 @@ def home_add_single_phrase():
     phrase: str | None = pyperclip.paste()
     translate: str = en_ru_en_translator(phrase, 'en')
     result: str = f'{phrase} *** {translate}\n'
-    file_path: str = 'C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\additional_data\\ANKI_CARDS\\REPETE_ME\\' \
-                     f'{today}.txt'
+    file_path: str = os.path.join(
+            os.path.dirname(__file__), "..", "additional_data", "ANKI_CARDS", "REPETE_ME"
+            , f"{today}.txt"
+            )
     with open(file_path, 'a+', encoding="utf-8") as fl:
         fl.write(result)
 
