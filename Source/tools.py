@@ -508,8 +508,8 @@ def ai_request_list():
 
         return sorted(find_in_the(path, 'mp3_words'))
 
-
-words_list: list[str | None] = ai_request_list()
+if __name__ == '__main__':
+    words_list: list[str | None] = ai_request_list()
 
 
 @step_by_step_print_executing_line_number_and_data
