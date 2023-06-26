@@ -14,7 +14,7 @@ def ai_request_list():
         return sorted(find_in_the(file, 'mp3_words'))
 
 
-words_list = ai_request_list()
+
 
 
 def ai_request_for_10_sentences_at_time_from():
@@ -32,11 +32,13 @@ def ai_request_for_10_sentences_at_time_from():
                f'{now_list}'
 
 
-print(ai_request_for_10_sentences_at_time_from())
-print(ai_request_for_10_sentences_at_time_from())
-print(ai_request_for_10_sentences_at_time_from())
-print(ai_request_for_10_sentences_at_time_from())
-print(ai_request_for_10_sentences_at_time_from())
+if __name__ == '__main__':
+    words_list = ai_request_list()
+    print(ai_request_for_10_sentences_at_time_from())
+    print(ai_request_for_10_sentences_at_time_from())
+    print(ai_request_for_10_sentences_at_time_from())
+    print(ai_request_for_10_sentences_at_time_from())
+    print(ai_request_for_10_sentences_at_time_from())
 
 
 

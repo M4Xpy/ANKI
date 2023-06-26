@@ -16,7 +16,7 @@ def write_split_files():
             with open(f"{part}{day}.txt", "w", encoding="utf-8") as part_file:
                 part_file.write(file731[beg:fin])
             beg = fin
-write_split_files()
+
 
 
 def ru_by_en_line_order(path,
@@ -26,4 +26,6 @@ def ru_by_en_line_order(path,
         lines = file.read()
         print(lines)
 
-ru_by_en_line_order(path, '" - "')
+if __name__ == '__main__':
+    write_split_files()
+    ru_by_en_line_order(path, '" - "')

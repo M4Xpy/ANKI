@@ -89,4 +89,5 @@ def corresponding_report(ss, text):
     print(set_words)
 
 
-corresponding_report(words, text)
+if __name__ == '__main__':
+    corresponding_report(words, text)
