@@ -48,10 +48,9 @@ def whether_test_mode() -> bool:
 now_test: bool = whether_test_mode()
 
 
-def step_by_step_print_executing_line_number_and_data(func: Any
-                                                      ) -> Any:
-    """ Decorator that prints the executing line number and data.
-    """
+def step_by_step_print_executing_line_number_and_data(func: Callable
+                                                      ) -> Callable:
+    """ Decorator that prints the executing line number and data. """
 
     def wrapper(*args: tuple[Any, ...]
                 ) -> Any:
@@ -76,7 +75,7 @@ def detect_language(text: str
     return ('en', 'ru')[ord(text.strip()[1]) > 127]
 
 
-# @step_by_step_print_executing_line_number_and_data
+@step_by_step_print_executing_line_number_and_data
 def generate_audio_file(text: str,
                         save_file: int | None = 0,
                         language: str | None = '',
@@ -88,8 +87,8 @@ def generate_audio_file(text: str,
     folder: str = ('C:\\Users\\Я\\Desktop\\audio',
                    f"C:\\Users\\Я\\Documents\\Anki\\1-й пользователь\\collection.media",
                    f"C:\\Users\\Я\\AppData\\Roaming\\Anki2\\User 1\\collection.media",
-                   os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests"))[
-        save_file]
+                   os.path.join(os.path.dirname(__file__), "..", "additional_data", "mp3s_for_tests")
+                   )[save_file]
     language: str = language or detect_language(text)  # Detect language of the input_string
     audio_file_name: str = f'{text}.mp3'  # Generate audio file name
     try:
