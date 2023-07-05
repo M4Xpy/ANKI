@@ -1,16 +1,9 @@
-# 6.2 Подвиг 6. Вводятся данные в формате:# Дни рождений и имена могут повторяться.
-# На их основе сформировать словарь и вывести его в формате (см. пример ниже):
-"""
-3 Сергей
-5 Николай
-4 Елена
-7 Владимир
-5 Юлия
-4 Светлана
-"""
-# Sample Output:
-# 3: Сергей
-# 5: Николай, Юлия
-# 4: Елена, Светлана
-# 7: Владимир
 
+
+def funk0():
+    text = funk1()
+    if text:
+        replaced = funk2()
+        text.replace(replaced)
+
+# refine funk0() to async , line 'if text:' and 'funk2()' must operating simultainously , if 'if text:' == False second thread aborted
