@@ -11,44 +11,25 @@ import pytesseract
 from googletrans import Translator
 from gtts import gTTS
 import tkinter as tk
+import threading
 
 
 
 
 
-
-def show_subtitle_text(text):
+def show_subtitle_text(text, delay, position='+0+0') :
     # Function to close the window after a certain duration
     def close_window():
         root.destroy()
-
     root = tk.Tk()
-    #root.title(text)  # Create the main window
     root.wm_attributes('-topmost', True)  # Set the window to be always on top
+    root.geometry(position)   # f'+{root.winfo_screenwidth() // 2}+100' == '+683+100'
     root.overrideredirect(True)  # Remove the window frame
-
-    # # Get screen dimensions
-    # screen_width = root.winfo_screenwidth()
-    # screen_height = root.winfo_screenheight()
-
     font = ('Arial', 25)
-    label = tk.Label(root, text=text, font=font)
+    label = tk.Label(root, text=text, font=font, fg='white', bg='black')  # Set text color to white and background to black
     label.pack()
-
-    # # Calculate the desired position for the window
-    # x = (screen_width - 10  * len(text)) // 2  # screen_width 1366
-    # y = screen_height - root.winfo_reqheight()
-    #
-    # root.geometry(f'+{0}-{99}')  # Set the position of the window
-    root.after(99 * len(text), close_window)  # Schedule the window to close after 5 seconds (5000 milliseconds)
+    root.after(delay, close_window)  # Schedule the window to close after 5 seconds (5000 milliseconds)
     root.mainloop()
-
-
-
-
-
-
-
 
 def r_o_i(path):
     global image, x, y
@@ -119,7 +100,8 @@ async def extract_clear_text_with_thresholding():
             pygame.mixer.music.load("C:\\ANKIsentences\\temporary.mp3")
             pygame.mixer.music.play()
             ttt = ' one two three four five six seven eight nine ten eleven twelve thirteen fourteen fiveteen '
-            show_subtitle_text(text)
+            subtitle_thread = threading.Thread(target=show_subtitle_text, args=(text, 11111111))
+            subtitle_thread.start()
             while pygame.mixer.music.get_busy():
                 continue
             pygame.mixer.quit()
