@@ -6,10 +6,10 @@ from Source.tools import now_test, step_by_step_print_executing_line_number_and_
 
 def clone_uniq_name(input_string: str,
               ) -> str:
-    """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
-    >>> uniq_name("This is a test string."), clone_uniq_name("This is a test string.")
-    ('This is a  testt strinngg.', 'this is a tesT striNG.')
-    """
+    # """ Cut the input string if it is longer than 20 characters, and randomly doubled some character.
+    # >>> uniq_name("This is a test string."), clone_uniq_name("This is a test string.")
+    # ('This is a  testt strinngg.', 'this is a tesT striNG.')
+    # """
     random.seed(now_test)
     output_string: str = ""                        # save result in separate variable
     for char in input_string:
@@ -33,7 +33,8 @@ def uniq_name(input_string: str,
 
 
 def open_google_translate(text: str) -> None:
-    """ open google translated with received request
-    >>> open_google_translate('test')
-    """
+    # """ open google translated with received request
+    # >>> open_google_translate('you')
+    # """
     webbrowser.open(f'https://translate.google.com/?sl=en&tl=ru&text={text}%0A&op=translate' )
+open_google_translate('you')

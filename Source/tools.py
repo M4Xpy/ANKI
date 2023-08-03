@@ -56,14 +56,14 @@ def step_by_step_print_executing_line_number_and_data(func: Callable
                 ) -> Any:
         if not now_test:
             global count
-            print(f'{count[0]:^3}  >>>  {inspect.currentframe().f_back.f_lineno:^3} >>> {args}')
+            print(f'>>> {count[0]:^3} >>> {inspect.currentframe().f_back.f_lineno:^3} >>> {func.__name__}{args} ')
             count[0] += 1
         return func(*args)
 
     return wrapper
 
 
-@step_by_step_print_executing_line_number_and_data
+# @step_by_step_print_executing_line_number_and_data
 def detect_language(text: str
                     ) -> str:
     """ determine whether text in english or russian
@@ -72,7 +72,7 @@ def detect_language(text: str
     >>> detect_language('if string in english')
     'en'
     """
-    return ('en', 'ru')[ord(text.strip()[1]) > 127]
+    return ('en', 'ru')[ord(text.strip()[0]) > 127]
 
 
 @step_by_step_print_executing_line_number_and_data
@@ -249,7 +249,6 @@ def header_tab_mp3_content(text: str) -> tuple[str, ...]:
     return header, tab_mp3s_remainder
 
 
-@step_by_step_print_executing_line_number_and_data
 def refers_mp3s(
         header: str,
         save_file: int | None = 1
@@ -366,7 +365,7 @@ def multi_translations(word_s: str
             )
 
 
-@step_by_step_print_executing_line_number_and_data
+# @step_by_step_print_executing_line_number_and_data
 def press_keys(
         *args: float | str
         ) -> None:

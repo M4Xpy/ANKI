@@ -13,22 +13,26 @@ from gtts import gTTS
 import tkinter as tk
 import threading
 
+from Source.letter_visual_length import visual_len
 
 
+def show_subtitle_text(text1, text2="", delay=0, position='+0+0', font=25) :
 
+    max_len = max(visual_len(text1), visual_len(text2))
+    indent = round((8907 - max_len) / 118) * " "
+    font = (round((8907 / max_len) * 25), 25)[9262 > max_len]
+    text = f'{indent}{text1}{333 * " "}\n{indent}{text2}{333 * " "}'
 
-def show_subtitle_text(text, delay, position='+0+0') :
     # Function to close the window after a certain duration
-    def close_window():
-        root.destroy()
+
     root = tk.Tk()
     root.wm_attributes('-topmost', True)  # Set the window to be always on top
     root.geometry(position)   # f'+{root.winfo_screenwidth() // 2}+100' == '+683+100'
     root.overrideredirect(True)  # Remove the window frame
-    font = ('Arial', 25)
+    font = ('Arial', font)
     label = tk.Label(root, text=text, font=font, fg='white', bg='black')  # Set text color to white and background to black
     label.pack()
-    root.after(delay, close_window)  # Schedule the window to close after 5 seconds (5000 milliseconds)
+    root.after(delay, root.destroy)  # Schedule the window to close after 5 seconds (5000 milliseconds)
     root.mainloop()
 
 def r_o_i(path):
@@ -120,5 +124,8 @@ async def wait_for_space():
 
 
 if __name__ == '__main__':
+
+
+
     while True:
         asyncio.run(extract_clear_text_with_thresholding())
