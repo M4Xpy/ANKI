@@ -1,7 +1,7 @@
 import os
 import random
 import time
-
+import pyperclip
 from gtts import gTTS
 
 film = 'hatico'
@@ -15,10 +15,11 @@ def write_audio(film):
         text = srt.read()
     subtitles = text.split('\n\n')
     for subtitle in subtitles:
-        subtitle = subtitle.splitlines()
+        subtitle = subtitle.replace('_', " ").splitlines()
         mp3name = subtitle[1][:8].replace(':', '_') + '.mp3'
         ru_sentence = subtitle[4] if len(subtitle) > 4 else ""
-        if subtitle[1][:12] > f"{'00:04:30.711'[:9]}000":
+        timing = pyperclip.paste()
+        if subtitle[1][:12] > f"{f'{timing}'[:9]}000":
             if ru_sentence:
                 print(ru_sentence, mp3name)
                 audio: gTTS = gTTS(text=ru_sentence, lang='ru', slow=False)  # Generate audio file
