@@ -11,7 +11,7 @@ from Source.letter_visual_length import visual_len
 from Source.tools import press_keys
 
 film = 'hatico'
-new_srt = f"C:\\Users\\Я\\Desktop\\films\\{film}\\{film}_en_ru_align_Aug1.txt"
+new_srt = f"C:\\Users\\Я\\Desktop\\films\\{film}\\{film}Sept11.txt"
 folder = f"C:\\ANKIsentences\\films\\{film}"
 press_space = False
 
@@ -26,12 +26,13 @@ def get_mp3_duration(mp3_path):
 def play_audio_show_titles(file, folder):
     with open(file, encoding='utf-8') as srt:
         text = srt.read()
-    subtitles = text.split('\n\n')
+    subtitles = text.strip('\ufeff').split('\n\n')
     time_correct = 0
     prev_end = 0.0
     data = []
     for index, subtitle in enumerate(subtitles):
         subtitle = subtitle.splitlines()
+        subtitle = [0, subtitle[0], subtitle[1], "", ""] ###########################################################
         mp3name = subtitle[1][:8].replace(':', '_') + '.mp3'
         begin, end = subtitle[1].split(' --> ')
 
@@ -39,26 +40,27 @@ def play_audio_show_titles(file, folder):
         ru_sentence = subtitle[3]
         mp3_duration = get_mp3_duration(f"{folder}\\{mp3name}")
         begin = (int(begin[:2]) * 3600 + (int(begin[3:5]) * 60) + float(begin[6:12]))
-        if 0.5 > begin - prev_end   :
-            # print(mp3name, begin, prev_end)
-            begin = prev_end
-        else:
-            data[~-index][4] += 0.5
+        # if 0.5 > begin - prev_end   :
+        #     # print(mp3name, begin, prev_end)
+        #     begin = prev_end
+        # else:
+        #     data[~-index][4] += 0.5
 
 
         end = (int(end[:2])) * 3600 + (int(end[3:5]) * 60) + float(end[6:12])
-        prev_end = end
+        # prev_end = end
         title_duration = end - begin + mp3_duration
 
         dat = [mp3name, sentence, ru_sentence, begin, title_duration, mp3_duration]
         data.append(dat)
-    # [print(dat, end='\n') for dat in data[725:730]]
+
     for index, dat in enumerate(data[:-1]):
         next_title_only = data[index + 1][3] - data[index][3]
         data[index].append(next_title_only)
         data[index].append(next_title_only + dat[5])
-
+    # [print(dat, end='\n') for dat in data[:]]
     pause = False
+    corr = 0
     total_time = time.time()
 
     def check_pause():
@@ -76,21 +78,43 @@ def play_audio_show_titles(file, folder):
             target=check_pause,
             ).start()
 
-    press_keys('space')
-    press_keys(0.2, 'space', 0.2, 'left', 0.2, 'space')
-
+    keyboard.send('space')
+    # time.sleep(0.2)
+    # keyboard.send('space')
+    # time.sleep(0.2)
+    # keyboard.send('left')
+    # time.sleep(0.2)
+    # keyboard.send('space')
+    # time.sleep(5)
+    # press_keys(0.2, 'space', 0.2, 'left', 0.2, 'space')
+    # print(data[:22])
     for now in data:
         mp3name, sentence, ru_sentence, begin, title_duration, mp3_duration, next_title_only, next_title_mp3 = now
         audio = f"{folder}\\{mp3name}"
         if mp3name >= '00_00_00.mp3':
+            # if total_time > time.time():
+            #     exec_time = time.time() - exec_time
+            #     total_time
+
             while total_time > time.time():
                 while pause:
                     pass
-            if not time_correct:
-                total_time += 2.9
-                time_correct = 1
+            # if not time_correct:
+            #     total_time += 2.9
+            #     time_correct = 1
             total_time += next_title_mp3
-            mp3_and_subtitles(audio, mp3_duration, ru_sentence, sentence, title_duration)
+            # exec_time = time.time()
+            exec_time = time.time()
+            mp3_and_subtitles(audio, mp3_duration, ru_sentence, sentence, title_duration + corr)
+            if total_time > time.time():
+                corr = time.time() - exec_time - title_duration
+            else:
+                corr = -0.25
+            # threading.Thread(
+            #     target=mp3_and_subtitles, args=(audio, mp3_duration, ru_sentence, sentence, title_duration)
+            #     ).start()
+
+
 
 
 
