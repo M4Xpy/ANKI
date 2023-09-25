@@ -16,7 +16,6 @@ mp3_ru_audio = False
 mp3_en_audio = False
 
 
-
 def online_player():
     global updated_text, mp3_ru_audio, mp3_en_audio
     """ """
@@ -37,7 +36,6 @@ def online_player():
 
         if prev_subtitle != subtitle:
             prev_subtitle = subtitle
-            print(subtitle)
             if play_track:
                 keyboard.send('space')
                 play_track = False
@@ -60,7 +58,7 @@ def online_player():
                 if subtitle:
                     play_track = True
                     threading.Thread(
-                            target=method_name, args=(subtitle,)
+                            target=subtitle_processing, args=(subtitle,)
                             ).start()
                 else:
                     updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
@@ -70,12 +68,10 @@ def online_player():
                 os.remove("C:\\ANKIsentences\\en_temporary.mp3")
                 keyboard.send('space')
 
-
-
             elif subtitle:
                 play_track = True
                 threading.Thread(
-                        target=method_name, args=(subtitle,)
+                        target=subtitle_processing, args=(subtitle,)
                         ).start()
                 time.sleep(0.1)
             else:
@@ -85,11 +81,11 @@ def online_player():
             time.sleep(0.1)
 
 
-def method_name(subtitle):
+def subtitle_processing(subtitle):
     global updated_text, mp3_ru_audio, mp3_en_audio, ru_audio, en_audio
     updated_text = f'{subtitle}\n{text_update}\n{text_update}\n{text_update}'
     translated = Translator().translate(subtitle, 'ru', 'en').text
-    if len(translated) > 111:
+    if len(translated) > 99:
         halve = translated.split()
         point = len(halve) // 2
         first = " ".join(halve[:point])
@@ -97,7 +93,6 @@ def method_name(subtitle):
         updated_text = f'{subtitle}\n{first}\n{second}\n{text_update}'
     else:
         updated_text = f'{subtitle}\n{translated}\n{text_update}\n{text_update}'
-
 
     ru_audio_file = gTTS(text=translated, lang='ru')
     ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
@@ -114,7 +109,6 @@ def method_name(subtitle):
 
 
 def show_subtitle_text():
-
     font = 20
     root = tk.Tk()
     root.wm_attributes('-topmost', True)  # Set the window to be always on top
