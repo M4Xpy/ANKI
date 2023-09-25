@@ -9,6 +9,7 @@ from mutagen.mp3 import MP3
 
 from Source.letter_visual_length import visual_len
 from Source.tools import press_keys
+from Source.wrappers.wrappers import tracebacker
 
 film = 'hatico'
 new_srt = f"C:\\Users\\Я\\Desktop\\films\\{film}\\{film}Sept11.txt"
@@ -182,3 +183,4 @@ def show_subtitle_text(text1, text2="", delay=0, position='+0+0', play_mode=True
 if __name__ == '__main__':
 
     play_audio_show_titles(new_srt, folder)
+    pass

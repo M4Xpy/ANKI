@@ -7,7 +7,7 @@ from gtts import gTTS
 
 
 def write_audio(film):
-    file = f"C:\\Users\\Я\\Desktop\\films\\{film}\\{film}Sept21.txt"
+    file = f"C:\\Users\\Я\\Desktop\\films\\{film}\\{film}.txt"
     folder = f"C:\\ANKIsentences\\films\\{film}"
     with open(file, encoding='utf-8') as srt:
         text = srt.read()

@@ -70,13 +70,8 @@ def win():
 
             if subtitle:
                 subtitles.append([subtitle_time, 0, subtitle, _1])
-                diff = _1 - _2 - 0.111
-                secs = 0
-                if diff > 1:
-                    secs, subtitles[-2][1] = add_to_timing(str(_2), 1)
-
-                else:
-                    secs, subtitles[-2][1] = add_to_timing(str(_2), diff )
+                diff = _1 - _2
+                secs, subtitles[-2][1] = add_to_timing(str(_2), min((1, diff)))
 
                 duration = secs - subtitles[-2][-1]
                 with open(my_srt, "a", encoding="utf-8") as srt:

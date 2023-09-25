@@ -1,0 +1,546 @@
+Timestamp: 2023-09-22 11:38:21
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-22 11:38:21
+Module: __main__
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\srt_player_2\srt_player_2.py", line 185, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 15:55:47
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 15:57:10
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 15:58:23
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 15:59:05
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:13:06
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:13:36
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:14:27
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:16:21
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:16:51
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:19:17
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:23:51
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:24:18
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:26:52
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:30:23
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:31:25
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:46:27
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:47:00
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:47:38
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:49:31
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-23 16:50:01
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 10:50:10
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 10:59:15
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:14:30
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:16:02
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:18:04
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:21:14
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:23:11
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:25:38
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:26:24
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:55:55
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 11:56:36
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:00:27
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:11:43
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:12:45
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:15:47
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:18:13
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:20:20
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:21:29
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:49:34
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
+Timestamp: 2023-09-24 12:50:20
+Module: Source.wrappers.wrappers
+Function: example_function
+Data: (10, 0){}
+Traceback:
+Traceback (most recent call last):
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 22, in wrapped_function
+    func(*args, **kwargs)
+  File "C:\Users\ß\Desktop\PythonProjectsFrom22_04_2023\ANKI\Source\wrappers\wrappers.py", line 37, in example_function
+    return x / y
+ZeroDivisionError: division by zero
+
+
