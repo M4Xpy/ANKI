@@ -1,3 +1,4 @@
+from Source.srt_player_2.online_player_en_ru import no_repit
 from Source.tools import *
 
 
@@ -17,3 +18,5 @@ def doctests_for_replace_non_english_letter():
     >>> replace_non_english_letter('SCUM_10131 _подонок, накипь, пена, мразь, пенка, тина\\n* ОТБРОСЫ * МРАЗЬ * ПОДОНОК * НАКИПЕТЬ *\\n\\n\\nSCAM_9007 _мошенничество\\n * МОШЕННИЧЕСТВО * МОШЕННИЧАТЬ * АФЕРА *')
     'SCUM \\n \\n\\n\\nSCAM \\n'
     """
+
+

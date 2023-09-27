@@ -1,4 +1,3 @@
-import os
 import threading
 import time
 import tkinter as tk
@@ -36,6 +35,7 @@ def online_player():
 
         if prev_subtitle != subtitle:
             prev_subtitle = subtitle
+
             if play_track:
                 keyboard.send('space')
                 play_track = False
@@ -63,9 +63,6 @@ def online_player():
                 else:
                     updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
-                pygame.mixer.quit()
-                os.remove("C:\\ANKIsentences\\temporary.mp3")
-                os.remove("C:\\ANKIsentences\\en_temporary.mp3")
                 keyboard.send('space')
 
             elif subtitle:
@@ -83,6 +80,7 @@ def online_player():
 
 def subtitle_processing(subtitle):
     global updated_text, mp3_ru_audio, mp3_en_audio, ru_audio, en_audio
+    subtitle = no_repit(subtitle)
     updated_text = f'{subtitle}\n{text_update}\n{text_update}\n{text_update}'
     translated = Translator().translate(subtitle, 'ru', 'en').text
     if len(translated) > 99:
@@ -93,7 +91,6 @@ def subtitle_processing(subtitle):
         updated_text = f'{subtitle}\n{first}\n{second}\n{text_update}'
     else:
         updated_text = f'{subtitle}\n{translated}\n{text_update}\n{text_update}'
-
     ru_audio_file = gTTS(text=translated, lang='ru')
     ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
     ru_audio = "C:\\ANKIsentences\\temporary.mp3"
@@ -140,7 +137,32 @@ def top_black_frame():
             )  # Set text color to white and background to black
     label.pack()
     label.config(text=top_message)
-    root.mainloop()
+
+
+def no_repit(text):
+    # """
+    # >>> no_repit(" - No, no - no, no, no, no. Yes, no . - No way, no way, no way! Now, now? now? What. what.. what... - how , - how ?")
+    # ' - No. Yes, No way! Now? What. how ?'
+    # """
+    compares = [" "]
+    part = ""
+    for letter in text:
+        part = part + letter
+        if letter not in "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            now_compare = 1
+            for index, compare in enumerate(compares):
+                now_compare = part.strip(' -?!,.:').lower()
+                if compare.strip(' -?!,.:').lower() == now_compare and now_compare:
+                    compares[index] = compares[index][:-1] + letter
+                    now_compare = 0
+                    break
+            if now_compare or part == compares[-1][-1]:
+                compares.append(part)
+            part = ""
+    out_put = "".join(compares) + part
+    if text != out_put:
+        print(f"{text}\n{out_put}\n")
+    return out_put
 
 
 if __name__ == '__main__':

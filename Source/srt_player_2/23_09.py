@@ -1,52 +1,24 @@
-import tkinter as tk
-
-from Source.letter_visual_length import visual_len
-import tkinter as tk
-
-from Source.letter_visual_length import visual_len
-
-vaiable_flag = True
-
-import threading
-import time
-
-updated_text = " " * 165
-ru_title = "2"
-
-
-def top_black_frame():
-    top_message = "                                                             "
-    root = tk.Tk()
-    root.wm_attributes('-topmost', True)  # Set the window to be always on top
-    root.geometry('+0+0')
-    root.overrideredirect(True)  # Remove the window frame
-    font = ('Arial', 63)
-    label = tk.Label(
-            root, text=top_message, font=font, fg='white', bg='black'
-            )  # Set text color to white and background to black
-    label.pack()
-    label.config(text=top_message)
-    root.mainloop()
-
-
-
-
-def ttt():
-    global updated_text
-    count = 1
-    while 1:
-        time.sleep(0.1)
-
-
-
-        text = ' ' * count
-        max_len = max(visual_len(text), visual_len(text))
-        indent = round((10100 - max_len) / 118) * "1"
-        updated_text = f'{indent}{text}{indent}\n{indent}{text}{indent}'
-        ru_title = "4444444444"
-        count += 1
-
-
-if __name__ == '__main__':
-    threading.Thread(target=ttt).start()
-    threading.Thread(target=top_black_frame).start()
+def no_repit(text):
+    """
+    >>> no_repit(" - No, no - no, no, no, no. Yes, no . - No way, no way, no way! Now, now? now? What. what.. what... - how , - how ?")
+    ' - No. Yes, No way! Now? What. how ?'
+    """
+    compares = [" "]
+    part = ""
+    for letter in text:
+        part = part + letter
+        if letter not in "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            now_compare = 1
+            for index, compare in enumerate(compares):
+                now_compare = part.strip(' -?!,.:').lower()
+                if compare.strip(' -?!,.:').lower() == now_compare and now_compare:
+                    compares[index] = compares[index][:-1] + letter
+                    now_compare = 0
+                    break
+            if now_compare or part == compares[-1][-1]:
+                compares.append(part)
+            part = ""
+    out_put = "".join(compares) + part
+    if text != out_put:
+        print(f"{text}\n{out_put}\n")
+    return out_put

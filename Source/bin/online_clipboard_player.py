@@ -9,11 +9,12 @@ import pygame
 import pyperclip
 
 from Source.letter_visual_length import visual_len
+from Source.srt_player_2.online_player_en_ru import top_black_frame
 
 now_speed = 2
 file = f"C:\\Users\\Я\\Desktop\\films\\hercules\\hercules.txt"
-text_update = f"{200 * ' '}\n{200 * ' '}"
-updated_text = text_update
+text_update = 170 * " "
+updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
 def online_player():
     global updated_text
@@ -23,7 +24,7 @@ def online_player():
         casts = [cast.splitlines() for cast in text.strip('\ufeff ').split('\n\n')]
         for index, cast in enumerate(casts):
             casts[index][1] = cast[1][:8].replace(':', '_') + '.mp3'
-            if len(casts[0]) < 5:
+            if len(casts[index]) < 5:
                 casts[index].append("")
     print(casts[0])
     _, audio, en_sentence, ru_sentence, mp3 = casts[0]
@@ -47,7 +48,7 @@ def online_player():
         keyboard.send('ctrl + c')
 
         text_lines = pyperclip.paste().splitlines()
-        subtitle = " ".join(text_lines[2 if len(text_lines) < 6 else 7:])
+        subtitle = " ".join(text_lines[2:])
 
         if prev_subtitle != subtitle:
             prev_subtitle = subtitle
@@ -62,9 +63,14 @@ def online_player():
 
             if subtitle:
 
-                max_len = max(visual_len(en_sentence), visual_len(ru_sentence))
-                indent = round((10030 - max_len) / 118) * " "
-                updated_text = f'{indent}{en_sentence}{indent}\n{indent}{ru_sentence}{indent}'
+                if len(ru_sentence) > 99:
+                    halve = ru_sentence.split()
+                    point = len(halve) // 2
+                    first = " ".join(halve[:point])
+                    second = " ".join(halve[point:])
+                    updated_text = f'{en_sentence}\n{first}\n{second}\n{text_update}'
+                else:
+                    updated_text = f'{en_sentence}\n{ru_sentence}\n{text_update}\n{text_update}'
 
                 if mp3:
                     audio = f"C:\\ANKIsentences\\films\\hercules\\{audio}"
@@ -77,7 +83,7 @@ def online_player():
                 del casts[0]
                 _, audio, en_sentence, ru_sentence, mp3 = casts[0]
             else:
-                updated_text = text_update
+                updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
                 time.sleep(0.07)
         else:
             time.sleep(0.07)
@@ -106,13 +112,11 @@ def video_speed_change_to(speed=1):
         time.sleep(0.1)
         keyboard.send('ctrl + a')
 
-
-def show_subtitle_text(position='+0+0'):
-
-    font = 25
+def show_subtitle_text():
+    font = 20
     root = tk.Tk()
     root.wm_attributes('-topmost', True)  # Set the window to be always on top
-    root.geometry(position)
+    root.geometry('+0+668')
     root.overrideredirect(True)  # Remove the window frame
     font = ('Arial', font)
     label = tk.Label(
@@ -128,8 +132,11 @@ def show_subtitle_text(position='+0+0'):
     root.mainloop()
 
 
+
+
 if __name__ == '__main__':
     threading.Thread(target=online_player).start()
-    show_subtitle_text('+0+680')
+    threading.Thread(target=top_black_frame).start()
+    show_subtitle_text()
 
     pass
