@@ -13,10 +13,10 @@ text_update = 170 * " "
 updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 mp3_ru_audio = False
 mp3_en_audio = False
-
+play_track = False
 
 def online_player():
-    global updated_text, mp3_ru_audio, mp3_en_audio
+    global updated_text, mp3_ru_audio, mp3_en_audio, play_track
     """ """
 
     prev_subtitle = ""
@@ -79,8 +79,8 @@ def online_player():
 
 
 def subtitle_processing(subtitle):
-    global updated_text, mp3_ru_audio, mp3_en_audio, ru_audio, en_audio
-    subtitle = no_repit(subtitle)
+    global updated_text, mp3_ru_audio, mp3_en_audio, ru_audio, en_audio, play_track
+    subtitle = no_repit(subtitle, True)
     updated_text = f'{subtitle}\n{text_update}\n{text_update}\n{text_update}'
     translated = Translator().translate(subtitle, 'ru', 'en').text
     if len(translated) > 99:
@@ -91,18 +91,22 @@ def subtitle_processing(subtitle):
         updated_text = f'{subtitle}\n{first}\n{second}\n{text_update}'
     else:
         updated_text = f'{subtitle}\n{translated}\n{text_update}\n{text_update}'
-    ru_audio_file = gTTS(text=translated, lang='ru')
-    ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
-    ru_audio = "C:\\ANKIsentences\\temporary.mp3"
-    pygame.mixer.init()
-    pygame.mixer.music.load(ru_audio, "mp3")
-    pygame.mixer.music.set_volume(0.5)
-    mp3_ru_audio = True
 
-    en_audio_file = gTTS(text=subtitle, lang='en')
-    en_audio_file.save("C:\\ANKIsentences\\en_temporary.mp3")
-    en_audio = "C:\\ANKIsentences\\en_temporary.mp3"
-    mp3_en_audio = True
+    if len(subtitle.lower().strip(' ?!,.:*').replace("-", " ").replace(" a ", " ").replace(" the ", " ").split()) < 4:
+        play_track = False
+    else:
+        ru_audio_file = gTTS(text=translated, lang='ru')
+        ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
+        ru_audio = "C:\\ANKIsentences\\temporary.mp3"
+        pygame.mixer.init()
+        pygame.mixer.music.load(ru_audio, "mp3")
+        pygame.mixer.music.set_volume(0.5)
+        mp3_ru_audio = True
+
+        en_audio_file = gTTS(text=subtitle, lang='en')
+        en_audio_file.save("C:\\ANKIsentences\\en_temporary.mp3")
+        en_audio = "C:\\ANKIsentences\\en_temporary.mp3"
+        mp3_en_audio = True
 
 
 def show_subtitle_text():
@@ -139,11 +143,7 @@ def top_black_frame():
     label.config(text=top_message)
 
 
-def no_repit(text):
-    # """
-    # >>> no_repit(" - No, no - no, no, no, no. Yes, no . - No way, no way, no way! Now, now? now? What. what.. what... - how , - how ?")
-    # ' - No. Yes, No way! Now? What. how ?'
-    # """
+def no_repit(text, test=False):
     in_put = text
     text = f"{text}*"
     compares = [" "]
@@ -165,7 +165,8 @@ def no_repit(text):
 
     if len(in_put.strip()) - 3 < len(out_put.strip()):
         return in_put.replace("*", " ")
-    print(f"{in_put}\n{out_put}\n", len(in_put.strip()), len(out_put.strip()))
+    if test:
+        print(f"{in_put}\n{out_put}\n", len(in_put.strip()), len(out_put.strip()))
     return out_put
 
 

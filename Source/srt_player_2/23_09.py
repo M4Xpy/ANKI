@@ -1,7 +1,9 @@
-def no_repit(text):
+def no_repit(text, test=False):
     """
-    >>> no_repit('- That is what our story is... - Will you listen to him?')
-    ' - No. Yes, No way! Now? What. how ?'
+    >>> no_repit(" - No, no - no, no, no, no. Yes, no . - No way, no way, no way! Now, now? now? What. what.. what... - how , - how ?")
+    '  - No. Yes, No way! Now? What.... how ?'
+    >>> no_repit(" - No, no - no, no, no, no. Yes, no . - No way, no way, no way! Now, now? now? What. what.. what... - how , - how ?")
+    '  - No. Yes, No way! Now? What.... how ?'
     """
     in_put = text
     text = f"{text}*"
@@ -23,6 +25,7 @@ def no_repit(text):
     out_put = "".join(compares).replace("*", " ")
 
     if len(in_put.strip()) - 3 < len(out_put.strip()):
-        return in_put
-    print(f"{in_put}\n{out_put}\n", len(in_put.strip()), len(out_put.strip()))
+        return in_put.replace("*", " ")
+    if test:
+        print(f"{in_put}\n{out_put}\n", len(in_put.strip()), len(out_put.strip()))
     return out_put
