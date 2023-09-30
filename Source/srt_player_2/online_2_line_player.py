@@ -1,7 +1,7 @@
 import threading
 import time
 import tkinter as tk
-import os
+
 import keyboard
 import mouse
 import pygame
@@ -14,11 +14,11 @@ updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 mp3_ru_audio = False
 mp3_en_audio = False
 play_track = False
-past_subtitles = """ """
+past_subtitles = """ a the yes no """
+
 
 def online_player():
     global updated_text, mp3_ru_audio, mp3_en_audio, play_track
-
 
     prev_subtitle = ""
     keyboard.send('ctrl + a')
@@ -32,7 +32,7 @@ def online_player():
         move *= -1
         mouse.move(move, move, absolute=False, duration=0.0001)
         keyboard.send('ctrl + c')
-        subtitle = "*".join(pyperclip.paste().splitlines()[2:])
+        subtitle = " ".join(pyperclip.paste().splitlines()[2:])
 
         if prev_subtitle != subtitle:
             prev_subtitle = subtitle
@@ -41,7 +41,7 @@ def online_player():
 
                 subtitle, to_play_subtitle, different = no_repit(subtitle, True)
                 updated_text = f'{subtitle}\n{text_update}\n{text_update}\n{text_update}'
-                translated = Translator().translate(subtitle, 'ru', 'en').text
+                translated = Translator().translate(subtitle.lower(), 'ru', 'en').text
                 if len(translated) > 99:
                     halve = translated.split()
                     point = len(halve) // 2
@@ -50,12 +50,10 @@ def online_player():
                     updated_text = f'{subtitle}\n{first}\n{second}\n{text_update}'
                 else:
                     updated_text = f'{subtitle}\n{translated}\n{text_update}\n{text_update}'
-                compare = subtitle.lower().strip()
                 if to_play_subtitle:
                     keyboard.send('space')
                     if different:
-                        translated = Translator().translate(to_play_subtitle, 'ru', 'en').text
-
+                        translated = Translator().translate(to_play_subtitle.lower(), 'ru', 'en').text
 
                     ru_audio_file = gTTS(text=translated, lang='ru')
                     ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
@@ -70,20 +68,11 @@ def online_player():
                     pygame.mixer.quit()
                     keyboard.send('space')
 
-
-
-
-
-
-
             else:
                 updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
                 time.sleep(0.1)
         else:
             time.sleep(0.1)
-
-
-
 
 
 def show_subtitle_text():
@@ -121,50 +110,55 @@ def top_black_frame():
 
 
 def no_repit(text, test=False):
+    # """
+    # >>> no_repit(' Whatever happens,')
+    # """
     global past_subtitles
     in_put = text
     text = f"{text}*"
     compares = [" "]
     to_play_output = [" "]
     part = ""
+    now_past_subtitles = ""
     for letter in text:
         part = part + letter
-        if letter not in "abcdefghijklmnopqrstuvwxyz' \"ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        if letter not in "abcdefghijklmnopqrstuvwxyz' \"ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890":
             now_compare = 1
             for index, compare in enumerate(compares):
-                now_compare = part.strip(' -?!,.:*').lower()
+                now_compare = part.strip(' -?!,.:*').lower()  #################################
                 if compare.strip(' -?!,.:*').lower() == now_compare and now_compare:
                     compares[index] = compares[index][:-1] + letter
                     now_compare = 0
                     break
             if now_compare or part == compares[-1][-1] or compares == [" "]:
                 compares.append(part)
-                compare_part = part.lower().replace("*", " ").strip(' -?!,.:*')
-                if compare_part not in past_subtitles:
-                    past_subtitles = past_subtitles + compare_part + " "
+                compare_part = part.lower().replace("*", " ").strip(' -?!,.:*')  #################################
+                if compare_part not in f"{past_subtitles} {now_past_subtitles}":
+                    now_past_subtitles = now_past_subtitles + compare_part + " "
                     to_play_output.append(part)
-                    print(past_subtitles)
-                    print(part)
-                    print()
+                    # print(past_subtitles)
+                    # print(part)
+                    # print()
             part = ""
     out_put = "".join(compares).replace("*", " ")
     to_play_output = "".join(to_play_output).replace("*", " ")
-    if len(
-            to_play_output.lower().strip(' ?!,.:*').replace("-", " ").replace(" a ", " ").replace(
-                    " the ", " "
-                    ).split()
-            ) < 4 :
+    list_to_play_output = to_play_output.lower().strip(' ?!,.:*').replace("-", " ").replace(" a ", " ").replace(
+        " the ", " ").split()
+    if len(list_to_play_output) < 5 and all(item in past_subtitles for item in list_to_play_output):
         to_play_output = ""
+    past_subtitles = past_subtitles + now_past_subtitles + " "
 
     in_put = in_put.replace("*", " ")
 
-    diff =  (1,0)[in_put == to_play_output]
+    diff = (1, 0)[in_put == to_play_output]
     print((out_put, to_play_output, diff))
 
     if len(in_put.strip()) - 3 < len(out_put.strip()):
         return in_put, to_play_output, diff
     if test:
+        print()
         print(f"{in_put}\n{out_put}\n", len(in_put.strip()), len(out_put.strip()))
+        print()
 
     return out_put, to_play_output, diff
 
