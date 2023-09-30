@@ -1,31 +1,4 @@
-def no_repit(text, test=False):
-    """
-    >>> no_repit(" - No, no - no, no, no, no. Yes, no . - No way, no way, no way! Now, now? now? What. what.. what... - how , - how ?")
-    '  - No. Yes, No way! Now? What.... how ?'
-    >>> no_repit(" - No, no - no, no, no, no. Yes, no . - No way, no way, no way! Now, now? now? What. what.. what... - how , - how ?")
-    '  - No. Yes, No way! Now? What.... how ?'
-    """
-    in_put = text
-    text = f"{text}*"
-    compares = [" "]
-    part = ""
-    for letter in text:
-        part = part + letter
-        if letter not in "abcdefghijklmnopqrstuvwxyz' \"ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-            now_compare = 1
-            for index, compare in enumerate(compares):
-                now_compare = part.strip(' -?!,.:*').lower()
-                if compare.strip(' -?!,.:*').lower() == now_compare and now_compare:
-                    compares[index] = compares[index][:-1] + letter
-                    now_compare = 0
-                    break
-            if now_compare or part == compares[-1][-1] or compares == [" "]:
-                compares.append(part)
-            part = ""
-    out_put = "".join(compares).replace("*", " ")
+past_subtitles = """ the be of and a in to have it for i that you he on with do at by not this but from they his she or which as we an say will would can if their go what there all get her make who out up see know time take them some could so him year into its then think my come than more about now last your me no other give just these people two also well any only new very when may way look like use such how because good find man our want day between even many one after down thing tell back must child here over too put work old part three life great where woman us need feel system each much ask group number yes another again world area show course company under problem against never most service try call hand party american high something school small place before why away house different country really week large member off always end mr start help every home night play book four young room car line big name friend five talk market hour door office let war full sort read mother police price little today open bad programme minute moment girl stop control class six learn father real plan product city boy game food bank black town history white """
 
-    if len(in_put.strip()) - 3 < len(out_put.strip()):
-        return in_put.replace("*", " ")
-    if test:
-        print(f"{in_put}\n{out_put}\n", len(in_put.strip()), len(out_put.strip()))
-    return out_put
+
+print(len(set(past_subtitles.split())))
