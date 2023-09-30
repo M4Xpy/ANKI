@@ -14,7 +14,7 @@ updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 mp3_ru_audio = False
 mp3_en_audio = False
 play_track = False
-past_subtitles = """ the be of and a in to have it for i that you he on with do at by not this but from they his she or which as we an say will would can if their go what there all get her make who out up see know time take them some could so him year into its then think my come than more about now last your me no other give just these people two also well any only new very when may way look like use such how because good find man our want day between even many one after down thing tell back must child here over too put work old part three life great where woman us need feel system each much ask group number yes another again world area show course company under problem against never most service try call hand party american high something school small place before why away house different country really week large member off always end mr start help every home night play book four young room car line big name friend five talk market hour door office let war full sort read mother police price little today open bad programme minute moment girl stop control class six learn father real plan product city boy game food bank black town history white """
+past_subtitles = """ family sorry kill girlfriend schoolgirl schoolboy boyfriend did it's sir can't lord don't okay tv please the be of and a in to have it for i that you he on with do at by not this but from they his she or which as we an say will would can if their go what there all get her make who out up see know time take them some could so him year into its then think my come than love more about now last your me no other give just these people two also well any only new very when may way look like use such how because good find man our want day between even many one after down thing tell back must child here over too put work old part three life great where woman us need feel system each much ask group number yes another again world area show course company under problem against never most service try call hand party american high something school small place before why away house different country really week large member off always end mr start help every home night play book four young room car line big name friend five talk market hour door office let war full sort read mother police price little today open bad programme minute moment girl stop control class six learn father real plan product city boy game food bank black town history white """
 
 
 def online_player():
@@ -39,7 +39,22 @@ def online_player():
         move *= -1
         mouse.move(move, move, absolute=False, duration=0.0001)
         keyboard.send('ctrl + c')
-        subtitle = " ".join(pyperclip.paste().splitlines()[2:])
+
+        subtitle_lines = pyperclip.paste().splitlines()
+        len_subtitle_lines = len(subtitle_lines)
+        index = {
+                0: 99,
+                1: 99,
+                2: 99,
+                3: 2,
+                4: 2,
+                5: 99,
+                6: 99,
+                7: 99,
+                8: 7,
+                9: 7
+                }[len_subtitle_lines if len_subtitle_lines < 10 else 0]
+        subtitle = " ".join(subtitle_lines[index:])
 
         if prev_subtitle != subtitle:
             prev_subtitle = subtitle
@@ -73,10 +88,22 @@ def online_player():
 
 
             else:
-                updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
+                if updated_text != f'{subtitle}\n{translated}\n{text_update}\n{text_update}':
+                    delayed_text = updated_text
+                    threading.Thread(target=old_subtitles_delay, args=(delayed_text,)).start()
                 time.sleep(0.1)
         else:
             time.sleep(0.1)
+
+
+def old_subtitles_delay(delayed_text):
+    global updated_text
+    while play_track:
+        continue
+    time.sleep(len(updated_text.splitlines()[0]) * 0.04)
+    if updated_text == delayed_text:
+        updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
+
 
 def prepare_audio(different, to_play_subtitle, translated):
         global wate, play_track
@@ -145,7 +172,7 @@ def no_repit(text, test=False):
     # """
     global past_subtitles
     in_put = text
-    text = f"{text}*"
+    text = f"{text}*".replace(" mr.", "mr").replace(" Mr.", "Mr")
     compares = [" "]
     to_play_output = [" "]
     part = ""
@@ -167,11 +194,10 @@ def no_repit(text, test=False):
 
                     add_compare_part = compare_part.lower().strip(' ?!,.:*').replace("-", " ")
                     compare_part = add_compare_part.split()
-                    if len(compare_part) < 5 and all(item in past_subtitles for item in compare_part):
-                        to_play_output.append("")
-                    else:
+                    if len(compare_part) > 5 or any(item not in past_subtitles for item in compare_part):
                         past_subtitles = past_subtitles + add_compare_part + " "
                         to_play_output.append(part)
+
                     # print(past_subtitles)
                     # print(part)
                     # print()
