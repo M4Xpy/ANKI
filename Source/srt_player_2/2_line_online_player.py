@@ -14,18 +14,14 @@ updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 mp3_ru_audio = False
 mp3_en_audio = False
 play_track = False
-past_subtitles = """ family sorry kill girlfriend schoolgirl schoolboy boyfriend did it's sir can't lord don't okay tv please the be of and a in to have it for i that you he on with do at by not this but from they his she or which as we an say will would can if their go what there all get her make who out up see know time take them some could so him year into its then think my come than love more about now last your me no other give just these people two also well any only new very when may way look like use such how because good find man our want day between even many one after down thing tell back must child here over too put work old part three life great where woman us need feel system each much ask group number yes another again world area show course company under problem against never most service try call hand party american high something school small place before why away house different country really week large member off always end mr start help every home night play book four young room car line big name friend five talk market hour door office let war full sort read mother police price little today open bad programme minute moment girl stop control class six learn father real plan product city boy game food bank black town history white """
-
+keyboard_send_space = False
+top_300 = """ crazy oh right sergeant lieutenant terminator robot microprocessor fuck $ mama boss jesus welcome god hello thank family sorry kill girlfriend schoolgirl schoolboy boyfriend did it's sir can't lord don't okay tv please the be of and a in to have it for i that you he on with do at by not this but from they his she or which as we an say will would can if their go what there all get her make who out up see know time take them some could so him year into its then think my come than love more about now last your me no other give just these people two also well any only new very when may way look like use such how because good find man our want days between even many one after down thing tell back must child here over too put work old part three life great where woman us need feel system each much ask group number yes another again world area show course company under problem against never most service try call hand party american high something school small place before why away house different country really week large member off always end mr start help every home night play book four young room car line big name friend five talk market hour door office let war full sort read mother police price little today open bad programme minute moment girl stop control class six learn father real plan product city boy game food bank black town history white """
+past_subtitles = ""
 
 def online_player():
-    global updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, wate
+    global updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, wate, keyboard_send_space
 
     wate = False
-
-
-
-
-
 
     prev_subtitle = ""
     keyboard.send('ctrl + a')
@@ -34,7 +30,7 @@ def online_player():
     time.sleep(0.3)
     move = 1
     play_track = False
-
+    xxx = ""
     while 1:
         move *= -1
         mouse.move(move, move, absolute=False, duration=0.0001)
@@ -54,16 +50,29 @@ def online_player():
                 8: 7,
                 9: 7
                 }[len_subtitle_lines if len_subtitle_lines < 10 else 0]
+
         subtitle = " ".join(subtitle_lines[index:])
 
         if prev_subtitle != subtitle:
             prev_subtitle = subtitle
 
             if play_track:
-                keyboard.send('space')
                 wate = False
-                while not wate:
-                    continue
+
+                if subtitle :
+                    # print((xxx, subtitle, subtitle_lines))
+                    xxx = subtitle
+                    keyboard.send('space')
+                    while not wate:
+                        continue
+                    keyboard.send('space')
+
+
+
+
+
+
+
 
 
 
@@ -106,30 +115,26 @@ def old_subtitles_delay(delayed_text):
 
 
 def prepare_audio(different, to_play_subtitle, translated):
-        global wate, play_track
+    global wate, play_track
 
-        if different:
-            translated = Translator().translate(to_play_subtitle.lower(), 'ru', 'en').text
-        ru_audio_file = gTTS(text=translated, lang='ru')
-        ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
-        ru_audio = "C:\\ANKIsentences\\temporary.mp3"
-        pygame.mixer.init()
-        pygame.mixer.music.load(ru_audio, "mp3")
-        pygame.mixer.music.set_volume(0.5)
+    if different:
+        translated = Translator().translate(to_play_subtitle.lower(), 'ru', 'en').text
+    ru_audio_file = gTTS(text=translated, lang='ru')
+    ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
+    ru_audio = "C:\\ANKIsentences\\temporary.mp3"
+    pygame.mixer.init()
+    pygame.mixer.music.load(ru_audio, "mp3")
+    pygame.mixer.music.set_volume(0.8)
 
-        while wate:
-            continue
+    while wate:
+        continue
 
-
-        pygame.mixer.music.play()
-        while pygame.mixer.music.get_busy():
-            continue
-        wate = True
-        play_track = False
-        keyboard.send('space')
-        pygame.mixer.quit()
-
-
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        continue
+    wate = True
+    play_track = False
+    pygame.mixer.quit()
 
 
 def show_subtitle_text():
@@ -170,7 +175,7 @@ def no_repit(text, test=False):
     # """
     # >>> no_repit(' Whatever happens,')
     # """
-    global past_subtitles
+    global past_subtitles, top_300
     in_put = text
     text = f"{text}*".replace(" mr.", "mr").replace(" Mr.", "Mr")
     compares = [" "]
@@ -182,33 +187,38 @@ def no_repit(text, test=False):
         if letter not in "abcdefghijklmnopqrstuvwxyz' \"ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890":
             now_compare = 1
             for index, compare in enumerate(compares):
-                now_compare = part.strip(' -?!,.:*').lower()  #################################
+                now_compare = part.strip(' -?!,.:*').lower()
                 if compare.strip(' -?!,.:*').lower() == now_compare and now_compare:
                     compares[index] = compares[index][:-1] + letter
                     now_compare = 0
                     break
             if now_compare or part == compares[-1][-1] or compares == [" "]:
                 compares.append(part)
-                compare_part = part.lower().replace("*", " ").strip(' -?!,.:*')  #################################
+                compare_part = part.lower().strip(' -?!,.:*')
                 if compare_part not in past_subtitles:
 
-                    add_compare_part = compare_part.lower().strip(' ?!,.:*').replace("-", " ")
+                    title_word_test = compare_part.strip(' ?!,.:*').replace("-", " ")
+                    add_compare_part = title_word_test.lower()
                     compare_part = add_compare_part.split()
-                    if len(compare_part) > 5 or any(item not in past_subtitles for item in compare_part):
-                        past_subtitles = past_subtitles + add_compare_part + " "
-                        to_play_output.append(part)
+                    len_compare_part = len(compare_part)
 
-                    # print(past_subtitles)
-                    # print(part)
-                    # print()
+                    for item in compare_part:
+                        if item not in top_300 and not item.isnumeric():
+                            if item not in past_subtitles or len_compare_part > 4:
+                                past_subtitles = past_subtitles + add_compare_part + " "
+                                to_play_output.append(part)
+                                for word in title_word_test[1:]:
+                                    if word.istitle():
+                                        top_300 = top_300 + word.lower() + " "
+
+                                break
+
+
+
+
             part = ""
     out_put = "".join(compares).replace("*", " ").strip()
     to_play_output = "".join(to_play_output).replace("*", " ").strip()
-    # list_to_play_output = to_play_output.lower().strip(' ?!,.:*').replace("-", " ").replace(" a ", " ").replace(
-    #     " the ", " ").split()
-    # if len(list_to_play_output) < 5 and all(item in past_subtitles for item in list_to_play_output):
-    #     to_play_output = ""
-    # past_subtitles = past_subtitles + now_past_subtitles + " "
 
     in_put = in_put.replace("*", " ")
 
