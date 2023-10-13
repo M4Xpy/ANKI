@@ -1,4 +1,21 @@
-top_300 = """ hello thanks family sorry kill girlfriend schoolgirl schoolboy boyfriend did it's sir can't lord don't okay tv please the be of and a in to have it for i that you he on with do at by not this but from they his she or which as we an say will would can if their go what there all get her make who out up see know time take them some could so him year into its then think my come than love more about now last your me no other give just these people two also well any only new very when may way look like use such how because good find man our want days between even many one after down thing tell back must child here over too put work old part three life great where woman us need feel system each much ask group number yes another again world area show course company under problem against never most service try call hand party american high something school small place before why away house different country really week large member off always end mr start help every home night play book four young room car line big name friend five talk market hour door office let war full sort read mother police price little today open bad programme minute moment girl stop control class six learn father real plan product city boy game food bank black town history white """
-past_subtitles = ""
 
-print(len(set(top_300.split())))
+text = "l'm gоnnа rummаgе in thе stоrаgе сlоsеt, sее if l саn find sоmеthing fоr Мurрh."
+
+
+
+def en_ru_corrector(text):
+    """
+    >>> en_ru_corrector("l'm gоnnа rummаgе in thе stоrаgе сlоsеt")
+    """
+    russian_to_english = {
+            'А': 'A', 'В': 'B', 'С': 'C', 'Е': 'E', 'Н': 'H',
+            'К': 'K', 'М': 'M', 'О': 'O', 'Р': 'P', 'Т': 'T',
+            'Х': 'X', 'а': 'a', 'с': 'c', 'е': 'e', 'о': 'o',
+            'р': 'p', 'х': 'x', 'у': 'y', 'к': 'k'
+            }
+
+    for letter in text:
+        if letter in russian_to_english:
+            text = text.replace(letter, russian_to_english.get(letter))
+    return text
+
