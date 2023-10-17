@@ -1,21 +1,38 @@
-
-text = "l'm gоnnа rummаgе in thе stоrаgе сlоsеt, sее if l саn find sоmеthing fоr Мurрh."
-
+import re
 
 
-def en_ru_corrector(text):
-    """
-    >>> en_ru_corrector("l'm gоnnа rummаgе in thе stоrаgе сlоsеt")
-    """
-    russian_to_english = {
-            'А': 'A', 'В': 'B', 'С': 'C', 'Е': 'E', 'Н': 'H',
-            'К': 'K', 'М': 'M', 'О': 'O', 'Р': 'P', 'Т': 'T',
-            'Х': 'X', 'а': 'a', 'с': 'c', 'е': 'e', 'о': 'o',
-            'р': 'p', 'х': 'x', 'у': 'y', 'к': 'k'
-            }
+def split_text_with_punctuation(text, punctuation='.,;!?'):
+    parts = re.split(f"([{punctuation}])", text)
+    parts.append('')
+    result = []
+    for index in range(0, len(parts), 2):
+        if text.lower().count(parts[index].strip(" -").lower()) < 2:
+            result.append(parts[index] + parts[index + 1])
 
-    for letter in text:
-        if letter in russian_to_english:
-            text = text.replace(letter, russian_to_english.get(letter))
-    return text
+
+
+
+
+
+
+    return result
+
+text = "Hello, world... How are you today? I'm doing well, thank you.."
+parts = split_text_with_punctuation(text)
+print(parts)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
