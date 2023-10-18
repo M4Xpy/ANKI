@@ -29,4 +29,10 @@ class Test:
         def test_no_repit_mr_dot(self) -> None:
             assert no_repit('-Mr. Gibbs. -Captain.') == ('-Mr Gibbs. -Captain.', '-Mr Gibbs.', 1)
 
+        def test_no_repit_aphostroph(self) -> None:
+            assert no_repit("Okay, well, I'm sorry. I, uh. . . .") == ("Okay, well, I'm sorry. uh.", '', 0)
+
+        # def test_no_repit_schedule(self) -> None:
+        #     assert no_repit('') ==
+
 
