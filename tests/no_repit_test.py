@@ -19,8 +19,7 @@ class Test:
 
         def test_no_repit_dot(self) -> None:
             assert no_repit("- I'm on my knees for life. - I have no money to give you.") == (
-                    "- I'm on my knees for life. - I have no money to give you.",
-                    "- I'm on my knees for life. - I have no money to give you.", False)
+                    "- I'm on my knees for life. - I have no money to give you.", "- I'm on my knees for life.", 1)
 
         def test_no_repit_doubles(self) -> None:
             assert no_repit('no, no, no.') == ('no,', '', 0)
@@ -41,6 +40,9 @@ class Test:
         def test_no_repit_mmhmm(self) -> None:
             assert no_repit('Do you like scary movies ? Mm-hmm.') == (
                     'Do you like scary movies ? Mm-hmm.', 'Do you like scary movies ?', 1)
+
+        # def test_no_repit_2000(self) -> None:
+        #     assert no_repit('Amphitryon, for so many years') == ()
 
         # def test_no_repit_schedule(self) -> None:
         #     assert no_repit('') == ()
