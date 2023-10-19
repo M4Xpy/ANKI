@@ -15,12 +15,22 @@ mp3_ru_audio = False
 mp3_en_audio = False
 play_track = False
 keyboard_send_space = False
-top_300 = """ bible's captains whisky whiskey negros hmmm padre monsters wow goodnights pardon excuse devils bonn appetit nobodys tours address idiots everybody zeros stress queens russians concentrations finances errors transfers modules instructions democratics parks bottless thanks blocks codes madams metals experts experiments e-mails congress golds displays combinations cats liberals catholics components literatures informs englishs instruments surprises restaurants fruits motors incidents focus index mechanisms atmospheres milks religions greys first channels revolutions criminals signals plastics connects fundamentals ministers parents lands situations collections cards suns officials july seconds documents hotdogs options concepts greens junes fully scene peace aprils nine september partners brothers hotels january balance sisters august octobers africans december november artists contacts telephones europeans februarys credits plus limits goodbyes videos regionals egypts contrasts farmers traffics coffees categorys museums internets italys crisis victorys dialects comments contents australians sexuals actuals visitors transports winters christmas progres conflicts studios professionals versions mrs context effective bests lady holidays express box totals kings clients sectors originals presidents summers daughters photocopy baby smiles lefts leaders everyones websites anyways seasons happy answers serious organisations securitys anyones personals details easys theorys financials officers directors everythings structures methods teachers records materials departments managements footballs facebooks publics remembers economics internationals students languages daddys teams types oppositions words centres understandings results functions news players eights doctors sevens germanys enters pms stations finals streets trees frances musics hards dates standards animals shops colours loves closes tests contracts armys pictures normals operations hundreds chances hospitals privates computers models informations businessmans centrals workers someones projects windows risks frees managers investors bingos dramatically absolutely crazys ooh rights month sergeants lieutenants terminators robots microprocessors fucks $ mamas users technologyss styless boss jesuss welcomess percentss godss helloss millionss familyss sorryss killss girlfriendss schoolgirlss schoolboyss boyfriends waters dids it's sirs can't lords don't facts writers okay tv pleases haves thats with this buts froms theys shes whichs says wills woulds theirs whats theres gets makes whos interests sees knows times 'm takes thems coulds hims years into thens thinks mores abouts yours moneys gives just these peoples two also wellss onlys whens mays looks likes such because finds wants betweens afters downs tells backs musts childs overs too three lifes greats wheres womans needs feels systems much ask groups numbers ideas anothers worlds areas shows courses companys problems againsts nevers mosts services hands partys americans highs somethings effects smalls places befores why aways houses differents countrys reallys weeks larges always starts helps nothings homes periods persons fours youngs rooms lines bigs names fives talks markets hours doors lets wars sorts reads mothers polices prices littles todays opens bads programmes minutes moments stops controls class six learns fathers plans products city games foods blues banks blacks towns historys whites an w e r t y u i o p a s d f g h j k l z x c v b n m """
+top_300 = """ shh mm-hmm oops on any is munro  mike jerry  warren glenn wendy jeez burt jim mister bible's captains whisky whiskey negros hmmm padre monsters wow goodnights pardon excuse devils bonn appetit nobodys tours address idiots everybody zeros stress queens russians concentrations finances errors transfers modules instructions democratics parks bottless thanks blocks codes madams metals experts experiments e-mails congress golds displays combinations cats liberals catholics components literatures informs englishs instruments surprises restaurants fruits motors incidents focus index mechanisms atmospheres milks religions greys first channels revolutions criminals signals plastics connects fundamentals ministers parents lands situations collections cards suns officials july seconds documents hotdogs options concepts greens junes fully scene peace aprils nine september partners brothers hotels january balance sisters august octobers africans december november artists contacts telephones europeans februarys credits plus limits goodbyes videos regionals egypts contrasts farmers traffics coffees categorys museums internets italys crisis victorys dialects comments contents australians sexuals actuals visitors transports winters christmas progres conflicts studios professionals versions mrs context effective bests lady holidays express box totals kings clients sectors originals presidents summers daughters photocopy baby smiles lefts leaders everyones websites anyways seasons happy answers serious organisations securitys anyones personals details easys theorys financials officers directors everythings structures methods teachers records materials departments managements footballs facebooks publics remembers economics internationals students languages daddys teams types oppositions words centres understandings results functions news players eights doctors sevens germanys enters pms stations finals streets trees frances musics hards dates standards animals shops colours loves closes tests contracts armys pictures normals operations hundreds chances hospitals privates computers models informations businessmans centrals workers someones projects windows risks frees managers investors bingos dramatically absolutely crazys ooh rights month sergeants lieutenants terminators robots microprocessors fucks $ mamas users technologyss styless boss jesuss welcomess percentss godss helloss millionss familyss sorryss killss girlfriendss schoolgirlss schoolboyss boyfriends waters dids it's sirs can't lords don't facts writers okay tv pleases haves thats with this buts froms theys shes whichs says wills woulds theirs whats theres gets makes whos interests sees knows times 'm takes thems coulds hims years into thens thinks mores abouts yours moneys gives just these peoples two also wellss onlys whens mays looks likes such because finds wants betweens afters downs tells backs musts childs overs too three lifes greats wheres womans needs feels systems much ask groups numbers ideas anothers worlds areas shows courses companys problems againsts nevers mosts services hands partys americans highs somethings effects smalls places befores why aways houses differents countrys reallys weeks larges always starts helps nothings homes periods persons fours youngs rooms lines bigs names fives talks markets hours doors lets wars sorts reads mothers polices prices littles todays opens bads programmes minutes moments stops controls class six learns fathers plans products city games foods blues banks blacks towns historys whites an w e r t y u i o p a s d f g h j k l z x c v b n m """
 top_2000 = """ huh yep eh oh let's pioneers juniors beautys residents unknowns appetites shoulds thoses yeah still becomes governments means leaves cases seems sames mights howevers shall whiles keeps points resultings holds nexts follows withouts turns within locals durings brings begins examplers socials states both runs longs sets importants eyes heads questions powers moves pays hears meets levels untils believes unbelievables alreadys impossibles studys lots lives jobs since happens leasts almosts earlys views himself togethers reports bits politicals laters laws produces reasons subjects anythings offers voices kinds actuallys educations falls enoughs buys mains conditions itself agrees sections roads tables soons halfs specials difficults mornings grounds letters clears roles sells sometimes trades watchs agos strongs yesterdays stays waits usually differences wifes sales lights cares qualitys datas unions trues thirds shorts singles joins herselfs walls poors billions deals foreigns productions betters thousands sites hairs prepares ladies pieces fronts evenings royals fines designs pages enjoys individuals sizes fires series naturals wrongs nears futures introduces spaces attentions principless choices steps machines films nice moderns legals energys finally whoms sounds gardens floors myself forgets glass cups husbands christs capitals listen economy finishs duty fights trainers aspects industrials used university deads discussions outside procedures images oils militarys yourself seats miss populars respects fly heavy librarys pupils darks memory cultures bloods stones bars attacks fishs troubles traditionals importances interestings speakers mondays medicals tuesdays tomorrows colds sundays borns fridays highly wednesdays radios birds thursdays sexs fingers messages afternoons drinks races jacks strategys kitchens saturdays sports status beautifuls marry readers rocks newspapers britishs plannings workings paris chinas colleges cashs normallys travels agents presences nons speeds proportions drivers commercials richs distances keys reactions westerns somebodys writers weekends farms connections phones alones flowers battles generations french scotlands somewheres baseballs bags freshs swiss engines tonights egyptians songs forests woods technicals indians dinners audiences paperworks masters religious crys potentials scottishs freedoms gentlemans selections factorys hopeles eggs naives romes decades brights searchs hollands fourth detailed mountains limiteds pensions congratulations greatests springs weathers bedrooms kids pleasures jumpers teachings combines temperatures totally digests dress sums publications iraqis seriously corrects potters phases switzerlandss skys brains perfects photographs ministry anymores readings fasts plates pools generate locations guns shuts journeys historicals japaneses lunch themes characteristics tooths bridges doubles soldiers swedens nurses prioritys wilds fixs slows cements alternatives chemicals jewishs wings basketballs uniteds winners mistakes representations washs trips gates overalls anybodys theatres enemy desks fashions cleans alrights fuels mines constants overtimes hates shoes writings noses origins wales tickets northerns camels somewhats trends swedishs southerns planes openings welshs lessons """
-
+str_hub = " "
 past_subtitles = " "
 delayed_text =""
 
+
+
+def top_hub():
+    # """
+    # >>> top_hub()
+    # """
+    global str_hub
+    file = "C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\tests\\exceptions\\top_hub.txt"
+    with open(file, encoding='utf-8') as words:
+        str_hub = words.read()
 
 
 def en_ru_corrector(text):
@@ -210,87 +220,35 @@ def top_black_frame():
     label.config(text=top_message)
 
 
-def no_repit1(text, test=False):
+def split_text_with_punctuation(text, punctuation='].,;:!?)'):
     # """
-    # >>> no_repit("- I'm on my knees for life. - I have no money to give you.")
-    # """
-    global past_subtitles, top_2000
-    in_put = text
-    text = f"{text}*".replace(" mr.", "mr").replace(" Mr.", "Mr").replace('- ', "     ")
-    compares = [" "]
-    to_play_output = [" "]
-    part = text[0]
-
-    for letter in text[1:]:
-        part = part + letter
-        if letter.isalnum() or letter in "' -$%@#&\""  :
-            continue
-        else:
-            now_compare = 1
-            for index, compare in enumerate(compares):
-                now_compare = part.strip(' -?!,.:*').lower()
-                if compare.strip(' -?!,.:*').lower() == now_compare and now_compare:
-                    compares[index] = compares[index][:-1] + letter
-                    now_compare = 0
-                    break
-            if now_compare or part == compares[-1][-1] or compares == [" "]:
-                compares.append(part + " ")
-                compare_part = part.lower().strip(" '\"$%@#&?!,.:*-")
-                if compare_part not in past_subtitles:
-
-                    title_word_test = compare_part  #.replace("-", " ")
-                    add_compare_part = title_word_test.lower()
-                    compare_part = add_compare_part.split()
-                    len_compare_part = len(compare_part)
-
-                    for item in compare_part:
-                        # item = item.replace(":", "")
-                        if item not in f"{top_2000} {top_300}" and not item.isnumeric() and "'" not in item:
-                            if item not in past_subtitles or len_compare_part > 3:
-                                past_subtitles = past_subtitles + add_compare_part + " "
-                                to_play_output.append(part + " ")
-                                for word in title_word_test[1:]:
-                                    if word.istitle():
-                                        top_2000 = top_2000 + word.lower() + " "
-                                break
-            else:
-                compares.append(letter)
-            part = ""
-
-
-    out_put = "".join(compares).replace("*", " ").replace("     ", ' - ').strip()
-    to_play_output = "".join(to_play_output).replace("*", " ").replace("     ", ' - ').strip()
-
-    in_put = in_put.replace("*", " ")
-
-    if len([sign for sign in in_put if sign.isalnum()]) - 2 < len([sign for sign in to_play_output if sign.isalnum()]):
-        return in_put, in_put, 0
-
-    print()
-    len_out_put = len([sign for sign in out_put if sign.isalnum()])
-    if len([sign for sign in in_put if sign.isalnum()]) - 2 < len_out_put:
-        if len_out_put - 2 > len([sign for sign in to_play_output if sign.isalnum()]) :
-            print((in_put, to_play_output, 1, 111))
-            return in_put, to_play_output, 1
-        print((in_put, in_put, 0, 222))
-        return in_put, in_put, 0
-
-    print(f"{in_put}\n{out_put}\n{to_play_output}", len(in_put.strip()), len(out_put.strip()))
-    return out_put, to_play_output, 1
-
-
-def split_text_with_punctuation(text, punctuation='.,;!?'):
-    # """
-    # >>> split_text_with_punctuation('-Mr. Gibbs. -Captain.')
+    # >>> split_text_with_punctuation('Do you like scary movies ? Mm-hmm.')
     # """
     parts = re.split(f"([{punctuation}])", text.replace(" mr.", " mr").replace("Mr.", "Mr").replace(" sir.", " sir").replace("Sir.", "Sir"))
     parts.append('')
     result = []
     compares = []
+    severe = False
     for index in range(0, len(parts), 2):
+
         compare_count = 0
         compare = parts[index].strip(" -").lower()
         item_count = text.lower().count(compare)
+
+        if compare and compare[0].isnumeric() and result and result[-1][-1] == ":" and result[-1][-2].isnumeric():
+            result[-1] = result[-1] + parts[index] + parts[index + 1]
+            continue
+
+        if len(compare) == 1 and result and result[-1][-1] == "." == parts[index + 1]:
+            result[-1] = result[-1] + parts[index] + "."
+            severe = True
+            continue
+        elif severe:
+            severe = False
+            result[-1] = result[-1] + parts[index] + parts[index + 1]
+            continue
+
+
         if item_count < 2:
             result.append(parts[index] + parts[index + 1])
         elif compare not in compares:
@@ -301,45 +259,64 @@ def split_text_with_punctuation(text, punctuation='.,;!?'):
                 result.append(parts[index] + parts[index + 1])
                 compares.append(compare)
 
+
     return result
 
 def no_repit(text, test=False):
     # """
-    # >>> no_repit("If you believe such things")
+    # >>> no_repit(' Mm-hmm.')
     # """
-    global past_subtitles
-    punctuation = '.,;:!?'
+    global past_subtitles, str_hub
+    punctuation = '].,;:!?)'
     start = split_text_with_punctuation(text, punctuation)
+
     play_output = []
     diff = 0
-    for part in start:
 
+    for part in start:
 
         words = part.split()
         len_part = len(words)
-        if len_part > 3:
-            if "".join(letter.lower() for letter in part if letter.isalpha() or letter in "' ") not in past_subtitles:
-                xxx(part, play_output)
+
+        check_and_add_to_hub(len_part, part, punctuation)
+
+
+
+        if len_part > 6 and part.strip(punctuation + " -").lower() not in past_subtitles:
+
+                xxx(part, play_output, punctuation)
                 diff = 1
-            continue
+                continue
 
         for word in words:
-            word = "".join(letter.lower() for letter in word if letter.isalpha() or letter =="'")
-            if word not in f"{top_2000} {top_300} {past_subtitles}" and word and "'" not in word:
-                xxx(part, play_output)
+            word = "".join(letter.lower() for letter in word.strip(' -') if letter.isalpha() or letter in "'-")
+            if word not in f"{top_2000} {top_300} {past_subtitles}" and word and "'" not in word and Translator().translate(word.lower(), 'ru', 'en').text.islower():
+                xxx(part, play_output, punctuation)
                 diff = 1
                 break
     print((text, "".join(start), "".join(play_output), start != play_output and diff))
     return "".join(start), "".join(play_output), start != play_output and diff
 
 
-def xxx(part, play_output):
+def check_and_add_to_hub(len_part, part, punctuation):
+    global str_hub
+    if len_part == 1:
+        var = part.strip(punctuation + " -").lower()
+        if var not in f"{top_2000} {top_300} {str_hub}":
+            str_hub = f"{str_hub} {var}"
+            file = "C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\tests\\exceptions\\top_hub.txt"
+            with open(file, "a", encoding='utf-8') as vars:
+                vars.write(f" {var}")
+
+
+def xxx(part, play_output, punctuation):
     global past_subtitles
     play_output.append(part)
-    past_subtitles = past_subtitles + part[:-1].lower()
+    past_subtitles = past_subtitles + part.strip(punctuation + " -").lower()
 
 
 if __name__ == '__main__':
+    top_hub()
     threading.Thread(target=online_player).start()
     time.sleep(1)
     threading.Thread(target=top_black_frame).start()
