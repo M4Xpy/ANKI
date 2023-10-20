@@ -42,7 +42,7 @@ class Test:
                     'Do you like scary movies ? Mm-hmm.', 'Do you like scary movies ?', 1)
 
         # def test_no_repit_2000(self) -> None:
-        #     assert no_repit('Amphitryon, for so many years') == ()
+        #     assert no_repit('Okay. Mmm-hmm.') == ()
 
         # def test_no_repit_schedule(self) -> None:
         #     assert no_repit('') == ()
