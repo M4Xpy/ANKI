@@ -17,9 +17,9 @@ def add_to_stat():
     for word in stat.keys():
             translations, rate, pos, absolute_count, relative_count, level = stat[word]
             if rate > 5000:
-                stat_5000[word] = (translations, rate, pos, absolute_count, relative_count, level)
+                stat_5000[word] = (translations, rate, pos, 0, 0, level)
             else:
-                stat_0000[word] = (translations, rate, pos, absolute_count, relative_count, level)
+                stat_0000[word] = (translations, rate, pos, 0, 0, level)
 
     sorted_5000 = sorted(stat_5000.items(), key=lambda x: x[1][4], reverse=True)
     sorted_0000 = sorted(stat_0000.items(), key=lambda x: x[1][4], reverse=True)
