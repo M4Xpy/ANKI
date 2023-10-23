@@ -4,12 +4,25 @@ from googletrans import Translator
 
 from Source.srt_player_2.three_line_online_player import top_5000, top_2000, top_300
 
+
+def take_text_from_stat_txt():
+    file = "C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\tests\\exceptions\\stat.txt"
+    with open(file, "r", encoding='utf-8') as vars:
+        return vars.read()
+
+def clean_stat_txt():
+    file = "C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\tests\\exceptions\\stat.txt"
+    with open(file, "w", encoding='utf-8') as vars:
+        vars.write("")
+
+
 text = """
 """
 
 
 def add_to_stat():
     global count
+    text = take_text_from_stat_txt()
     with open('../../tests/exceptions/word_dict.json', 'r', encoding="utf-8") as file:
         stat = json.load(file)
 
@@ -23,7 +36,7 @@ def add_to_stat():
                     ).removesuffix("'s")
             if word:
                 new_words.append(word)
-    print(count_all_words, len(new_words), count_all_words + len(new_words))
+    print(new_words, count_all_words, len(new_words), count_all_words + len(new_words))
     count_all_words += len(new_words)
 
     stat_5000 = {}
@@ -31,7 +44,7 @@ def add_to_stat():
     for word in stat.keys():
         translations, rate, pos, absolute_count, relative_count, level = stat[word]
         rate = 300 if word in top_300 else 2000 if word in top_2000 else 5000 if word in top_5000 else 12500 if word in stat else 99999
-        if rate > 5000:
+        if rate > 5000 and level == 111:
             stat_5000[word] = (translations, rate, pos, absolute_count, absolute_count / count_all_words, level)
         else:
             stat_0000[word] = (translations, rate, pos, absolute_count, absolute_count / count_all_words, level)
@@ -46,9 +59,11 @@ def add_to_stat():
             values = (translations, rate, pos, absolute_count + 1, (absolute_count + 1) / count_all_words, level)
         else:
             translations = Translator().translate(word.lower(), 'ru', 'en').text
-            values = (translations, rate, "ZERO", 1, 1 / count_all_words, 111)
+            level = 111
+            values = (translations, rate, "ZERO", 1, 1 / count_all_words, level)
 
-        if rate > 5000:
+
+        if rate > 5000 and level == 111:
             stat_5000[word] = values
         else:
             stat_0000[word] = values
@@ -70,6 +85,8 @@ def add_to_stat():
 
     with open('../../tests/exceptions/word_dict.json', 'w', encoding="utf-8") as file:
         json.dump(total, file, indent=4, ensure_ascii=False)
+
+    clean_stat_txt()
 
 
 add_to_stat()
