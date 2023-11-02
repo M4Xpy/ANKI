@@ -10,7 +10,7 @@ import pyperclip
 from googletrans import Translator
 from gtts import gTTS
 
-text_update = 170 * " "
+text_update = 160 * " "
 updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 mp3_ru_audio = False
 mp3_en_audio = False
@@ -22,8 +22,9 @@ top_5000 = """ rum heart fool hero done gonna told saying said thinking taking g
 str_hub = " "
 past_subtitles = "  "
 delayed_text = ""
-
-
+vol = 1
+send_space = 0
+press_space = 0
 
 def play_without_ecxeptions(text, extra_exceptions="", exceptions="*♪¤"):
     return "".join(sign for sign in text if sign not in f"{exceptions}{extra_exceptions}")
@@ -39,28 +40,44 @@ def top_hub():
         str_hub = words.read()
 
 
-def en_ru_corrector(text):
-    def en_ru_corrector(text, lang="en"):
-        # """
-        # >>> en_ru_corrector("l'm gоnnа rummаgе in thе stоrаgе сlоsеt")
-        # """
-        russian_to_english = {
-                'А': 'A', 'В': 'B', 'С': 'C', 'Е': 'E', 'Н': 'H',
-                'К': 'K', 'М': 'M', 'О': 'O', 'Р': 'P', 'Т': 'T',
-                'Х': 'X', 'а': 'a', 'с': 'c', 'е': 'e', 'о': 'o',
-                'р': 'p', 'х': 'x', 'у': 'y', 'к': 'k'
-                }  # russian : english
+def en_ru_corrector(text, lang="en"):
+    # """
+    # >>> en_ru_corrector("l'm gоnnа rummаgе in thе stоrаgе сlоsеt")
+    # """
+    russian_to_english = {
+            'А': 'A', 'В': 'B', 'С': 'C', 'Е': 'E', 'Н': 'H',
+            'К': 'K', 'М': 'M', 'О': 'O', 'Р': 'P', 'Т': 'T',
+            'Х': 'X', 'а': 'a', 'с': 'c', 'е': 'e', 'о': 'o',
+            'р': 'p', 'х': 'x', 'у': 'y', 'к': 'k'
+            }  # russian : english
 
-        for russian, english in russian_to_english.items():
-            if lang == "en":
-                text = text.replace(russian, english)
-            elif lang == "ru":
-                text = text.replace(english, russian)
-        return text
+    for russian, english in russian_to_english.items():
+        if lang == "en":
+            text = text.replace(russian, english)
+        elif lang == "ru":
+            text = text.replace(english, russian)
+    return text
 
+
+def volume(text):
+    global vol
+    if text and vol:
+        keyboard.send("m")
+        vol = 0
+    elif not text and not vol:
+        vol = 1
+        keyboard.send("m")
+
+
+
+def mouse_move():
+    move = 1
+    while True:
+        move *= -1
+        mouse.move(move, move, absolute=False, duration=0.1)
 
 def online_player():
-    global updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, waite, keyboard_send_space, delayed_text
+    global press_space, updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, waite, keyboard_send_space, delayed_text, send_space
 
     waite = False
 
@@ -71,7 +88,6 @@ def online_player():
     time.sleep(0.3)
     move = 1
     play_track = False
-    xxx = ""
     start_time = 0
     pause = 0
     while True:
@@ -96,52 +112,55 @@ def online_player():
                 }[len_subtitle_lines if len_subtitle_lines < 10 else 0]
         subtitle_lines = " ".join(subtitle_lines[index:])
 
+
+
+
         if prev_subtitle != subtitle_lines:
+            threading.Thread(
+                    target=volume, args=(subtitle_lines,)
+                    ).start()
+
 
             prev_subtitle = subtitle_lines
-            subtitle = en_ru_corrector(subtitle_lines)
+            subtitle = en_ru_corrector(subtitle_lines, "ru")
 
-            if play_track:
-                waite = False
 
-                if subtitle:
-
-                    keyboard.send('space')
-                    time.sleep(0.2)
-                    while not waite:
-                        continue
-
-                    keyboard.send('space')
 
             if subtitle:
+                if send_space:
+                    keyboard.send("space")
+                    press_space = 1
+                    while send_space:
+                        pass
+                threading.Thread(
+                                target=execute, args=(subtitle,)
+                                ).start()
 
-                subtitle, to_play_subtitle, different = no_repit(subtitle)
 
-                start_time = time_delay(pause, start_time, subtitle)
-
-                updated_text = f'{subtitle}\n{text_update}\n{text_update}\n{text_update}'
-                translated = Translator().translate(subtitle.lower(), 'ru', 'en').text
-                if len(translated) > 99:
-                    halve = translated.split()
-                    point = len(halve) // 2
-                    first = " ".join(halve[:point])
-                    second = " ".join(halve[point:])
-                    updated_text = f'{subtitle}\n{first}\n{second}\n{text_update}'
-                else:
-                    updated_text = f'{subtitle}\n{translated}\n{text_update}\n{text_update}'
-                if to_play_subtitle:
-                    play_track = True
-                    threading.Thread(
-                        target=prepare_audio, args=(subtitle, different, to_play_subtitle, translated)
-                        ).start()
 
 
 
 
             else:
-                empty_text(play_track, start_time)
+                time.sleep(0.1)
         else:
-            empty_text(play_track, start_time)
+            time.sleep(0.1)
+            # empty_text(play_track, start_time)
+
+
+def execute(subtitle):
+    global to_play_subtitle, different, updated_text, send_space, press_space
+    send_space = 1
+    ru_subtitle = subtitle
+    en_subtitle = Translator().translate(subtitle.lower(), 'en', 'ru').text
+    subtitle, to_play_subtitle, different = no_repit(en_subtitle)
+    updated_text = f'{en_subtitle}\n{ru_subtitle}\n{text_update}\n{text_update}'
+    prepare_audio(ru_subtitle, en_subtitle)
+    if press_space:
+        keyboard.send("space")
+        press_space = 0
+    send_space = 0
+
 
 
 def time_delay(pause, start_time, subtitle):
@@ -159,7 +178,7 @@ def time_delay(pause, start_time, subtitle):
 def empty_text(play_track, start_time):
     global updated_text
     time.sleep(0.1)
-    if updated_text != f"{text_update}\n{text_update}\n{text_update}\n{text_update}" and not play_track and time.time() > start_time + 2:
+    if updated_text != f"{text_update}\n{text_update}\n{text_update}\n{text_update}"  and time.time() > start_time + 2:
         updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
 
@@ -172,46 +191,38 @@ def old_subtitles_delay(delayed_text):
         updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
 
-def prepare_audio(subtitle, different, to_play_subtitle, translated):
+def prepare_audio( ru_subtitle, en_subtitle):
     global waite, play_track, updated_text, delayed_text, updated_text
 
-    if different:
-        translated = Translator().translate(to_play_subtitle.lower(), 'ru', 'en').text
-
-    ru_audio_file = gTTS(text=translated, lang='ru')
-    ru_audio_file.save("C:\\ANKIsentences\\temporary.mp3")
-    ru_audio = "C:\\ANKIsentences\\temporary.mp3"
+    ru_audio_file = gTTS(text=ru_subtitle.lower(), lang='ru')
+    ru_audio_file.save("C:\\ANKIsentences\\temporary_ru_audio_file.mp3")
+    ru_audio = "C:\\ANKIsentences\\temporary_ru_audio_file.mp3"
     pygame.mixer.init()
     pygame.mixer.music.load(ru_audio, "mp3")
     pygame.mixer.music.set_volume(0.5)
-
-    while waite:
-        continue
-
     pygame.mixer.music.play()
-    to_play_subtitle = play_without_ecxeptions(to_play_subtitle)
-    en_audio_file = gTTS(text=to_play_subtitle.lower(), lang='en')
-    en_audio_file.save("C:\\ANKIsentences\\en_temporary.mp3")
-    en_audio = "C:\\ANKIsentences\\en_temporary.mp3"
+
+    en_audio_file = gTTS(text=en_subtitle.lower(), lang='en')
+    en_audio_file.save("C:\\ANKIsentences\\temporary_en_audio_file.mp3")
+    en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
 
     while pygame.mixer.music.get_busy():
         continue
+
+
 
     pygame.mixer.music.load(en_audio, "mp3")
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
         continue
-
-    waite = True
-    play_track = False
-    pygame.mixer.quit()
+    # pygame.mixer.quit()
 
 
 def show_subtitle_text():
     font = 20
     root = tk.Tk()
     root.wm_attributes('-topmost', True)  # Set the window to be always on top
-    root.geometry('+0+668')
+    root.geometry('+60+668')
     root.overrideredirect(True)  # Remove the window frame
     font = ('Arial', font)
     label = tk.Label(
@@ -340,11 +351,11 @@ def no_repit(text, test=False):
 
     show = "".join(show_output)
     play = "".join(play_output)
-    compare = show.lower() != play.lower() and play != ""  
+    compare = show.lower() != play.lower() and play != ""
     if not test:
         stat_txt(f"('{text}', ' xxxxxx', '{show}', '{play}', {compare})")  # save all data to stat.txt for statictics
 
-    # print((text, " xxxxxx", show, play, compare))
+    print((text, " xxxxxx", show, play, compare))
 
     return show, play, compare
 
@@ -373,7 +384,8 @@ if __name__ == '__main__':
     top_hub()
     threading.Thread(target=online_player).start()
     time.sleep(1)
-    threading.Thread(target=top_black_frame).start()
+    # threading.Thread(target=top_black_frame).start()
+    # threading.Thread(target=mouse_move).start()
     show_subtitle_text()
 
     pass

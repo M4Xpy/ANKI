@@ -31,18 +31,18 @@ def add_to_stat():
     for line in text.splitlines():
         words = line.lstrip("('\"").split("xxxxxx',")[0]
         for word in words.split():
-            word = "".join(letter.lower() for letter in word if letter.isalpha() or letter in "'-").strip(
-                    "'-"
-                    ).removesuffix("'s")
+            word = word.lower()
+            word = "".join(letter for letter in word if letter in "'-abcdefghijklmnopqrstuvwxyz").removesuffix("'s"
+                                                                                                    ).strip("'-")
             if word:
                 new_words.append(word)
-    print(new_words, count_all_words, len(new_words), count_all_words + len(new_words))
     count_all_words += len(new_words)
 
     stat_5000 = {}
     stat_0000 = {}
     for word in stat.keys():
-        translations, rate, pos, absolute_count, relative_count, level = stat[word]
+        translations, rate, pos, absolute_count, relative_count, _ = stat[word]
+        level = (111, 0)[translations.isupper()]
         rate = 300 if word in top_300 else 2000 if word in top_2000 else 5000 if word in top_5000 else 12500 if word in stat else 99999
         if rate > 5000 and level == 111:
             stat_5000[word] = (translations, rate, pos, absolute_count, absolute_count / count_all_words, level)
@@ -58,8 +58,14 @@ def add_to_stat():
             translations, rate, pos, absolute_count, relative_count, level = stat[word]
             values = (translations, rate, pos, absolute_count + 1, (absolute_count + 1) / count_all_words, level)
         else:
-            translations = Translator().translate(word.lower(), 'ru', 'en').text
-            level = 111
+            if word in stat_5000:
+                translations = stat_5000[word][0]
+            elif word in stat_0000:
+                translations = stat_0000[word][0]
+            else:
+                translations = Translator().translate(word.lower(), 'ru', 'en').text
+                print(translations)
+            level = (111, 0)[translations.isupper()]
             values = (translations, rate, "ZERO", 1, 1 / count_all_words, level)
 
 
@@ -81,7 +87,7 @@ def add_to_stat():
     sorted_0000 = dict(sorted_0000)
     total = sorted_5000 | sorted_0000
 
-    print(sum(1 for item in total.values() if item[3] > 0))
+    print(sum(1 for item in total.values() if item[3] > 0)) # demonstrate amount of used words
 
     with open('../../tests/exceptions/word_dict.json', 'w', encoding="utf-8") as file:
         json.dump(total, file, indent=4, ensure_ascii=False)

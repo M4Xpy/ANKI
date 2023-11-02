@@ -6,43 +6,43 @@ class Test:
     class Test_no_repit111:
 
         def test_no_repit(self) -> None:
-            assert no_repit('(ENGINE REVVING)') == ('(ENGINE REVVING)', '(ENGINE REVVING)', False)
+            assert no_repit('(ENGINE REVVING)', test=True) == ('(engine revving)', '(ENGINE REVVING)', False)
 
         def test_no_repit_1(self) -> None:
-            assert no_repit('WOMAN: Come here, puppy.') == ('WOMAN: COME HERE, puppy.', ' puppy.', True)
+            assert no_repit('WOMAN: Come here, puppy.', test=True) == ('WOMAN: COME HERE, puppy.', ' puppy.', True)
 
         def test_no_repit_2(self) -> None:
-            assert no_repit('(MEWS) (YELPS)') == ('(MEWS) (YELPS)', '(MEWS) (YELPS)', False)
+            assert no_repit('(MEWS) (YELPS)', test=True) == ('(mews) (yelps)', '(MEWS) (YELPS)', False)
 
         def test_no_repit_colons(self) -> None:
-            assert no_repit('7:00 a.m. Up and at \'em!') == ("7:00 A.M. UP AND AT 'EM!", '', False)
+            assert no_repit('7:00 a.m. Up and at \'em!', test=True) == ("7:00 A.M. UP AND AT 'EM!", '', False)
 
         def test_no_repit_dot(self) -> None:
-            assert no_repit("- I'm on my knees for life. - I have no money to give you.") == (
+            assert no_repit("- I'm on my knees for life. - I have no money to give you.", test=True) == (
                     "- I'm on my knees for life. - I HAVE NO MONEY TO GIVE YOU.", "- I'm on my knees for life.", True)
 
         def test_no_repit_doubles(self) -> None:
-            assert no_repit('no, no, no.') == ('NO,', '', False)
+            assert no_repit('no, no, no.', test=True) == ('NO,', '', False)
 
         def test_no_repit_mr_dot(self) -> None:
-            assert no_repit('-Mr. Gibbs. -Captain.') == ('-MR GIBBS. -CAPTAIN.', '', False)
+            assert no_repit('-Mr. Gibbs. -Captain.', test=True) == ('-MR GIBBS. -CAPTAIN.', '', False)
 
         def test_no_repit_aphostroph(self) -> None:
-            assert no_repit("Okay, well, I'm sorry. I, uh. . . .") == ("OKAY, WELL, I'M SORRY. UH.", '', False)
+            assert no_repit("Okay, well, I'm sorry. I, uh. . . .", test=True) == ("OKAY, WELL, I'M SORRY. UH.", '', False)
 
         def test_no_repit_schedule(self) -> None:
-            assert no_repit('She just moved from L.A. to Salt Lake, so. . . .') == (
+            assert no_repit('She just moved from L.A. to Salt Lake, so. . . .', test=True) == (
                     'She just moved from L.A. to Salt Lake, SO.', 'She just moved from L.A. to Salt Lake,', True)
 
         def test_no_repit_brace(self) -> None:
-            assert no_repit('[SOFTLY] Jesus , (work)') == ('[SOFTLY] JESUS , (WORK)', '[SOFTLY]', True)
+            assert no_repit('[SOFTLY] Jesus , (work)', test=True) == ('[softly] JESUS , (WORK)', '[SOFTLY]', True)
 
         def test_no_repit_mmhmm(self) -> None:
-            assert no_repit('Do you like scary movies ? Mm-hmm.') == (
+            assert no_repit('Do you like scary movies ? Mm-hmm.', test=True) == (
                     'Do you like scary movies ? MM-HMM.', 'Do you like scary movies ?', True)
 
         # def test_no_repit_2000(self) -> None:
-        #     assert no_repit('More steam!') == ()
+        #     assert no_repit("And as you can imagine, it doesn't look great on TripAdvisor.", test=True) == ()
 
         # def test_no_repit_schedule(self) -> None:
-        #     assert no_repit('') == ()
+        #     assert no_repit('', test=True) == ()
