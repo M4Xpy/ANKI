@@ -1,4 +1,4 @@
-from Source.srt_player_2.three_line_online_player import no_repit
+from Source.srt_player_2.en_two_line import no_repit
 
 
 class Test:
@@ -41,8 +41,11 @@ class Test:
             assert no_repit('Do you like scary movies ? Mm-hmm.', test=True) == (
                     'Do you like scary movies ? MM-HMM.', 'Do you like scary movies ?', True)
 
-        # def test_no_repit_2000(self) -> None:
-        #     assert no_repit("And as you can imagine, it doesn't look great on TripAdvisor.", test=True) == ()
+        def test_no_repit_2000(self) -> None:
+            assert no_repit("I'm sorry, 12-34-54", test=True) == ("I'M  SORRY,  12-34-54", '', False)
+
+        def test_no_repit_dash(self) -> None:
+            assert no_repit('no-no-no-no', test=True) == ()
 
         # def test_no_repit_schedule(self) -> None:
         #     assert no_repit('', test=True) == ()

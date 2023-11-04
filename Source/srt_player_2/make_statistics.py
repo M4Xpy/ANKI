@@ -2,7 +2,7 @@ import json
 
 from googletrans import Translator
 
-from Source.srt_player_2.three_line_online_player import top_5000, top_2000, top_300
+from tests.exceptions.top_words import top_300, top_2000, top_5000
 
 
 def take_text_from_stat_txt():
@@ -69,7 +69,7 @@ def add_to_stat():
             values = (translations, rate, "ZERO", 1, 1 / count_all_words, level)
 
 
-        if rate > 5000 and level == 111:
+        if rate > 5000 and level == 111 and translations.islower():
             stat_5000[word] = values
         else:
             stat_0000[word] = values
@@ -80,6 +80,7 @@ def add_to_stat():
 
 
     stat_5000["hIsToRyYrOtSiH"] = ("HISTORY", 99999, 99999, 0, count_all_words, 111)
+    stat_0000["hIsToRyYrOtSiH"] = ("HISTORY", 99999, 99999, 0, count_all_words, 111)
 
     sorted_5000 = sorted(stat_5000.items(), key=lambda x: x[1][4], reverse=True)
     sorted_0000 = sorted(stat_0000.items(), key=lambda x: x[1][4], reverse=True)

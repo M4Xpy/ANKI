@@ -10,19 +10,17 @@ import pyperclip
 from googletrans import Translator
 from gtts import gTTS
 
+from tests.exceptions.top_words import top_300, top_2000, top_5000
+
 text_update = 170 * " "
 updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 mp3_ru_audio = False
 mp3_en_audio = False
 play_track = False
 keyboard_send_space = False
-top_300 = """ l'm you'll won't forever gentlemen calypso barbossa pirates sumbhajee jones this'd world's whoa you'd haven't we'll they'll river's captain's it'll he'd doesn't everybody's aren't secret water's toxic toxins we'd wasn't they've admiral's where's o'clock he'll we're they're she's i've he's who's isn't we've that'll yahhhhhhh how'd were motorcycle karate demons why'd didn't l've she'll tattooed cigarettes worked there's that's bikers yellow dragons ain't i'll angels i'd what's golden children trying i'm you're oldest been you've haahh aah soft uhh speaking fantastics juice macho eh hah huh shh mmm-mmm mmm-hmm oops on any is niggers munro  mike jerry  warren glenn wendy jeez burt jim mister bible's captains whisky whiskey negros hmmm padre monsters wow goodnights pardon excuse devils bonn appetit nobodys tours address idiots everybody zeros stress queens russians concentrations finances errors transfers modules instructions democratics parks bottless thanks blocks codes madams metals experts experiments e-mails congress golds displays combinations cats liberals catholics components literatures informs englishs instruments surprises restaurants fruits motors incidents focus index mechanisms atmospheres milks religions greys first channels revolutions criminals signals plastics connects fundamentals ministers mornings parents lands situations collections cards suns officials july seconds documents hotdogs options concepts greens junes fully scene peace aprils nine september partners brothers hotels january balance sisters august octobers africans december november artists contacts telephones europeans februarys credits plus limits goodbyes videos regionals egypts contrasts farmers traffics coffees categorys museums internets italys crisis professors victorys dialects comments contents australians sexuals actuals visitors transports winters christmas progres conflicts studios professionals versions mrs context effective bests lady holidays express box totals kings clients sectors originals presidents summers daughters photocopy baby smiles lefts leaders everyones websites anyways seasons happy answers serious organisations securitys anyones personals details easys theorys financials officers directors everythings structures methods teachers records materials departments managements footballs facebooks papas publics remembers economics internationals students languages daddys teams types oppositions words centres understandings results functions news players eights doctors sevens germanys enters pms stations finals streets trees frances musics hards dates standards animals shops colours loves closes tests contracts armys pictures normals operations hundreds chances hospitals privates computers models informations businessmans centrals workers someones projects windows risks frees managers investors bingos dramatically absolutely crazys oohh rights month sergeants lieutenants terminators robots microprocessors fucks $ mamas users technologyss styless boss jesuss welcomess percentss godss helloss millionss familyss sorryss killss girlfriendss schoolgirlss schoolboyss boyfriends waters dids it's sirs can't lords don't facts writers okay tv pleases haves thats with this buts froms theys shes whichs says wills woulds theirs whats theres gets makes whos interests sees knows times 'm takes thems coulds hims years into thens  mores abouts yours moneys gives just these peoples two also wellss onlys whens mays looks likes such because finds wants betweens afters downs tells backs musts childs overs too three lifes greats wheres womans needs feels systems much ask groups numbers ideas anothers worlds areas shows courses companys problems againsts nevers mosts services hands partys americans highs somethings effects smalls places befores why aways houses differents countrys reallys weeks larges always starts helps nothings homes periods persons fours youngs rooms lines bigs names fives talks markets hours doors lets wars sorts reads mothers polices prices littles todays opens bads programmes minutes moments stops controls class six learns fathers plans products city games foods blues banks blacks towns historys whites an w e r t y u i o p a s d f g h j k l z x c v b n m """
-top_2000 = """ made coming going had talking doing oceans does weren't wouldn't killed motorcycle looking maybe helicopters smoked smoking whoo tibetan tibet's taken babe yep let's pioneers juniors beautys residents unknowns appetites shoulds thoses yeah still becomes governments means leaves cases seems sames mights howevers shall whiles keeps points resultings holds nexts follows withouts turns within locals durings brings begins examplers socials states both runs longs sets importants eyes heads questions powers moves pays hears meets levels untils believes unbelievables alreadys impossibles studys lots lives jobs since happens leasts almosts earlys views himself togethers reports bits politicals laters laws produces reasons subjects anythings offers voices kinds actuallys educations falls enoughs buys mains conditions itself agrees sections roads tables soons halfs specials difficults grounds letters clears roles sells sometimes trades watchs agos strongs yesterdays stays waits usually differences wifes sales lights cares qualitys datas unions trues thirds shorts singles joins herselfs walls poors billions deals foreigns productions betters thousands sites hairs prepares ladies pieces fronts evenings royals fines designs pages enjoys individuals sizes fires series naturals wrongs nears futures introduces spaces attentions principless choices steps machines films nice moderns legals energys finally whoms sounds gardens floors myself forgets glass cups husbands christs capitals listen economy finishs duty fights trainers aspects industrials used university deads discussions outside procedures images oils militarys yourself seats miss populars respects fly heavy librarys pupils darks memory cultures bloods stones bars attacks fishs troubles traditionals importances interestings speakers mondays medicals tuesdays tomorrows colds sundays borns fridays highly wednesdays radios birds thursdays sexs fingers messages afternoons drinks races jackie jacks strategys kitchens saturdays sports status beautifuls marry readers rocks newspapers britishs plannings workings paris chinas colleges cashs normallys travels agents presences nons speeds proportions drivers commercials richs distances keys reactions westerns somebodys writers weekends farms connections phones alones flowers battles generations french scotlands somewheres baseballs bags freshs swiss engines tonights egyptians songs forests woods technicals indians dinners audiences paperworks masters religious crys potentials scottishs freedoms gentlemans selections factorys hopeles eggs naives romes decades brights searchs hollands fourth detailed mountains limiteds pensions congratulations greatests springs weathers bedrooms kids pleasures jumpers teachings combines temperatures totally digests dress sums publications iraqis seriously corrects potters phases switzerlandss skys brains perfects photographs ministry anymores readings fasts plates pools generate locations guns shuts journeys historicals japaneses lunch themes characteristics tooths bridges doubles soldiers swedens nurses prioritys wilds fixs slows cements alternatives chemicals jewishs wings basketballs uniteds winners mistakes representations washs trips gates overalls anybodys theatres enemy desks fashions cleans alrights fuels mines constants overtimes hates shoes writings noses origins wales tickets northerns thinks camels somewhats trends swedishs southerns planes openings welshs lessons """
-top_5000 = """ rum heart fool hero done gonna told saying said thinking taking gone """
 str_hub = " "
 past_subtitles = "  "
 delayed_text = ""
-
 
 
 def play_without_ecxeptions(text, extra_exceptions="", exceptions="*♪¤"):
@@ -132,8 +130,8 @@ def online_player():
                 if to_play_subtitle:
                     play_track = True
                     threading.Thread(
-                        target=prepare_audio, args=(subtitle, different, to_play_subtitle, translated)
-                        ).start()
+                            target=prepare_audio, args=(subtitle, different, to_play_subtitle, translated)
+                            ).start()
 
 
 
@@ -246,10 +244,10 @@ def split_text_with_punctuation(text, punctuation='].,;:!?)'):
     # >>> split_text_with_punctuation('Do you like scary movies ? Mm-hmm.')
     # """
     parts = re.split(
-        f"([{punctuation}])", text.replace(" mr.", " mr").replace("Mr.", "Mr").replace(" sir.", " sir").replace(
-            "Sir.", "Sir"
-            ).replace("*", "")
-        )
+            f"([{punctuation}])", text.replace(" mr.", " mr").replace("Mr.", "Mr").replace(" sir.", " sir").replace(
+                    "Sir.", "Sir"
+                    ).replace("*", "")
+            )
     parts.append('')
     result = []
     compares = []
@@ -306,14 +304,13 @@ def no_repit(text, test=False):
         len_part_strip_lower_split = len(part_strip_lower_split)
         if part_strip_lower not in past_subtitles:
 
-
             for word in part_strip_lower_split:
 
                 word = "".join(
                         letter for letter in word.strip(' -') if letter.isalpha() or letter in "'-"
                         ).removesuffix("'s")
 
-                if word:
+                if word.replace('-', ""):
                     if word not in top_300 or len_part_strip_lower_split > 8:
                         if word not in top_2000 or len_part_strip_lower_split > 6:
                             past_subtitles_count = past_subtitles.count(word)
@@ -331,7 +328,6 @@ def no_repit(text, test=False):
             play_output.append(part)
             uniq = 1
 
-
         if part.isupper():
             part = part.lower()
         if not uniq:
@@ -340,7 +336,7 @@ def no_repit(text, test=False):
 
     show = "".join(show_output)
     play = "".join(play_output)
-    compare = show.lower() != play.lower() and play != ""  
+    compare = show.lower() != play.lower() and play != ""
     if not test:
         stat_txt(f"('{text}', ' xxxxxx', '{show}', '{play}', {compare})")  # save all data to stat.txt for statictics
 
@@ -364,9 +360,6 @@ def stat_txt(text):
     file = "C:\\Users\\Я\\Desktop\\PythonProjectsFrom22_04_2023\\ANKI\\tests\\exceptions\\stat.txt"
     with open(file, "a", encoding='utf-8') as vars:
         vars.write(f"\n{text}")
-
-
-
 
 
 if __name__ == '__main__':
