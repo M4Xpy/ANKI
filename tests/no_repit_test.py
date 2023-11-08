@@ -34,18 +34,21 @@ class Test:
             assert no_repit('She just moved from L.A. to Salt Lake, so. . . .', test=True) == (
                     'She just moved from L.A. to Salt Lake, SO.', 'She just moved from L.A. to Salt Lake,', True)
 
-        def test_no_repit_brace(self) -> None:
+        def test_no_repit_brace(self) -> None:    ###########################################
             assert no_repit('[SOFTLY] Jesus , (work)', test=True) == ('[softly] JESUS , (WORK)', '[SOFTLY]', True)
 
         def test_no_repit_mmhmm(self) -> None:
             assert no_repit('Do you like scary movies ? Mm-hmm.', test=True) == (
-                    'Do you like scary movies ? MM-HMM.', 'Do you like scary movies ?', True)
+                    'Do you like scary movies ?  MM-HMM.', 'Do you like scary movies ?', True)
 
         def test_no_repit_2000(self) -> None:
             assert no_repit("I'm sorry, 12-34-54", test=True) == ("I'M  SORRY,  12-34-54", '', False)
 
         def test_no_repit_dash(self) -> None:
-            assert no_repit('no-no-no-no', test=True) == ()
+            assert no_repit('no-no-no-no', test=True) == ('NO-NO-NO-NO', '', False)
+
+        def test_no_repit_dash2(self) -> None:
+            assert no_repit('what is it - it is ok ', test=True) == ('WHAT  IS  IT  -  IT  IS  OK  ', '', False)
 
         # def test_no_repit_schedule(self) -> None:
         #     assert no_repit('', test=True) == ()
