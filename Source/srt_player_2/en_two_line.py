@@ -29,7 +29,7 @@ press_space = 0
 time_space = time.time() + 0.25
 time_m = time_space
 
-def play_without_ecxeptions(text, extra_exceptions="", exceptions="*♪¤"):
+def play_without_ecxeptions(text, extra_exceptions="", exceptions="*♪¤¶"):
     return "".join(sign for sign in text if sign not in f"{exceptions}{extra_exceptions}")
 
 
@@ -109,6 +109,8 @@ def online_player():
     next_video_time = time.time() + 550
     keyboard.send("f10")
 
+
+    ad_skip = 0
     time.sleep(0.3)
     move = 1
     play_track = False
@@ -124,21 +126,26 @@ def online_player():
                 [
                         line for line in pyperclip.paste().splitlines()
                         if not
-                        any(word in line for word in ["Качество", "Звук", "Субтитры", "Скорость", "Масштаб", "Пропустить", "/ 2:", "/ 1:", "/ 3:"]) and line
+                        any(word in line for word in ["Качество", "Звук", "Субтитры", "Скорость", "Масштаб", '0:00/ 0:00', "/ 2:", "/ 1:", "/ 3:"]) and line
                         ]
                 )
-
+        if "Пропустить" in subtitle_lines:
+            if not ad_skip:
+                keyboard.send('y')
+                ad_skip = 1
+            time.sleep(0.1)
+            continue
+        if ad_skip:
+            keyboard.send('y')
+            ad_skip = 0
 
         if prev_subtitle != subtitle_lines:
             threading.Thread(
                     target=volume, args=(subtitle_lines,)
                     ).start()
 
-
             prev_subtitle = subtitle_lines
             subtitle = en_ru_corrector(subtitle_lines, "en")
-
-
 
             if subtitle:
                 if send_space:
@@ -148,17 +155,10 @@ def online_player():
                     while send_space:
                         pass
 
-
-
                 start_time = time_delay(pause, start_time, subtitle)
                 threading.Thread(
                                 target=execute, args=(subtitle,)
                                 ).start()
-
-
-
-
-
 
             else:
                 no_title += 1
@@ -433,8 +433,6 @@ def no_repit(text, test=False):
     compare = show.lower() != play.lower() and play != ""
     if not test:
         stat_txt(f"('{text}', ' xxxxxx', '{show}', '{play}', {compare})")  # save all data to stat.txt for statictics
-
-    print((text, " xxxxxx", show, play, compare))
 
     last_subtitle, prelast_subtitle = text, last_subtitle
 
