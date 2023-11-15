@@ -101,7 +101,7 @@ def generate_audio_file(text: str,
         if_error("_return", "generate_audio_file_failed._Check_your_network_connection_and_try_again.")
 
 
-@step_by_step_print_executing_line_number_and_data
+# @step_by_step_print_executing_line_number_and_data
 def en_ru_en_translator(input_text: str,
                         lang: str | None = None
                         ) -> str:
@@ -310,7 +310,7 @@ def if_error(
         return report
 
 
-@step_by_step_print_executing_line_number_and_data
+# @step_by_step_print_executing_line_number_and_data
 def translations_of_the(word: str) -> set:
     """ Give different variants of word tranlation
     >>> sorted(translations_of_the('ZAP'))

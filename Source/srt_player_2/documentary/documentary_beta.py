@@ -148,9 +148,13 @@ def check_time_and_make_pause():
     global time_pause, pause
     while time.time() < time_pause:
         pass
-    time_pause = time.time() + 0.5
+    time_pause = time.time() + 0.25
     keyboard.send("y")
-    pause = (1, 0)[pause == 1]
+    if pause:
+        pause = 0
+    else:
+        pause = 1
+
 
 
 def main_cycle(till="888888"):
@@ -164,9 +168,14 @@ def main_cycle(till="888888"):
 
     keyboard.send("f10")
     next_video_time = time.time() + 550
-    # check_time_and_make_pause()
+    check_time_and_make_pause()
+
+    move = 1
 
     while True:
+        move *= -1
+        mouse.move(move, move, absolute=False, duration=0.1)
+
         keyboard.send('ctrl + c')
         paste = pyperclip.paste()
 
@@ -190,6 +199,9 @@ def main_cycle(till="888888"):
                         pass
                 _1, _2, _3, _4 = temporary_lines.pop(0)
 
+                # if pause:
+                #     check_time_and_make_pause()
+
                 lines_minus_one = lines_minus_two
                 lines_minus_two = lines_minus_three
                 lines_minus_three = f"{lines_zero}"
@@ -203,8 +215,11 @@ def main_cycle(till="888888"):
             else:
                 time.sleep(0.1)
         else:
-            time.sleep(0.1)
-
+            if not send_space and not pause and not subtitle_lines_strip:
+                check_time_and_make_pause()
+            else:
+                time.sleep(0.1)
+    keyboard.send("f10")
 
 def execute(subtitle, to_play_subtitle, ru_subtitle, different):
     global lines_minus_one, lines_minus_two, lines_minus_three, lines_zero, lines_plus_one, lines_plus_two, lines_plus_three, next_video_time, time_space, time_pause, pause, send_space, press_space
@@ -238,7 +253,8 @@ def prepare_audio(ru_subtitle, en_subtitle):
             ru_audio_file.save("C:\\ANKIsentences\\temporary_ru_audio_file.mp3")
             ru_audio = "C:\\ANKIsentences\\temporary_ru_audio_file.mp3"
             pygame.mixer.music.load(ru_audio, "mp3")
-            # check_time_and_make_pause()
+            if pause:
+                check_time_and_make_pause()
 
             pygame.mixer.music.play()
             while pygame.mixer.music.get_busy():
@@ -254,13 +270,14 @@ def prepare_audio(ru_subtitle, en_subtitle):
             en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
 
         pygame.mixer.music.load(en_audio, "mp3")
-        # if pause:
-        #     check_time_and_make_pause()
+        if pause:
+            check_time_and_make_pause()
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
             continue
         pygame.mixer.quit()
-        # check_time_and_make_pause()
+        if not pause:
+            check_time_and_make_pause()
 
 
 def play_without_ecxeptions(text, extra_exceptions="", exceptions="*♪¤¶"):
@@ -402,9 +419,9 @@ def show_lines_plus_three(disposition="+0+580", colour='yellow', font=('Arial', 
 
 
 if __name__ == '__main__':
-    time.sleep(1)
-    threading.Thread(target=mouse_move).start()
-    time.sleep(1)
+    # time.sleep(1)
+    # threading.Thread(target=mouse_move).start()
+    # time.sleep(1)
     threading.Thread(target=show_minus_one).start()
     time.sleep(1)
     threading.Thread(target=show_minus_two).start()
@@ -420,4 +437,4 @@ if __name__ == '__main__':
     threading.Thread(target=show_lines_plus_three).start()
     time.sleep(1)
 
-    main_cycle()
+    main_cycle("20:")
