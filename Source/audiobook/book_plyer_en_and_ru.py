@@ -7,11 +7,19 @@ import keyboard
 import pygame
 from gtts import gTTS
 
+from tests.exceptions.top_words import top_300, top_2000, top_5000
+
 top_words, top_en, top_ru = "", "", ""
 up_words, up_en, up_ru = "", "", ""
 words, en, ru = "", "", ""
 down_words, down_en, down_ru = "", "", ""
 buttom_words, buttom_en, buttom_ru = "", "", ""
+# buttom_words = " РЯДЫ  СВЕРХУ - СЛОВА-ПОДСКАЗКИ  СООТВЕТСТВУЮЩИХ  АНГЛИЙСКИХ  СЛОВ , РАСПОЛОЖЕННЫХ  СНИЗУ "
+# buttom_en = " БЕЛЫМ  ШРИФТОМ  ОЗВУЧИВАЕМЫЙ  В  ДАННЫЙ  МОМЕНТ  АНГЛИЙСКИЙ  ТЕКСТ "
+# buttom_ru = " НИЖНИЕ  РЯДЫ - ТЕКСТ-ПЕРЕВОД  НА  РУССКОМ "
+stop_mark = 0
+book_dense = '../../Source/audiobook/ready_three_line_list.json'
+book = '../../Source/audiobook/three_line_list.json'
 
 def font_size(text):
     len_line = len(text)
@@ -35,55 +43,88 @@ def font_size(text):
         return 11, 150 * " ", 150, ""
 
 
-def audio_book_player_record():
+def audio_book_player_record(book):
     global top_words, top_en, top_ru, up_words, up_en, up_ru, words, en, ru, down_words, down_en, down_ru, buttom_words, buttom_en, buttom_ru
 
-    with open('../../Source/audiobook/ready_three_line_list.json', 'r', encoding="utf-8") as file:
+    with open(book, 'r', encoding="utf-8") as file:
         three_line_list = json.load(file)
-    next_video_time = time.time() + 550
+    next_video_time = time.time() + 600
     keyboard.send("f10")
     keyboard.send("space")
-
-    for index, line in enumerate(three_line_list[:]):
-        top_words, top_en, top_ru = up_words, up_en, up_ru
-        up_words, up_en, up_ru = words, en, ru
-        words, en, ru = down_words, down_en, down_ru
-        down_words, down_en, down_ru = buttom_words, buttom_en, buttom_ru
+    ru_audio = "C:\\ANKIsentences\\temporary_ru_audio_file.mp3"
+    en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
+    old_cleaned_en = "dyuyyrh7yhr"
+    chunk_start = 344
+    for index, line in enumerate(three_line_list[chunk_start:chunk_start+8 ], chunk_start):
+        top_en, top_ru = en, ru
+        words, en, ru = buttom_words, buttom_en, buttom_ru
         buttom_words, buttom_en, buttom_ru = line
 
-        if not en.strip():
+        if not en.strip() or not ru.strip() or index < chunk_start:
             continue
+        # print(index, en)
+        # continue
 
         pygame.mixer.init()
-        cleaned_text = "".join(sign for sign in en.lower() if sign not in '`()"*_[]')
-        en_audio_file = gTTS(text=cleaned_text, lang='en', slow=True)
-        en_audio_file.save("C:\\ANKIsentences\\temporary_en_audio_file.mp3")
-        en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
-        pygame.mixer.music.load(en_audio, "mp3")
+        cleaned_en = "".join(sign.lower() for sign in en if sign not in '\n\'-,:`?().;!"*_[]').split()
+        double = old_cleaned_en == cleaned_en
+        omit_ru = len(cleaned_en) < 4 and all(word in f"{top_300} {top_2000} {top_5000} alices" for word in cleaned_en)
+
+        if not double:
+            old_cleaned_en = cleaned_en
+            make_and_save_audio(en, "en")
+            if not omit_ru:
+                make_and_save_audio(ru, "ru")
+                pygame.mixer.music.load(ru_audio, "mp3")
+
+
+
+
+
 
         time.sleep(0.5)
         keyboard.send("space")
         time.sleep(0.04)
+        if not double and not omit_ru:
+            pygame.mixer.music.play()
+            while pygame.mixer.music.get_busy():
+                pass
+
+
+        pygame.mixer.music.load(en_audio, "mp3")
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
             pass
 
         if time.time() > next_video_time:
-            keyboard.send("f10")
-            print(index, index+1)
-            x = 1 / 0
             time.sleep(1)
+            keyboard.send("f10")
+            time.sleep(1)
+            next_video_time = time.time() + 600
             keyboard.send("f10")
         keyboard.send("space")
         pygame.mixer.quit()
+        print(index)
+        while stop_mark:
+            pass
     keyboard.send("f10")
     x = 1 / 0
 
 
-def audio_book_player_online():
+def make_and_save_audio(text, language):
+    try:
+        cleaned_text = "".join(sign for sign in text.lower() if sign not in '`()"*_[]«»')
+        gTTS(text=cleaned_text, lang=language).save(f"C:\\ANKIsentences\\temporary_{language}_audio_file.mp3")
+    except:
+        time.sleep(1)
+        make_and_save_audio(text, language)
+
+
+
+def audio_book_player_online(book):
     global top_words, top_en, top_ru, up_words, up_en, up_ru, words, en, ru, down_words, down_en, down_ru, buttom_words, buttom_en, buttom_ru
 
-    with open('../../Source/audiobook/ready_three_line_list.json', 'r', encoding="utf-8") as file:
+    with open(book, 'r', encoding="utf-8") as file:
         three_line_list = json.load(file)
     start = 1
     order = 1
@@ -92,8 +133,7 @@ def audio_book_player_online():
         top_words, top_en, top_ru = up_words, up_en, up_ru
         up_words, up_en, up_ru = words, en, ru
         words, en, ru = down_words, down_en, down_ru
-        down_words, down_en, down_ru = buttom_words, buttom_en, buttom_ru
-        buttom_words, buttom_en, buttom_ru = line
+        down_words, down_en, down_ru = line
 
         if not en.strip():
             continue
@@ -140,8 +180,8 @@ def show_banner(pre='', text='', aft='', disposition='+0+0', colour='white', bac
     label.pack()
 
     def update_text():
-        # Update font size dynamically
         global old_line
+        # wheter_stop_mark = stop_mark / stop_mark
         new_line = update(text)
         if old_line != new_line:
             old_line = new_line
@@ -152,6 +192,19 @@ def show_banner(pre='', text='', aft='', disposition='+0+0', colour='white', bac
 
     update_text()
     root.mainloop()
+
+
+def marker_line(marker, size=1, disposition='+0+0', colour='white', background='black', font='Courier New'):
+    root = tk.Tk()
+    root.wm_attributes('-topmost', True)  # Set the window to be always on top
+    root.geometry(disposition)
+    root.overrideredirect(True)  # Remove the window frame
+    label = tk.Label(root, text=marker * 1360, font=(font, size), fg=colour, bg=background)
+    label.pack()
+    # root.after(10, update_text)
+    root.mainloop()
+
+
 
 def update(line):
     return {"top_words": top_words,
@@ -171,18 +224,17 @@ def update(line):
             "buttom_ru": buttom_ru
             }[line]
 
-def show_screen():
+def show_screen1():
     for data in (
-            ("", "top_words", "", "+0+0", "yellow"),
-            ("", "top_en", "", "+0+37", "grey"),
-            ("", "top_ru", "\n", "+0+66", "yellow"),
-            ("", "up_words", "", "+0+136", "yellow"),
-            ("", "up_en", "", "+0+174", "grey"),
-            ("", "up_ru", "\n", "+0+212", "yellow"),
-            ("", "words", "", "+0+282", "yellow"),
-            ("", "en", "", "+0+320", "white"),
-            ("", "ru", "\n ", "+0+358", "yellow"),
-            ("", "down_words", "", "+0+428", "yellow"),
+            ("", "top_en", "", "+0+13", "grey"),
+            ("", "top_ru", "\n", "+0+51", "yellow"),
+            ("", "up_words", "", "+0+121", "yellow"),
+            ("", "up_en", "", "+0+159", "grey"),
+            ("", "up_ru", "\n", "+0+197", "yellow"),
+            ("", "words", "", "+0+276", "yellow"),
+            ("", "en", "", "+0+314", "white"),
+            ("", "ru", "", "+0+352", "yellow"),
+            ("\n", "down_words", "", "+0+399", "yellow"),
             ("", "down_en", "", "+0+466", "grey"),
             ("", "down_ru", "\n", "+0+504", "yellow"),
             ("", "buttom_words", "", "+0+569", "yellow"),
@@ -191,11 +243,40 @@ def show_screen():
             ):
         threading.Thread(target=show_banner, args=data).start()
         time.sleep(0.5)
+    threading.Thread(target=marker_line, args=('+0+267', 'white', 'grey')).start()
+    time.sleep(0.5)
+    threading.Thread(target=marker_line, args=('+0+390', 'white', 'grey')).start()
 
 
+def show_screen():
+    threading.Thread(target=marker_line, args=(' ', 1, '+0+343', 'black', 'grey')).start()
+    for data in (
+            ("", "top_en", "", "+0+13", "grey"),
+            ("", "top_ru", "\n", "+0+51", "yellow"),
+            # ("", "up_words", "", "+0+121", "yellow"),
+            # ("", "up_en", "", "+0+159", "grey"),
+            # ("", "up_ru", "\n", "+0+197", "yellow"),
+            ("", "words", "", "+0+267", "grey"),
+            ("", "en", "", "+0+305", "white"),
+            ("", "ru", "", "+0+352", "grey"),
+            # ("\n", "down_words", "", "+0+390", "yellow"),
+            # ("", "down_en", "", "+0+457", "grey"),
+            # ("", "down_ru", "", "+0+495", "yellow"),
+            ("", "buttom_words", "", "+0+560", "yellow"),
+            ("", "buttom_en", "", "+0+598", "grey"),
+            ("", "buttom_ru", "", "+0+636", "yellow")
+            ):
+        time.sleep(0.2)
+        threading.Thread(target=show_banner, args=data).start()
 
 
+def check_stop_mark():
+    global stop_mark
+    keyboard.wait("shift")
+    stop_mark = 1
 
 if __name__ == '__main__':
+    threading.Thread(target=check_stop_mark).start()
+
     show_screen()
-    audio_book_player_record()
+    audio_book_player_record(book)

@@ -3595,3 +3595,11 @@ remembering her own child-life, and the happy summer days.
 
 
 THE END"""
+# xxx = ""
+# for sign in text_of_book:
+#     if not sign.isalpha() and sign not in xxx:
+#         xxx = xxx + sign
+# print((xxx,
+#        ))
+
+print(len(text_of_book))

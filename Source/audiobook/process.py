@@ -6,16 +6,34 @@ import tkinter as tk
 from googletrans import Translator
 
 from Source.audiobook.book import text_of_book
+from Source.audiobook.texts_of_the_books.the_pictuare_of_dorian_gray import chapter_1
 
 
-def divide_text_on_parts_and_save_as_list():
-    signs = {'?', ',', '.', ';', '!', ':', }
-    quote_s = {'"', '(', '[', ']', ')', }
+def text_analyze(text):
+    non_leters = ""
+    for sign in text:
+        if not sign.isalpha() and sign not in f"{non_leters} \n":
+            non_leters = non_leters + sign
+    print(f"non_leters = ' \\n{non_leters}'")
+    print(f"_len = {len(text)}")
+
+# text_analyze(chapter_1)
+
+def divide_text_on_parts_and_save_as_list(text_of_book, name):
+    signs = '?,.;!:'
+    quote_s = '"([])'
+    omit_signs = "' \n-"
+    change = "_"
     quote = 0
     part_s = [""]
     part = ""
     _n = 0
+    divide = 80
     for index, sign in enumerate(text_of_book):
+        if not sign.isalnum() and sign not in f"{signs}{quote_s}{omit_signs}{change}":
+            print((sign,))
+        if sign in change:
+            sign = "'"
         if sign in signs:
             part_s.append(part + sign)
             part = ""
@@ -43,8 +61,58 @@ def divide_text_on_parts_and_save_as_list():
             part = part + sign
         part_s[-1] = part_s[-1].replace("    ", "  ").replace("  ", " ")
     part_s.append(part)
-    with open('../../Source/audiobook/book_list.json', 'w', encoding="utf-8") as file:
-        json.dump(part_s, file, indent=4, ensure_ascii=False)
+    result = []
+    for part in part_s:
+        if part.strip(f"{signs}{quote_s}{omit_signs}{change}"):
+            part = part.strip()
+            len_part = len(part)
+            if len_part < divide:
+                result.append(part)
+            else:
+                print(part)
+                sentence = ""
+                part_split = part.split()
+                len_part = len(part)
+                parts_count, remainder = divmod(len_part, divide)
+                if remainder:
+                    parts_count += 1
+                longevity = len_part / parts_count
+
+                for word in part_split:
+                    if len(f"{sentence} {word}") < longevity:
+                        sentence = f"{sentence} {word}"
+                    else:
+                        result.append(f"{sentence} {word}")
+                        print(f"{sentence} {word}")
+                        sentence = ""
+                if sentence:
+                    result.append(sentence)
+                    print(sentence)
+                print()
+
+
+
+
+
+
+            #
+            # elif len_part < divide * 2:
+            #     part_split = part.split()
+            #     div_ind = len(part_split) // 2
+            #     result.append(" ".join(part[:div_ind]))
+            #     result.append(" ".join(part[div_ind:]))
+            # elif len_part < divide * 3:
+            #     part_split = part.split()
+            #     div_ind = len(part_split) // 3
+            #     result.append(" ".join(part[:div_ind]))
+            #     result.append(" ".join(part[div_ind:div_ind*2]))
+            #     result.append(" ".join(part[div_ind * 2:]))
+
+    with open(f'../../Source/audiobook/book_list_{name}.json', 'w', encoding="utf-8") as file:
+        json.dump(result, file, indent=4, ensure_ascii=False)
+
+
+divide_text_on_parts_and_save_as_list(chapter_1, "chapter_1")
 
 
 def line_translate():
@@ -250,13 +318,14 @@ def show_zero(disposition="+0+306", colour='white', background="black"):
 
 if __name__ == '__main__':
     # Example usage:
-    lines_zero = "Your text goes here"
+    # lines_zero = "Your text goes here"
     # show_zero()
 
     # measure_line = "         1         2         3         4         5         6         7         8         9         0         1         2         3         4         5         6         7         8         9         0\n12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
     # central_line = " " * 79 + "a"
-    threading.Thread(target=show_zero).start()
-    audio_book_player()
+    # threading.Thread(target=show_zero).start()
+    # audio_book_player()
+    pass
 
 
 

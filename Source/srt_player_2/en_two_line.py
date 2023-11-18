@@ -14,7 +14,7 @@ from tests.exceptions.top_words import top_300, top_2000, top_5000
 
 last_subtitle = ""
 prelast_subtitle = ""
-text_update = 170 * " "
+text_update = 80 * " "
 updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 mp3_ru_audio = False
 mp3_en_audio = False
@@ -285,12 +285,12 @@ def prepare_audio( ru_subtitle, en_subtitle):
 
 
 def show_subtitle_text():
-    font = 20
+    font = 22
     root = tk.Tk()
     root.wm_attributes('-topmost', True)  # Set the window to be always on top
     root.geometry('+0+668')
     root.overrideredirect(True)  # Remove the window frame
-    font = ('Arial', font)
+    font = ('Courier New', font)
     label = tk.Label(
             root, text=updated_text, font=font, fg='white', bg='black'
             )  # Set text color to white and background to black
@@ -310,7 +310,7 @@ def top_black_frame():
     root.wm_attributes('-topmost', True)  # Set the window to be always on top
     root.geometry('+0+0')
     root.overrideredirect(True)  # Remove the window frame
-    font = ('Arial', 63)
+    font = ('Courier New', 63)
     label = tk.Label(
             root, text=top_message, font=font, fg='white', bg='black'
             )  # Set text color to white and background to black
