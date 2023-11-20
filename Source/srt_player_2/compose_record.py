@@ -234,6 +234,7 @@ def check_whether_next_video(message, loop, text=""):
             keyboard.send('space')
 
 
+
 def time_delay(pause, start_time, subtitle):
     global time_space
     while time.time() < start_time:
