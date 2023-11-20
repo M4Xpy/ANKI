@@ -26,6 +26,7 @@ delayed_text = ""
 vol = 1
 send_space = 0
 press_space = 0
+ad_skip = 0
 time_pause = time.time() + 0.25
 time_space = time.time() + 0.25
 time_m = time_space
@@ -98,7 +99,7 @@ def mouse_move():
         mouse.move(move, move, absolute=False, duration=0.1)
 
 def online_player():
-    global next_video_time, time_space, press_space, updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, waite, keyboard_send_space, delayed_text, send_space
+    global ad_skip, next_video_time, time_space, press_space, updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, waite, keyboard_send_space, delayed_text, send_space
 
     waite = False
     pyperclip.copy("")
@@ -109,11 +110,9 @@ def online_player():
 
     next_video_time = time.time() + 580
     keyboard.send("f10")
-    time.sleep(0.3)
-    check_time_and_send_pause()
 
 
-    ad_skip = 1
+
     time.sleep(0.3)
     move = 1
     play_track = False
@@ -131,7 +130,7 @@ def online_player():
                         if not
                         any(word in line for word in ["Качество", "Звук", "Субтитры", "Скорость", "Масштаб", '0:00/ 0:00', "/ 2:", "/ 1:", "/ 3:"]) and line
                         ]
-                ).strip()
+                )
         if "Пропустить" in subtitle_lines:
             if not ad_skip:
                 check_time_and_send_pause()
@@ -141,14 +140,20 @@ def online_player():
 
 
         if prev_subtitle != subtitle_lines:
+            threading.Thread(
+                    target=volume, args=(subtitle_lines,)
+                    ).start()
+
             prev_subtitle = subtitle_lines
             subtitle = en_ru_corrector(subtitle_lines, "en")
 
             if subtitle:
                 no_title = 0
+
                 if ad_skip:
                     check_time_and_send_pause()
                     ad_skip = 0
+
                 if send_space:
 
                     check_time_and_send_space()
@@ -162,43 +167,13 @@ def online_player():
                                 ).start()
 
             else:
-                # no_title += 1
-                # empty_text(no_title)
-                time.sleep(0.1)
                 no_title += 1
-                if not send_space:
-
-                    if not ad_skip and no_title > 3:
-                        check_time_and_send_pause()
-                        ad_skip = 1
-
-                    elif ad_skip and not no_title % 50:
-                        check_time_and_send_pause()
-                        ad_skip = 0
-                        no_title = 0
-                    if no_title == 2:
-                        updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
-
+                empty_text(no_title)
         else:
-            # no_title += 1
-            # empty_text(no_title)
-            time.sleep(0.1)
             no_title += 1
-            if not send_space:
-
-                if not ad_skip and no_title > 3:
-                    check_time_and_send_pause()
-                    ad_skip = 1
-
-                elif ad_skip and not no_title % 50:
-                    check_time_and_send_pause()
-                    ad_skip = 0
-                    no_title = 0
-                if no_title == 2:
-                    updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
-
-        # if updated_text == f"{text_update}\n{text_update}\n{text_update}\n{text_update}":
-        #     check_whether_next_video("f10", 550)
+            empty_text(no_title)
+        if updated_text == f"{text_update}\n{text_update}\n{text_update}\n{text_update}":
+            check_whether_next_video("f10", 580)
 
 
 def check_time_and_send_space():
@@ -237,7 +212,7 @@ def execute(subtitle):
     prepare_audio(ru_subtitle, subtitle)
     if press_space:
 
-        check_whether_next_video("f10", 550, subtitle)
+        check_whether_next_video("f10", 580, subtitle)
 
         check_time_and_send_space()
         press_space = 0
@@ -273,10 +248,19 @@ def time_delay(pause, start_time, subtitle):
 
 
 def empty_text(no_title):
-    global updated_text
+    global updated_text, ad_skip
     time.sleep(0.1)
-    if updated_text != f"{text_update}\n{text_update}\n{text_update}\n{text_update}"  and not send_space and no_title > 2:
-        updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
+    if updated_text != f"{text_update}\n{text_update}\n{text_update}\n{text_update}":
+        if not send_space and no_title > 2:
+            updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
+    else:
+        if not ad_skip:
+            check_time_and_send_pause()
+            ad_skip = 1
+        elif not no_title % 25:
+            check_time_and_send_pause()
+            ad_skip = 0
+
 
 
 def old_subtitles_delay(delayed_text):
