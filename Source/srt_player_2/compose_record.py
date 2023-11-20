@@ -26,8 +26,6 @@ delayed_text = ""
 vol = 1
 send_space = 0
 press_space = 0
-ad_skip = 0
-time_pause = time.time() + 0.25
 time_space = time.time() + 0.25
 time_m = time_space
 
@@ -99,7 +97,7 @@ def mouse_move():
         mouse.move(move, move, absolute=False, duration=0.1)
 
 def online_player():
-    global ad_skip, next_video_time, time_space, press_space, updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, waite, keyboard_send_space, delayed_text, send_space
+    global next_video_time, time_space, press_space, updated_text, mp3_ru_audio, mp3_en_audio, play_track, different, to_play_subtitle, translated, waite, keyboard_send_space, delayed_text, send_space
 
     waite = False
     pyperclip.copy("")
@@ -112,7 +110,7 @@ def online_player():
     keyboard.send("f10")
 
 
-
+    ad_skip = [0, time.time() + 0.25]
     time.sleep(0.3)
     move = 1
     play_track = False
@@ -132,9 +130,11 @@ def online_player():
                         ]
                 )
         if "Пропустить" in subtitle_lines:
-            if not ad_skip:
-                check_time_and_send_pause()
-                ad_skip = 1
+            if not ad_skip[0]:
+                while time.time() < ad_skip[1]:
+                    pass
+                keyboard.send('y')
+                ad_skip = [1, time.time() + 0.25]
             time.sleep(0.1)
             continue
 
@@ -149,10 +149,11 @@ def online_player():
 
             if subtitle:
                 no_title = 0
-
-                if ad_skip:
-                    check_time_and_send_pause()
-                    ad_skip = 0
+                if ad_skip[0]:
+                    while time.time() < ad_skip[1]:
+                        pass
+                    keyboard.send('y')
+                    ad_skip = [0, time.time() + 0.25]
 
                 if send_space:
 
@@ -174,6 +175,19 @@ def online_player():
             empty_text(no_title)
         if updated_text == f"{text_update}\n{text_update}\n{text_update}\n{text_update}":
             check_whether_next_video("f10", 580)
+            if not ad_skip[0]:
+                if not send_space:
+                    while time.time() < ad_skip[1]:
+                        pass
+                    keyboard.send('y')
+                    ad_skip = [1, time.time() + 0.25]
+
+            elif not no_title % 25:
+                while time.time() < ad_skip[1]:
+                    pass
+                keyboard.send('y')
+                ad_skip = [0, time.time() + 0.25]
+
 
 
 def check_time_and_send_space():
@@ -182,14 +196,6 @@ def check_time_and_send_space():
         pass
     time_space = time.time() + 0.25
     keyboard.send("space")
-
-
-def check_time_and_send_pause():
-    global time_pause
-    while time.time() < time_pause:
-        pass
-    time_pause = time.time() + 0.25
-    keyboard.send("y")
 
 
 def execute(subtitle):
@@ -234,7 +240,6 @@ def check_whether_next_video(message, loop, text=""):
             keyboard.send('space')
 
 
-
 def time_delay(pause, start_time, subtitle):
     global time_space
     while time.time() < start_time:
@@ -249,19 +254,10 @@ def time_delay(pause, start_time, subtitle):
 
 
 def empty_text(no_title):
-    global updated_text, ad_skip
+    global updated_text
     time.sleep(0.1)
-    if updated_text != f"{text_update}\n{text_update}\n{text_update}\n{text_update}":
-        if not send_space and no_title > 2:
-            updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
-    else:
-        if not ad_skip:
-            check_time_and_send_pause()
-            ad_skip = 1
-        elif not no_title % 25:
-            check_time_and_send_pause()
-            ad_skip = 0
-
+    if updated_text != f"{text_update}\n{text_update}\n{text_update}\n{text_update}"  and not send_space and no_title > 2:
+        updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
 
 def old_subtitles_delay(delayed_text):
@@ -283,21 +279,21 @@ def prepare_audio( ru_subtitle, en_subtitle):
         # pygame.mixer.music.set_volume(0.5)
         if ru_subtitle:
             ru_audio_file = gTTS(text=ru_subtitle, lang='ru')
-            ru_audio_file.save("C:\\ANKIsentences\\temporary_ru_audio_file.mp3")
-            ru_audio = "C:\\ANKIsentences\\temporary_ru_audio_file.mp3"
+            ru_audio_file.save("temporary_ru_audio_file.mp3")
+            ru_audio = "temporary_ru_audio_file.mp3"
             pygame.mixer.music.load(ru_audio, "mp3")
             pygame.mixer.music.play()
             while pygame.mixer.music.get_busy():
                 if not en_audio_file:
 
                     en_audio_file = gTTS(text=en_subtitle.lower(), lang='en')
-                    en_audio_file.save("C:\\ANKIsentences\\temporary_en_audio_file.mp3")
-                    en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
+                    en_audio_file.save("\temporary_en_audio_file.mp3")
+                    en_audio = "temporary_en_audio_file.mp3"
         if not en_audio_file:
 
             en_audio_file = gTTS(text=en_subtitle.lower(), lang='en')
-            en_audio_file.save("C:\\ANKIsentences\\temporary_en_audio_file.mp3")
-            en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
+            en_audio_file.save("temporary_en_audio_file.mp3")
+            en_audio = "temporary_en_audio_file.mp3"
 
         pygame.mixer.music.load(en_audio, "mp3")
         pygame.mixer.music.play()
@@ -484,7 +480,6 @@ def stat_txt(text):
 
 
 if __name__ == '__main__':
-    top_hub()
     threading.Thread(target=online_player).start()
     time.sleep(1)
     # threading.Thread(target=top_black_frame).start()
