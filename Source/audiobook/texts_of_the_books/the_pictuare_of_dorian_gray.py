@@ -8874,7 +8874,7 @@ out of him almost against his will.
 "What nonsense you talk!" said Lord Henry, smiling, and, taking Hallward
 by the arm, he almost led him into the house."""
 
-print(len(chapter_1))
+print(len(text_of_book_02))
 
 
 

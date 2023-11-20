@@ -54,7 +54,7 @@ def audio_book_player(book):
     ru_audio = "C:\\ANKIsentences\\temporary_ru_audio_file.mp3"
     en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
     old_cleaned_en = "dyuyyrh7yhr"
-    chunk_start = 250
+    chunk_start = 300
     for index, line in enumerate(three_line_list[chunk_start:], chunk_start):
         top_en, top_ru = en, ru
         en, ru = buttom_en, buttom_ru
@@ -65,6 +65,7 @@ def audio_book_player(book):
 
 
         pygame.mixer.init()
+
         cleaned_en = "".join(sign for sign in en if sign not in '\n\'-,:`?().;!"*_[]').split()
         cleaned_en = [word.lower() for i, word in enumerate(cleaned_en) if not i or word.islower()]
         double = old_cleaned_en == cleaned_en
