@@ -120,6 +120,10 @@ if __name__ == '__main__':
     "politics politics    politics       "
     "politics     politics      politics "
     "I don't propose to discuss politics,"
+    import keyboard
+    keyboard.send('f10')
+    keyboard.send('y')
+    keyboard.send('space')
 
 
 
