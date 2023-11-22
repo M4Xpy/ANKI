@@ -76,6 +76,7 @@ def check_new_subtitle():
                     pass
                 pygame.mixer.quit()
                 make(bandi_pause="on")
+                updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
 
 def process_subtitle(subtitle):

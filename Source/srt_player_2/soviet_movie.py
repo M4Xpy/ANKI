@@ -15,17 +15,18 @@ from tests.exceptions.top_words import top_300, top_2000, top_5000
 
 # bandi_data = [0, 0, 0.25, 'f10', 0, 0, 0.25, 'y', 550] # mode, next_time
 duration = 999999
-delay = 1
+delay = 0.25
 play_pause, play_pause_next_time, play_pause_delay, play_pause_key = [1, 0, delay, 'space']
 bandi_mode, bandi_next_time, bandi_delay, bandi_on_of_key, next_avi = [0, 0, delay, 'f10', duration + time.time()]
 bandi_pause_mode, bandi_pause_next_time, bandi_pause_delay, bandi_pause_key = [0, 0, delay, 'y']
-subtitles_pack = None
+subtitles_pack = []
 text_update = 80 * " "
 updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
+go = -1
 
 
 
-def make(player_pause: object = "", bandi_record: object = "", bandi_pause: object = "") -> object:
+def make(player_pause="", bandi_record="", bandi_pause=""):
     global next_avi, play_pause_next_time, play_pause, bandi_next_time, bandi_mode, bandi_pause_next_time, bandi_pause_mode
     while time.time() < max(bandi_next_time if player_pause else 0,
                             bandi_next_time if bandi_record else 0,
@@ -85,12 +86,15 @@ def en_ru_corrector(text, lang="en"):
 
 
 def check_new_subtitle():
-    global subtitles_pack, updated_text
+    global subtitles_pack, updated_text, go
     prev_subtitle = ""
     move = 1
     cycle = 0
+    odd = 1
     while True:
         time.sleep(0.1)
+        # if go > -1:
+        #     go = 0
         move *= -1
         mouse.move(move, move, absolute=False, duration=0.0001)
         keyboard.send('ctrl + c')
@@ -108,18 +112,14 @@ def check_new_subtitle():
         if "Пропустить" in subtitle_lines:
             continue
         if prev_subtitle != subtitle_lines:
+            go = 1
             prev_subtitle = subtitle_lines
             subtitle = en_ru_corrector(subtitle_lines, "en")
             if subtitle:
-                make(player_pause="on")
-                while subtitles_pack:
-                    pass
+                odd = (1, 0)[odd]
 
 
-                print()
-                print()
-                print(8888)
-                print(f"record ---{subtitle}---")
+
 
 
                 to_show_en_subtitle, en_to_ru_play_subtitle, _ = no_repit(subtitle)
@@ -127,75 +127,59 @@ def check_new_subtitle():
                 to_show_ru_subtitle = Translator().translate(
                     to_show_en_subtitle.lower().replace(".", ","), 'ru', 'en'
                     ).text
-                if en_to_ru_play_subtitle:
-                    to_play_ru_subtitle = Translator().translate(
-                        en_to_ru_play_subtitle.lower().replace(".", ","), 'ru', 'en'
-                        ).text
-                else:
-                    to_play_ru_subtitle = ""
 
-                if to_play_ru_subtitle:
-                    ru_audio_file = gTTS(text=to_play_ru_subtitle, lang='ru')
-                    ru_audio_file.save(f"temporary_ru_audio_file.mp3")
-                    ru_path = f"temporary_ru_audio_file.mp3"
-                else:
-                    ru_path = ""
 
 
                 en_audio_file = gTTS(text=to_show_en_subtitle.lower(), lang='en')
-                en_audio_file.save(f"temporary_en_audio_file.mp3")
-                en_path = f"temporary_en_audio_file.mp3"
+                en_audio_file.save(f"temporary_en{odd}_audio_file.mp3")
+                en_path = f"temporary_en{odd}_audio_file.mp3"
 
-                print(8888)
-                subtitles_pack = to_show_en_subtitle, to_show_ru_subtitle, ru_path, en_path
-            elif not subtitles_pack:
-                updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
-        if not subtitles_pack:
-            updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
-        # if updated_text == f"{text_update}\n{text_update}\n{text_update}\n{text_update}" and not cycle % 25:
-        #     cycle += 1
-        #     make(player_pause="", bandi_record="", bandi_pause="on")
-        #     make(player_pause="", bandi_record="", bandi_pause="off")
+                print(len(subtitles_pack))
+                while len(subtitles_pack):
+                    make(player_pause="on")
+                subtitles_pack.append(en_path)
+                updated_text = f"{to_show_en_subtitle}\n{to_show_ru_subtitle}\n{text_update}\n{text_update}"
+                go = 0
+
+        #     else:
+        #         go = 0
+        # else:
+        #     go = 0
+
 
 
 
 
 def online_player():
-    global subtitles_pack, updated_text
+    global subtitles_pack, updated_text, go
 
     pyperclip.copy("")
     keyboard.send('ctrl + a')
     time.sleep(delay)
-    make(player_pause="off", bandi_record="on", bandi_pause="on")
+    make(player_pause="off", bandi_record="on")
 
     while True:
-        while not subtitles_pack:
+        while len(subtitles_pack) < 1 or not go:
             pass
-        print(7777777777)
-        to_show_en_subtitle, to_show_ru_subtitle, ru_path, en_path = subtitles_pack
-        updated_text = f"{to_show_en_subtitle}\n{to_show_ru_subtitle}\n{text_update}\n{text_update}"
+
+        en_path = subtitles_pack[0]
+        print(en_path)
         pygame.mixer.init()
         # pygame.mixer.music.set_volume(0.5)
-        make(player_pause="off")
-        time.sleep(delay)
-        make(bandi_pause="off")
 
 
-        print(f"play  ---{to_show_en_subtitle}---")
-        if ru_path:
-            pygame.mixer.music.load(ru_path, "mp3")
-            pygame.mixer.music.play()
-            while pygame.mixer.music.get_busy():
-                pass
         pygame.mixer.music.load(en_path, "mp3")
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
             pass
         pygame.mixer.quit()
-        make( bandi_pause="on")
-        time.sleep(delay)
-        subtitles_pack = None
-        print(77777777777777)
+        make(player_pause="off")
+        updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
+
+        del subtitles_pack[0]
+
+
+
 
 
 
