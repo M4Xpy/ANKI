@@ -14,7 +14,7 @@ from Source.srt_player_2.en_two_line import no_repit
 from tests.exceptions.top_words import top_300, top_2000, top_5000
 
 # bandi_data = [0, 0, 0.25, 'f10', 0, 0, 0.25, 'y', 550] # mode, next_time
-duration = 50
+duration = 999999
 delay = 0.5
 play_pause, play_pause_next_time, play_pause_delay, play_pause_key = [1, 0, delay, 'space']
 bandi_mode, bandi_next_time, bandi_delay, bandi_on_of_key, next_avi = [0, 0, delay, 'f10', duration + time.time()]
@@ -25,7 +25,7 @@ updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
 
 
-def make(player_pause="", bandi_record="", bandi_pause=""):
+def make(player_pause: object = "", bandi_record: object = "", bandi_pause: object = "") -> object:
     global next_avi, play_pause_next_time, play_pause, bandi_next_time, bandi_mode, bandi_pause_next_time, bandi_pause_mode
     while time.time() < max(bandi_next_time if player_pause else 0,
                             bandi_next_time if bandi_record else 0,
