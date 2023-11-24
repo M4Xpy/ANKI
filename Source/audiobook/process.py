@@ -1,35 +1,40 @@
 import json
-import threading
 import time
 import tkinter as tk
 
 from googletrans import Translator
 
-from Source.audiobook.book import text_of_book
-from Source.audiobook.texts_of_the_books.the_pictuare_of_dorian_gray import chapter_1
+from Source.audiobook.texts_of_the_books.frankenstein import text_of_the_book_5
+from Source.audiobook.texts_of_the_books.great_getsbey import text_of_the_book_6
+from Source.audiobook.texts_of_the_books.pride_and_prejudice import text_of_the_book_4
+
+
 
 
 def text_analyze(text):
     non_leters = ""
     for sign in text:
-        if not sign.isalpha() and sign not in f"{non_leters} \n":
+        if not sign.isalnum() and sign not in f"{non_leters} \n":
             non_leters = non_leters + sign
     print(f"non_leters = ' \\n{non_leters}'")
     print(f"_len = {len(text)}")
 
-# text_analyze(chapter_1)
+# text_analyze(text_of_the_book_5)
 
 def divide_text_on_parts_and_save_as_list(text_of_book, name):
     signs = '?,.;!:'
     quote_s = '"([])'
-    omit_signs = "' \n-"
+    omit_signs = "' \n-—"
     change = "_"
     quote = 0
     part_s = [""]
     part = ""
     _n = 0
     divide = 80
-    for index, sign in enumerate(text_of_book):
+    errors = ("&c.",)
+    text_of_book = text_of_book.replace(
+            "\n", ".", 2).replace("\n", " ").replace("Mr.", "Mr ").replace("Mrs.", "Mrs ").replace("*", "")
+    for index, sign in enumerate(text_of_book[1:-1]):
         if not sign.isalnum() and sign not in f"{signs}{quote_s}{omit_signs}{change}":
             print((sign,))
         if sign in change:
@@ -37,6 +42,8 @@ def divide_text_on_parts_and_save_as_list(text_of_book, name):
         if sign in signs:
             part_s.append(part + sign)
             part = ""
+        elif sign in omit_signs:
+            part = part + sign
         elif sign in quote_s:
             if not quote:
                 part_s.append(part)
@@ -63,13 +70,14 @@ def divide_text_on_parts_and_save_as_list(text_of_book, name):
     part_s.append(part)
     result = []
     for part in part_s:
+        if any(error in part for error in errors):
+            continue
         if part.strip(f"{signs}{quote_s}{omit_signs}{change}"):
             part = part.strip()
             len_part = len(part)
             if len_part < divide:
                 result.append(part)
             else:
-                print(part)
                 sentence = ""
                 part_split = part.split()
                 len_part = len(part)
@@ -83,36 +91,17 @@ def divide_text_on_parts_and_save_as_list(text_of_book, name):
                         sentence = f"{sentence} {word}"
                     else:
                         result.append(f"{sentence} {word}")
-                        print(f"{sentence} {word}")
                         sentence = ""
                 if sentence:
                     result.append(sentence)
-                    print(sentence)
-                print()
+        # if "END OF VOL." in part:
+        #     break
 
-
-
-
-
-
-            #
-            # elif len_part < divide * 2:
-            #     part_split = part.split()
-            #     div_ind = len(part_split) // 2
-            #     result.append(" ".join(part[:div_ind]))
-            #     result.append(" ".join(part[div_ind:]))
-            # elif len_part < divide * 3:
-            #     part_split = part.split()
-            #     div_ind = len(part_split) // 3
-            #     result.append(" ".join(part[:div_ind]))
-            #     result.append(" ".join(part[div_ind:div_ind*2]))
-            #     result.append(" ".join(part[div_ind * 2:]))
-
-    with open(f'../../Source/audiobook/book_list_{name}.json', 'w', encoding="utf-8") as file:
+    with open(f'../../Source/audiobook/texts_of_the_books/jsons_files/book_list_{name}.json', 'w', encoding="utf-8") as file:
         json.dump(result, file, indent=4, ensure_ascii=False)
 
 
-divide_text_on_parts_and_save_as_list(chapter_1, "chapter_1")
+divide_text_on_parts_and_save_as_list(text_of_the_book_6, "text_of_the_book_6")
 
 
 def line_translate():

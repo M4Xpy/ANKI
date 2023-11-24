@@ -17,8 +17,8 @@ down_words, down_en, down_ru = "", "", ""
 buttom_words, buttom_en, buttom_ru = "", "", ""
 
 stop_mark = 0
-book_name = 'chapter_1'
-book = f'../../Source/audiobook/book_list_{book_name}.json'
+book_name = 'text_of_the_book_5' # 4 pride 224832 # 5 franken 10072 # 6  getsbey 32432
+book = f'../../Source/audiobook/texts_of_the_books/jsons_files/book_list_{book_name}.json'
 
 
 def font_size(text):
@@ -48,13 +48,14 @@ def audio_book_player(book):
 
     with open(book, 'r', encoding="utf-8") as file:
         three_line_list = json.load(file)
+        print(len("".join(three_line_list)))
     next_video_time = time.time() + 600
     keyboard.send("f10")
     keyboard.send("space")
     ru_audio = "C:\\ANKIsentences\\temporary_ru_audio_file.mp3"
     en_audio = "C:\\ANKIsentences\\temporary_en_audio_file.mp3"
     old_cleaned_en = "dyuyyrh7yhr"
-    chunk_start = 300
+    chunk_start = 0
     for index, line in enumerate(three_line_list[chunk_start:], chunk_start):
         top_en, top_ru = en, ru
         en, ru = buttom_en, buttom_ru
@@ -187,8 +188,8 @@ def update(line):
 def show_screen():
     threading.Thread(target=marker_line, args=(' ', 1, '+0+343', 'black', 'grey')).start()
     for data in (
-            ("", "top_en", "", "+0+13", "grey"),
-            ("", "top_ru", "\n", "+0+51", "yellow"),
+            ("", "top_en", "", "+0+28", "grey"),
+            ("", "top_ru", "\n", "+0+66", "yellow"),
             # ("", "up_words", "", "+0+121", "yellow"),
             # ("", "up_en", "", "+0+159", "grey"),
             # ("", "up_ru", "\n", "+0+197", "yellow"),

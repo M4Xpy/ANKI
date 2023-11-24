@@ -24,7 +24,7 @@ def join_avi_files_in_folder(folder_path, output_file):
 
 
 # Example usage:
-folder_path = f"C:\\Users\\Я\\Documents\\Bandicam\\alice"
-output_file = f"C:\\Users\\Я\\Documents\\Bandicam\\output_combined.avi"
+folder_path = f"C:\\Users\\Я\\Documents\\Bandicam\\frankenstein"
+output_file = folder_path + f"\\output_combined.avi"
 
 join_avi_files_in_folder(folder_path, output_file)
