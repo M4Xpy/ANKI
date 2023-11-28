@@ -56,27 +56,36 @@ def check_new_subtitle():
             prev_subtitle = subtitle_lines
             subtitle = en_ru_corrector(subtitle_lines, "en")
             if subtitle:
+                for part in re.split(r'[?!.;:]', subtitle):
+                    part = part.strip()
+                    if part:
+                        en_path, ru_path, to_show_en_subtitle, to_show_ru_subtitle = process_subtitle(part)
 
-                en_path, ru_path, to_show_en_subtitle, to_show_ru_subtitle = process_subtitle(subtitle)
+                        updated_text = f"{to_show_en_subtitle}\n{to_show_ru_subtitle}\n{text_update}\n{text_update}"
+                        pygame.mixer.init()
+                        # pygame.mixer.music.set_volume(0.5)
 
-                updated_text = f"{to_show_en_subtitle}\n{to_show_ru_subtitle}\n{text_update}\n{text_update}"
-                pygame.mixer.init()
-                # pygame.mixer.music.set_volume(0.5)
+                        make(bandi_pause="off")
 
-                make(bandi_pause="off")
+                        if ru_path:
+                            pygame.mixer.music.load(ru_path, "mp3")
+                            pygame.mixer.music.play()
+                            while pygame.mixer.music.get_busy():
+                                pass
+                        pygame.mixer.music.load(en_path, "mp3")
+                        pygame.mixer.music.play()
+                        while pygame.mixer.music.get_busy():
+                            pass
+                        pygame.mixer.quit()
+                        make(bandi_pause="on")
+                        updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
 
-                if ru_path:
-                    pygame.mixer.music.load(ru_path, "mp3")
-                    pygame.mixer.music.play()
-                    while pygame.mixer.music.get_busy():
-                        pass
-                pygame.mixer.music.load(en_path, "mp3")
-                pygame.mixer.music.play()
-                while pygame.mixer.music.get_busy():
-                    pass
-                pygame.mixer.quit()
-                make(bandi_pause="on")
-                updated_text = f"{text_update}\n{text_update}\n{text_update}\n{text_update}"
+
+            #     empty = 0
+            # else:
+            #     empty += 1
+            #     if empty % 50:
+            #         empty = 0
 
 
 def process_subtitle(subtitle):
